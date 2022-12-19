@@ -1,0 +1,123 @@
+#!/bin/sh
+
+# Umar's config for aliases in zsh
+
+# Go into directory
+alias \
+	cdcol="cd $HOME/Documents/College" \
+	dolcol="dolphin $HOME/Documents/College & disown" \
+
+# Commands that are too long. Abbreviate them!
+alias \
+	fetch="fastfetch" \
+	sdn="shutdown now" \
+	hibernate="systemctl hibernate" \
+	so="source" \
+	soz="source $XDG_CONFIG_HOME/zsh/.zshrc" \
+	soa="source $XDG_CONFIG_HOME/shell/aliasrc" \
+	ss="cd $HOME/.local/bin && ls" \
+	loc="locate" \
+	gcl="git clone" \
+	bt="bluetoothctl" \
+	SS="doas systemctl" \
+
+# Config editing
+alias \
+	cfz="nvim $XDG_CONFIG_HOME/zsh/.zshrc" \
+	cfzp="nvim $XDG_CONFIG_HOME/shell/profile" \
+	cfa="nvim $XDG_CONFIG_HOME/shell/aliasrc" \
+	cfv="nvim $XDG_CONFIG_HOME/nvim/init.vim" \
+	cfal="nvim $XDG_CONFIG_HOME/alacritty/alacritty.yml" \
+	cfb="nvim $XDG_CONFIG_HOME/bspwm/bspwmrc" \
+	cfsx="nvim $XDG_CONFIG_HOME/sxhkd/sxhkdrc" \
+	cfxinit="nvim $XDG_CONFIG_HOME/x11/xinitrc" \
+	cfp="nvim $XDG_CONFIG_HOME/polybar/config.ini" \
+	cfsynaptics="doas nvim /etc/X11/xorg.conf.d/70-synaptics.conf"
+
+# Verbosity and settings that you pretty much just always are going to want.
+alias \
+	df="df -h" \
+	du="du -h" \
+# Common commands with certain options
+alias \
+	la="ls -a" \
+	ll="ls -l" \
+	lla="ll -al" \
+	pin="pacman -S" \
+	pup="pacman -Syu" \
+	pss="pacman -Ss" \
+	pq="pacman -Q" \
+	pqs="pacman -Qs" \
+	pqq="pacman -Qq" \
+	prm="pacman -R" \
+	prns="pacman -Rns" \
+	# la="ls -A" \ # not supported by exa
+	# lla="ll -Al" \ # not supported by exa
+
+
+# doas not required for some system commands
+for command in mount umount sv pacman updatedb su shutdown poweroff reboot ; do
+	alias $command="doas $command"
+done; unset command
+
+# Luke's config for aliases in zsh
+
+# Use neovim for vi if present.
+[ -x "$(command -v nvim)" ] && alias vi="nvim" vimdiff="nvim -d"
+
+
+# Luke's config for aliases in zsh
+
+# Use neovim for vim if present.
+[ -x "$(command -v nvim)" ] && alias vim="nvim" vimdiff="nvim -d"
+
+# Use $XINITRC variable if file exists.
+[ -f "$XINITRC" ] && alias startx="startx $XINITRC"
+
+# # sudo not required for some system commands (changed for doas written above)
+# for command in mount umount sv pacman updatedb su shutdown poweroff reboot ; do
+# 	alias $command="sudo $command"
+# done; unset command
+
+se() { cd ~/.local/bin; $EDITOR $(fzf) ;}
+
+# Verbosity and settings that you pretty much just always are going to want.
+alias \
+	cp="cp -iv" \
+	mv="mv -iv" \
+	rm="rm -vI" \
+	bc="bc -ql" \
+	mkd="mkdir -pv" \
+	yt="yt-dlp --embed-metadata -i" \
+	yta="yt -x -f bestaudio/best" \
+	ffmpeg="ffmpeg -hide_banner"
+
+# Colorize commands when possible.
+alias \
+	ls="exa --icons -h --color=auto --group-directories-first" \
+	grep="grep --color=auto" \
+	diff="diff --color=auto" \
+	ccat="highlight --out-format=ansi" \
+	ip="ip -color=auto"
+	# ls="exa -hN --color=auto --group-directories-first" \
+
+# These common commands are just too long! Abbreviate them.
+alias \
+	ka="killall" \
+	g="git" \
+	trem="transmission-remote" \
+	YT="youtube-viewer" \
+	sdn="shutdown -h now" \
+	e="$EDITOR" \
+	v="$EDITOR" \
+	p="pacman" \
+	xi="sudo xbps-install" \
+	xr="sudo xbps-remove -R" \
+	xq="xbps-query" \
+	z="zathura"
+
+alias \
+	lf="lfub" \
+	magit="nvim -c MagitOnly" \
+	ref="shortcuts >/dev/null; source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc ; source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/zshnameddirrc" \
+	weath="less -S ${XDG_CACHE_HOME:-$HOME/.cache}/weatherreport" \

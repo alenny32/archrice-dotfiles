@@ -1,0 +1,74 @@
+<application>
+  <component name="DynamicPluginEnabler">
+    <trackers>
+      <map>
+        <entry key="2IEGx0rT16irk6cuWviyuywDUqt">
+          <value>
+            <ProjectPluginTracker />
+          </value>
+        </entry>
+      </map>
+    </trackers>
+  </component>
+  <component name="PropertyService"><![CDATA[{
+  "keyToString": {
+    "CWM_LOGGING_VERSION": "1",
+    "FileChooser.ShowPath": "true",
+    "InstalledPluginsSearchHistory": "theme\nth\nt\n/tag:Freemium",
+    "KEYMAP": "move line down",
+    "MarketplacePluginsSearchHistory": "/tag:Freemium\none dark\natom\natom a\nmaterial",
+    "PACKAGE_FILTER": "pandas\nnumpy",
+    "PluginConfigurable.selectionTab": "1",
+    "PyCharm.InitialConfiguration": "true",
+    "PyCharm.InitialConfiguration.V2": "true",
+    "PyCharm.InitialConfiguration.V3": "true",
+    "PyCharm.InitialConfiguration.V4": "true",
+    "PyCharm.InitialConfiguration.V5": "true",
+    "PyCharm.InitialConfiguration.V6": "true",
+    "PyCharm.InitialConfiguration.V7": "true",
+    "PyCharm.InitialConfiguration.V8": "true",
+    "RunOnceActivity.se.text.search": "true",
+    "SettingsSearchHistory": "font\nfont size\nChange font size\nkeymap\ntheme",
+    "appcds.runOnSecondStart": "PY-223.7571.203-9e7f7d172ada6953dbdf1d6ced0e787cc884bafe309d9d4ca14a166eea81c75a",
+    "bundled.plugins.list.saved.version": "PY-223.7571.203",
+    "evlsprt3.222": "26",
+    "evlsprt3.223": "24",
+    "experimentalFeature.terminal.shell.command.handling": "false",
+    "file.gist.reindex.count": "1",
+    "fileTypeChangedCounter": "3",
+    "fontSizeToResetConsole": "16.0",
+    "fontSizeToResetEditor": "16.0",
+    "gotit.previous.run": "PY-223.7571.203",
+    "ide.memory.adjusted": "true",
+    "ide.updates.old.dirs.scan.scheduled": "1671532724421",
+    "ideavim.statistics.timestamp": "1669741895354",
+    "input.method.disabler.muted": "true",
+    "last_opened_file_path": "/home/umar/Workspace/Python/TestProject",
+    "previousColorScheme": "_@user_Atom One Dark (Material)",
+    "registry.to.advanced.settings.migration.build": "PY-223.7571.203",
+    "tasks.pass.word.conversion.enforced": "true",
+    "ts.lib.d.ts.version": "4.7.4"
+  },
+  "keyToStringList": {
+    "file.chooser.recent.files": [
+      "/home/umar/Workspace/.virtualenvs/py3venv",
+      "/home/umar/Workspace/Python/TestProject",
+      "/usr/bin/python"
+    ],
+    "fileTypeDetectors": [
+      "com.intellij.ide.scratch.ScratchFileServiceImpl$Detector",
+      "com.intellij.docker.dockerFile.DockerFileTypeDetector",
+      "com.intellij.javascript.debugger.sourcemap.SourceMapFileType$MyFileTypeDetector",
+      "com.intellij.database.vfs.DbStorageFileType$Detector",
+      "com.jetbrains.nodejs.util.NodeFileTypeDetector$JavaScriptFileTypeDetector",
+      "com.jetbrains.nodejs.util.NodeFileTypeDetector$TypeScriptFileTypeDetector",
+      "org.jetbrains.plugins.textmate.TextMateFileType$TextMateFileDetector"
+    ]
+  }
+}]]></component>
+  <component name="TerminalCommandHistoryManager">
+    <command-history-files>
+      <command-history-file filename="TestProject-history" project-path="$USER_HOME$/Workspace/Python/TestProject" last-access-time="1669740818360" />
+    </command-history-files>
+  </component>
+</application>

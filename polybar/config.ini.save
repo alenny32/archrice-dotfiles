@@ -1,0 +1,232 @@
+[colors]
+background = #282A2E
+background-alt = #373B41
+foreground = #C5C8C6
+primary = #F0C674
+secondary = #8ABEB7
+alert = #A54242
+disabled = #707880
+sep = #ffb52a
+sep-alt = #F6A100
+
+[settings]
+screenchange-reload = true
+pseudo-transparency = true
+
+format-foreground = ${colors.foreground}
+; format-background = ${colors.background}
+format-background = ${colors.background-alt}
+format-underline = ${colors.primary}
+format-padding = 1
+format-margin = 0
+format-overline =
+format-offset =
+
+[global/wm]
+margin-top = 0
+margin-bottom = 0
+
+[bar/bar]
+width = 100%
+height = 20pt
+radius = 0
+
+override-redirect = false
+wm-restack = bspwm
+enable-ipc = true
+fixed-center = false
+bottom = false
+separator =
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+underline-size = 2
+overline-size = 0
+
+module-margin-left = 0
+module-margin-right = 1
+
+font-0 = "FiraCode Nerd Font:style=Medium:pixelsize=12:antialias=true;2"
+font-1 = "Apple Color Emoji:scale=10;0"
+font-2 = "Noto Color Emoji:scale=10;0"
+font-3 = "Font Awesome 6 Free Solid:size=11;0"
+font-4 = "Font Awesome 6 Brands:size=11;0"
+font-5 = "JetBrainsMono Nerd Font:style=Medium:pixelsize=10:antialias=true;0"
+
+modules-left = bspwm xwindow
+; modules-center = xwindow
+modules-right = pulseaudio battery date
+
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+; Show applications running in the background
+; System tray | show applets
+tray-position = right
+tray-padding = 5
+tray-background = ${colors.background-alt}
+tray-maxsize = 20
+tray-detached = false
+
+
+###############################################
+#                                             #
+#                   Modules                   #
+#                                             #
+###############################################
+
+[module/bspwm]
+type = internal/bspwm
+occupied-scroll = true
+
+format = <label-state> <label-mode>
+format-padding = 0
+
+label-dimmed-foreground = #555
+label-dimmed-underline = ${colors.background}
+label-dimmed-focused-background = #f00
+
+label-focused = %name%
+label-focused-padding = 1
+label-focused-foreground = #ffffff
+label-focused-background = #3f3f3f
+label-focused-underline = ${colors.primary}
+
+label-occupied = %name%
+label-occupied-padding = 1
+label-occupied-underline = #555555
+
+label-urgent = %name%
+label-urgent-padding = 1
+label-urgent-foreground = #000000
+label-urgent-background = #bd2c40
+label-urgent-underline = #9b0a20
+
+label-empty =
+label-empty-padding = 1
+label-empty-foreground = #55
+
+; label-separator = |
+; label-separator-padding = 1
+; label-separator-foreground = ${colors.sep}
+
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:30:...%
+format-background = ${colors.background}
+format-underline =
+format-padding = 0
+format-margin = 0
+
+[module/pulseaudio]
+type = internal/pulseaudio
+label-volume = %percentage%%
+format-volume = <ramp-volume> <label-volume>
+
+; Choose emoji or icon for ramp-volume
+label-muted = 🔇
+ramp-volume-0 = 🔈
+ramp-volume-1 = 🔉
+ramp-volume-2 = 🔊
+; label-muted = 婢
+; ramp-volume-0 = 奄
+; ramp-volume-1 = 奔
+; ramp-volume-2 = 墳
+
+label-muted-foreground = ${colors.disabled}
+ramp-volume-foreground = ${colors.primary}
+
+click-right = pavucontrol
+
+; [network-base]
+; type = internal/network
+; interval = 5
+; format-connected = <ramp-signal> <label-connected>
+; format-packetloss = <animation-packetloss> <label-connected>
+; ; Only applies if <ramp-signal> is used
+; ramp-signal-0 = 😱
+; ramp-signal-1 = 😠
+; ramp-signal-2 = 😒
+; ramp-signal-3 = 😊
+; ramp-signal-4 = 😃
+; ramp-signal-5 = 😈
+; ; Only applies if <animation-packetloss> is used
+; animation-packetloss-0 = ⚠
+; animation-packetloss-0-foreground = #ffa64c
+; animation-packetloss-1 = 📶
+; animation-packetloss-1-foreground = #000000
+; ; Framerate in milliseconds
+; animation-packetloss-framerate = 500
+
+; [module/wlan]
+; inherit = network-base
+; interface-type = wireless
+; label-connected = %{F#F0C674} %{F-} 祝 %upspeed%  %downspeed%
+; label-disconnected = %{F#F0C674}睊%{F-}
+
+; [module/eth]
+; inherit = network-base
+; interface-type = wired
+; label-connected = %{F#F0C674}%{F-} 祝 %upspeed%  %downspeed%
+; ; label-disconnected = %{F#F0C674}%{F-}
+
+[module/battery]
+type = internal/battery
+full-at = 99
+low-at = 10
+; Use the following command to list batteries and adapters:
+; $ ls -1 /sys/class/power_supply/
+battery = BAT1
+adapter = ACAD
+poll-interval = 5
+; time-format = %H:%M
+
+
+; See https://github.com/polybar/polybar/wiki/Module:-battery for formatting documentation
+; format-charging = <label-charging> <animation-charging>
+format-charging = <label-charging> %{F#F0C674}<animation-charging>%{F-}
+format-discharging = <label-discharging> %{F#F0C674}<ramp-capacity>%{F-}
+format-full = <label-full> %{F#F0C674}%{F-}
+format-low = <label-low> %{F#F0C674}<animation-low>%{F-}
+
+label-charging = %percentage_raw%%
+label-discharging = %percentage%%
+label-full = %percentage%%
+; label-low = BATTERY LOW %percentage%%
+label-low = %percentage%%
+
+; Only applies if <ramp-capacity> is used
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+; Only applies if <animation-charging> is used
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+; Framerate in milliseconds
+animation-charging-framerate = 600
+; Only applies if <animation-low> is used
+animation-low-0 = 
+; animation-low-1 = 
+animation-low-1 =
+animation-low-framerate = 400
+
+[module/date]
+type = internal/date
+interval = 1
+
+date = %d %b
+time = %H:%M
+date-alt = %d-%m-%Y (%a)
+time-alt = %H:%M:%S
+
+label = %{F#F0C674} %{F-}%date% %{F#F0C674} %{F-}%time%
+; label-foreground = ${colors.primary}
+; label-background = ${colors.background-alt}
+
+; vim:ft=dosini

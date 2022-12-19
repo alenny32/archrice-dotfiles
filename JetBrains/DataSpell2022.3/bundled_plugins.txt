@@ -1,0 +1,86 @@
+Git4Idea|Version Controls
+
+PythonCore|null
+
+R4Intellij|null
+
+Remote Development Server|null
+
+com.intellij.CloudConfig|IDE Settings
+
+com.intellij.completion.ml.ranking|Other Tools
+
+com.intellij.configurationScript|null
+
+com.intellij.copyright|Other Tools
+
+com.intellij.database|Database
+
+com.intellij.dev|null
+
+com.intellij.diagram|Other Tools
+
+com.intellij.platform.images|null
+
+com.intellij.plugins.github.colorscheme|UI
+
+com.intellij.plugins.monokai.colorscheme|UI
+
+com.intellij.plugins.twilight.colorscheme|UI
+
+com.intellij.plugins.warmneon.colorscheme|UI
+
+com.intellij.searcheverywhere.ml|null
+
+com.intellij|null
+
+com.jetbrains.performancePlugin|Other Tools
+
+com.jetbrains.plugins.webDeployment|Deployment
+
+com.jetbrains.pycharm.ds.customization|null
+
+com.jetbrains.pycharm.ds.sharedIndexes.bundled|null
+
+com.jetbrains.python.sharedIndexes.downloadable|null
+
+com.jetbrains.python.sharedIndexes|null
+
+com.jetbrains.restClient|Other Tools
+
+dataspell.remote|null
+
+hg4idea|Version Controls
+
+intellij.grid.core.impl|null
+
+intellij.grid.impl|null
+
+intellij.indexing.shared.core|null
+
+intellij.indexing.shared|null
+
+org.intellij.intelliLang|Other Tools
+
+org.intellij.plugins.markdown|Languages
+
+org.jetbrains.plugins.emojipicker|Other Tools
+
+org.jetbrains.plugins.github|Version Controls
+
+org.jetbrains.plugins.remote-run|null
+
+org.jetbrains.plugins.rest|null
+
+org.jetbrains.plugins.terminal|Other Tools
+
+org.jetbrains.plugins.textmate|Other Tools
+
+org.jetbrains.plugins.yaml|Languages
+
+org.toml.lang|null
+
+tanvd.grazi|null
+
+training|null
+

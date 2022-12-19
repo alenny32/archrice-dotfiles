@@ -1,0 +1,3 @@
+runfile('/home/umar/Workspace/Python/TestProject/test.py', wdir='/home/umar/Workspace/Python/TestProject')
+-. . -..- - / . -. - .-. -.--
+umar
