@@ -25,6 +25,7 @@ alias \
 	gch="git checkout" \
 	gadd="git add" \
 	gcom="git commit" \
+	gcomm="git commit -m" \
 
 
 # Config editing
