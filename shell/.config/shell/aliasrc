@@ -7,6 +7,10 @@ alias \
 	cdcol="cd $HOME/Documents/College" \
 	dolcol="dolphin $HOME/Documents/College & disown" \
 
+# SSH keychain
+alias \
+	sshk="keepassxc && keychain $HOME/.ssh/id_rsa && source $HOME/.keychain/$HOSTNAME-sh" \
+
 # Commands that are too long. Abbreviate them!
 alias \
 	fetch="fastfetch" \
