@@ -1,3 +1,4 @@
 nvim/.config/nvim/plugged/
 nvim/.config/nvim/autoload
-zsh/.config/zsh/plugins/powerlevel10k
+
+zsh/.config/zsh/.zcompdump
