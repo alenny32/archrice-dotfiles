@@ -2,6 +2,9 @@
 
 # Umar's config for Zoomer Shell profile.
 
+# Add HOSTNAME to env var
+export HOSTNAME="$(cat /etc/hostname)"
+
 # Add Neovim
 export INIT_VIM_PATH="$HOME/.config/nvim/init.vim"
 
@@ -26,6 +29,7 @@ export GDRIVE_UMAR="$HOME/Cloud/gdrive-umar"
 export GDRIVE_JASMINE="$HOME/Cloud/gdrive-jasmine_belajar_id"
 export ONEDRIVE_UMAR="$HOME/Cloud/onedrive-umar"
 export ONEDRIVE_BINUS="$HOME/Cloud/onedrive-binus"
+
 
 
 ################################################################################
