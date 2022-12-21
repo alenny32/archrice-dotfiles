@@ -128,4 +128,4 @@ shell:
   program: /usr/bin/zsh
 
 key_bindings:
-  - { key: Return, mods: Super|Shift, action: SpawnNewInstance }
+  - { key: Return, mods: Alt|Shift, action: SpawnNewInstance }
