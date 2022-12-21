@@ -53,14 +53,14 @@ map ,, :keepp /<++><CR>ca<
 imap ,, <esc>:keepp /<++><CR>ca<
 
 call plug#begin(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/plugged"'))
-Plug 'tpope/vim-surround'
-Plug 'preservim/nerdtree'
-Plug 'junegunn/goyo.vim'
-Plug 'jreybert/vimagit'
-Plug 'vimwiki/vimwiki'
-Plug 'vim-airline/vim-airline'
-Plug 'tpope/vim-commentary'
-Plug 'ap/vim-css-color'
+	Plug 'tpope/vim-surround'
+	Plug 'preservim/nerdtree'
+	Plug 'junegunn/goyo.vim'
+	Plug 'jreybert/vimagit'
+	Plug 'vimwiki/vimwiki'
+	Plug 'vim-airline/vim-airline'
+	Plug 'tpope/vim-commentary'
+	Plug 'ap/vim-css-color'
 call plug#end()
 
 set title
