@@ -18,5 +18,5 @@ call plug#begin(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/plugged"
 	Plug 'ap/vim-css-color'
 
 	Plug 'joshdick/onedark.vim'
-	Plug 'dracula/vim'
+	Plug 'dracula/vim', { 'as': 'dracula' }
 call plug#end()
