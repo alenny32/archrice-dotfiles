@@ -9,7 +9,7 @@ alias \
 
 # SSH keychain
 alias \
-	sshk="keepassxc && keychain $HOME/.ssh/id_rsa && source $HOME/.keychain/$HOSTNAME-sh" \
+	sshk="keychain $HOME/.ssh/id_rsa && source $HOME/.keychain/$HOSTNAME-sh" \
 
 # Commands that are too long. Abbreviate them!
 alias \
