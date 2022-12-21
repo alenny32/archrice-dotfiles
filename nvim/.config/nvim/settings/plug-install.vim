@@ -16,6 +16,7 @@ call plug#begin(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/plugged"
 	Plug 'vim-airline/vim-airline'
 	Plug 'tpope/vim-commentary'
 	Plug 'ap/vim-css-color'
+	Plug 'sheerun/vim-polyglot'
 
 	Plug 'joshdick/onedark.vim'
 	Plug 'dracula/vim', { 'as': 'dracula' }
