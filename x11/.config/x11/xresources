@@ -1,18 +1,39 @@
-!! Set cursor theme
+Xft.dpi: 96
+
+! Set cursor theme and size
+! Cursor theme name can be found in /usr/share/icons/
 Xcursor.theme: "capitaine-cursors"
-!! Set cursor size
 Xcursor.size: 36
 
 !! Set a default font and font size as below:
-/* st.font: Monospace-11; */
-*.font:	FiraCode Nerd Font:style=Medium:pixelsize=12:antialias=true:autohint=true;
+*.font:	FiraCode Nerd Font:style=Medium:size=12:antialias=true:autohint=true;
 /* *.font:	Liberation Mono:pixelsize=12:antialias=true:autohint=true; */
 
-
+/* st.font: Monospace-11; */
 ! st.termname: st-256color
 ! st.borderpx: 2
 
 !! Set the background, foreground and cursor colors as below:
+
+!! Dracula:
+*.foreground: #F8F8F2
+*.background: #282A36
+*.color0:     #000000
+*.color8:     #4D4D4D
+*.color1:     #FF5555
+*.color9:     #FF6E67
+*.color2:     #50FA7B
+*.color10:    #5AF78E
+*.color3:     #F1FA8C
+*.color11:    #F4F99D
+*.color4:     #BD93F9
+*.color12:    #CAA9FA
+*.color5:     #FF79C6
+*.color13:    #FF92D0
+*.color6:     #8BE9FD
+*.color14:    #9AEDFE
+*.color7:     #BFBFBF
+*.color15:    #E6E6E6
 
 !! gruvbox:
 /* *.color0: #1d2021 */
