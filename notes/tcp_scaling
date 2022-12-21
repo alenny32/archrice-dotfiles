@@ -1,0 +1,2 @@
+added line to a new file:
+	/etc/sysctl.d/99-disable_window_scaling.conf

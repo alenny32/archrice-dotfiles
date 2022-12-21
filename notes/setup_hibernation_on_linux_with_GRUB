@@ -1,0 +1,13 @@
+i. Suspend, Hibernate, Sleep
+
+1. Make sure you have  a swap partition of swap file
+	a) lsblk to get partition
+
+2. Pass swap location to kernel
+	a) sudo $EDITOR /etc/default/grub
+	b) kernel param: resume /dev/sdXx
+	c) sudo grub-mkconfig -o /boot/grub/grub.cfg
+
+3. Switch behaviours
+	a) sudo $EDITOR /etc/systemd/logind.conf
+	b) sudo systemctl restart systemd-logind

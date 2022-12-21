@@ -1,0 +1,24 @@
+brave-bin
+dataspell
+dataspell-jre
+dracula-gtk-theme
+fastfetch
+httpdirfs
+nerd-fonts-jetbrains-mono
+noto-fonts-emoji-apple
+p7zip-gui
+paru
+pfetch
+pycharm-professional
+rclone-browser
+sddm-sugar-candy-git
+timeshift
+ttf-apple-emoji
+ttf-ms-fonts
+xinit-xsession
+
+# onlyoffice-bin
+# usbtop
+# visual-studio-code-bin
+# whatsapp-nativefier
+# zoom

@@ -1,0 +1,2 @@
+Changes in /etc/bluetooth/main.conf
+ControllerMode = bredr
