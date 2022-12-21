@@ -54,6 +54,7 @@ alias \
 	la="ls -a" \
 	ll="ls -l" \
 	lla="ll -al" \
+	lsd="ls -D" \
 	pin="pacman -S" \
 	pup="pacman -Syu" \
 	pss="pacman -Ss" \
