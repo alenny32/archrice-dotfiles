@@ -31,6 +31,7 @@ alias \
 	gcom="git commit" \
 	gcomm="git commit -m" \
 	gp="git push" \
+	remake="doas make clean uninstall && doas make clean install" \
 
 # Config editing
 alias \
