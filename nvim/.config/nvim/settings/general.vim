@@ -1,10 +1,5 @@
 " General vim settings
 
-let mapleader =","
-
-map <leader><leader> :keepp /<++><CR>ca<
-imap <leader><leader> <esc>:keepp /<++><CR>ca<
-
 set title
 set bg=light
 set go=a
@@ -47,9 +42,3 @@ augroup END
 if &diff
     highlight! link DiffText MatchParen
 endif
-
-" Load command shortcuts generated from bm-dirs and bm-files via shortcuts script.
-" Here leader is ";".
-" So ":vs ;cfz" will expand into ":vs /home/<user>/.config/zsh/.zshrc"
-" if typed fast without the timeout.
-" source ~/.config/nvim/shortcuts.vim

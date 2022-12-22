@@ -1,3 +1,8 @@
+let mapleader =","
+
+map <leader><leader> :keepp /<++><CR>ca<
+imap <leader><leader> <esc>:keepp /<++><CR>ca<
+
 " Basic mappings:
 " CTRL-y to copy selected text to clipboard
 " Make sure [xsel or xclip] is installed if using X11
@@ -40,3 +45,9 @@ map <F3> :!evince $(echo % \| sed 's/tex$/pdf/') & disown<CR><CR>
 
 " Open corresponding .pdf/.html or preview
 	map <leader>p :!opout "%:p"<CR>
+
+" Load command shortcuts generated from bm-dirs and bm-files via shortcuts script.
+" Here leader is ";".
+" So ":vs ;cfz" will expand into ":vs /home/<user>/.config/zsh/.zshrc"
+" if typed fast without the timeout.
+" source ~/.config/nvim/shortcuts.vim
