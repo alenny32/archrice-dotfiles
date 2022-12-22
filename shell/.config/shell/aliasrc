@@ -35,7 +35,7 @@ alias \
 	gp="git push" \
 	makecl="make clean" \
 	makein="$chusr make install" \
-	makein="$chusr make uninstall" \
+	makeun="$chusr make uninstall" \
 	remake="$chusr make clean uninstall && $chusr make clean install" \
 
 # Config editing
