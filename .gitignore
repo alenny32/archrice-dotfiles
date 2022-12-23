@@ -1,5 +1,9 @@
-nvim/.config/nvim/plugged/
-nvim/.config/nvim/autoload
+nvim-lua/.config/nvim/plugged/
+nvim-lua/.config/nvim/autoload/
+nvim-lua/.config/nvim/nvim-vimscript/autoload/
+nvim-lua/.config/nvim/nvim-vimscript/plugged/
+
 zsh/.config/zsh/.zcompdump
+
 rclone-browser/
 rclone/
