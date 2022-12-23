@@ -20,6 +20,12 @@ map(i, '<leader><leader>', '<CMD>keepp /<++><CR><ESC>ca<')
 -- Copy selection to clipboard (xsel, xclip, or wl_copy and wl_paste required)
     map(v, '<C-y>', '"+y')
 
+-- Comment is ctrl + / (vim commentary plugins require)
+    -- Move down one line after comment
+    map(nvo, '<C-_>', '<Plug>CommentaryLine j')
+    map(i, '<C-_>', '<ESC><Plug>CommentaryLine j')
+    -- Stay atthat line after comment (remove j after comment)
+
 -- Compile LaTeX documents
     map(nvo, '<F2>', '<CMD>w<CR> <CMD>!pdflatex %<CR><CR>')
 -- Open evince for pdf of current LaTeX
