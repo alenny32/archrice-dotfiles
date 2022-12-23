@@ -10,7 +10,7 @@ source $XDG_CONFIG_HOME/nvim/settings/plug-settings.vim
 
 "" Theme settings
 """ `<leader> + t` for cycling through themes
-:call CycleThemes()
+call CycleThemes()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
