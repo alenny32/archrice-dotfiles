@@ -1,2 +1,2 @@
 # archrice-dotfiles
-config dotfiles for archrice that is stow compatible
+config dotfiles for my arch build that are stow compatible
