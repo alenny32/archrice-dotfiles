@@ -43,7 +43,8 @@ alias \
 	cfz="nvim $XDG_CONFIG_HOME/zsh/.zshrc" \
 	cfzp="nvim $XDG_CONFIG_HOME/shell/profile" \
 	cfa="nvim $XDG_CONFIG_HOME/shell/aliasrc" \
-	cfv="nvim $XDG_CONFIG_HOME/nvim/init.vim" \
+	cfv="nvim $XDG_CONFIG_HOME/nvim/nvim-vimscript/init.vim" \
+	cfvl="cd $XDG_CONFIG_HOME/nvim/lua && ls" \
 	cfal="nvim $XDG_CONFIG_HOME/alacritty/alacritty.yml" \
 	cfb="nvim $XDG_CONFIG_HOME/bspwm/bspwmrc" \
 	cfsx="nvim $XDG_CONFIG_HOME/sxhkd/sxhkdrc" \
