@@ -44,6 +44,7 @@ export ONEDRIVE_BINUS="$HOME/Cloud/onedrive-binus"
 
 # Adds `~/.local/bin` to $PATH recursively
 export PATH="$PATH:${$(find ~/.local/bin -type d -printf %p:)%%:}"
+export PATH="$PATH:${$(find ~/.local/bin -type l -printf %p:)%%:}"
 
 unsetopt PROMPT_SP
 
