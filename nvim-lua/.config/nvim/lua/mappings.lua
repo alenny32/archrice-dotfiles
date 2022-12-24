@@ -22,9 +22,10 @@ map(i, '<leader><leader>', '<CMD>keepp /<++><CR><ESC>ca<')
 
 -- Comment is ctrl + / (vim commentary plugins require)
     -- Move down one line after comment
-    map(nvo, '<C-_>', '<Plug>CommentaryLine j')
+    map(n, '<C-_>', '<Plug>CommentaryLine j')
     map(i, '<C-_>', '<ESC><Plug>CommentaryLine j')
     -- Stay atthat line after comment (remove j after comment)
+    map(v, '<C-_>', '<Plug>Commentary')
 
 -- Compile LaTeX documents
     map(nvo, '<F2>', '<CMD>w<CR> <CMD>!pdflatex %<CR><CR>')
