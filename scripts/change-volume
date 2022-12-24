@@ -13,9 +13,15 @@ up)
 	send_notification $1
 	;;
 down)
-	pamixer --unmute
-	pamixer --decrease 5 --allow-boost
-	send_notification $1
+	vol=$(pamixer --get-volume)
+	if [ $vol -gt 0 ] ; then
+		pamixer --unmute
+		pamixer --decrease 5 --allow-boost
+		send_notification $1
+	else
+		pamixer --mute
+		send_notification mute
+	fi
 	;;
 mute)
 	pamixer -t
