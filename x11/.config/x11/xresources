@@ -15,7 +15,7 @@ Xcursor.size: 36
 
 !! Set the background, foreground and cursor colors as below:
 
-!! Dracula:
+/* !! Dracula: */
 /* *.foreground: #F8F8F2 */
 /* *.background: #282A36 */
 /* *.color0:     #000000 */
@@ -35,7 +35,7 @@ Xcursor.size: 36
 /* *.color7:     #BFBFBF */
 /* *.color15:    #E6E6E6 */
 
-!! One Dark
+!! One Dark:
 *.foreground:    #ABB2BF
 *.background:    #1E2127
 *.cursorColor:   #5C6370
@@ -57,7 +57,7 @@ Xcursor.size: 36
 *.color7:        #ABB2BF
 *.color15:       #FFFFFF
 
-!! gruvbox:
+/* !! gruvbox: */
 /* *.color0: #1d2021 */
 /* *.color1: #cc241d */
 /* *.color2: #98971a */
@@ -78,7 +78,7 @@ Xcursor.size: 36
 /* *.foreground: white */
 /* *.cursorColor: white */
 
-/* /1* !! gruvbox light: *1/ */
+/* !! gruvbox light: */
 /* *.color0: #fbf1c7 */
 /* *.color1: #cc241d */
 /* *.color2: #98971a */
@@ -120,7 +120,7 @@ Xcursor.size: 36
 /* *.color15:     #ffffff */
 /* *.colorBD:     #d6dbe5 */
 
-/* ! base16 */
+/* !! base16: */
 /* *.color0:       #181818 */
 /* *.color1:       #ab4642 */
 /* *.color2:       #a1b56c */
@@ -138,7 +138,7 @@ Xcursor.size: 36
 /* *.color14:      #86c1b9 */
 /* *.color15:      #f8f8f8 */
 
-/* !! solarized */
+/* !! solarized: */
 /* *.color0:	#073642 */
 /* *.color1:	#dc322f */
 /* *.color2:	#859900 */
@@ -156,7 +156,7 @@ Xcursor.size: 36
 /* *.color14:	#93a1a1 */
 /* *.color15:	#fdf6e3 */
 
-/* !! xterm */
+/* !! xterm: */
 /* *.color0:   #000000 */
 /* *.color1:   #cd0000 */
 /* *.color2:   #00cd00 */

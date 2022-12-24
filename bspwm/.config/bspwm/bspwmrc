@@ -20,13 +20,18 @@ bspc monitor -d 1 2 3 4 5 6 7 8 9 10
 
 ##### Configuration #####
 
+background=$(sed -n '/^!!.*:$/I, /!!/p' $XDG_CONFIG_HOME/x11/xresources | sed -n '/color0/, /color15/p' | grep color0 | awk '{print $2}')
+primary=$(sed -n '/^!!.*:$/I, /!!/p' $XDG_CONFIG_HOME/x11/xresources | sed -n '/color0/, /color15/p' | grep color4 | awk '{print $2}')
+secondary=$(sed -n '/^!!.*:$/I, /!!/p' $XDG_CONFIG_HOME/x11/xresources | sed -n '/color0/, /color15/p' | grep color2 | awk '{print $2}')
+active=$(sed -n '/^!!.*:$/I, /!!/p' $XDG_CONFIG_HOME/x11/xresources | sed -n '/color0/, /color15/p' | grep color3 | awk '{print $2}')
+
 # Customization
 bspc config border_width			3
 bspc config window_gap          	10
-bspc config normal_border_color		"#21252C"
-bspc config active_border_color		"#17125E"
-bspc config focused_border_color	"#E37617"
-bspc config presel_feedback_color	"#DBCA46"
+bspc config normal_border_color		"$background"
+bspc config active_border_color		"$active"
+bspc config focused_border_color	"$primary"
+bspc config presel_feedback_color	"$secondary"
 bspc config borderless_monocle   	true
 bspc config gapless_monocle      	true
 
