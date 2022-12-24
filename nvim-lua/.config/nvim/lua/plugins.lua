@@ -24,6 +24,7 @@ vim.cmd([[ call plug#begin(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nv
     -- Theming
     Plug('joshdick/onedark.vim')
     Plug('dracula/vim', { ['as'] = 'dracula' })
+    Plug('folke/tokyonight.nvim', { ['branch'] = 'main' })
 vim.cmd([[ call plug#end() ]])
 
 -- Plugins(configuration)
