@@ -44,7 +44,7 @@ vim.cmd([[
 ]])
 
 -- Nerd tree
-    map(nvo, '<leader>n', '<CMD>NERDTreeToggle')
+    map(nvo, '<leader>n', '<CMD>NERDTreeToggle<CR>')
     vim.cmd('autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif')
     vim.cmd([[
         if has('nvim')
