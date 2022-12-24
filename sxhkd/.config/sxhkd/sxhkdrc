@@ -128,7 +128,7 @@ super + BackSpace
     dmenu-sysact
 # Mute volume
 super + shift + m
-    pamixer --toggle-mute
+    change-volume mute
 
 # Notifications
 ctrl + space

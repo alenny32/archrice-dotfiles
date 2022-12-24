@@ -5,28 +5,30 @@ function send_notification() {
 	dunstify -a "change-volume" -u low -r "9993" -h int:value:"$volume" -i "volume-$1" "Volume: ${volume}%" -t 2000
 }
 
+function muted() {
+	dunstify -i volume-mute -a "change-volume" -t 2000 -r 9993 -u low "Muted"
+}
+
 case $1 in
 up)
-	# Set the volume on (if it was muted)
 	pamixer --unmute
 	pamixer --increase 5 --allow-boost
 	send_notification $1
 	;;
 down)
-	vol=$(pamixer --get-volume)
-	if [ $vol -gt 0 ] ; then
+	pamixer --decrease 5
+	if [ $(pamixer --get-volume) -gt 0 ] ; then
 		pamixer --unmute
-		pamixer --decrease 5 --allow-boost
 		send_notification $1
 	else
 		pamixer --mute
-		send_notification mute
+		muted
 	fi
 	;;
 mute)
-	pamixer -t
+	pamixer --toggle-mute
 	if $(pamixer --get-mute); then
-		dunstify -i volume-mute -a "change-volume" -t 2000 -r 9993 -u low "Muted"
+		muted
 	else
 		send_notification up
 	fi
