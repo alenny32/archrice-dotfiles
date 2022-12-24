@@ -37,6 +37,7 @@ if (has("termguicolors"))
     hi LineNr ctermbg=NONE guibg=NONE
 endif
 
+set background=dark
 let g:airline_theme='onedark'
 syntax on
 colorscheme onedark

@@ -19,6 +19,7 @@ if (has("termguicolors"))
 endif
 
 
+set background=dark
 let g:airline_theme='dracula'
 syntax on
 colorscheme dracula
