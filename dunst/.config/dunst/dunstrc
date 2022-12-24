@@ -49,7 +49,7 @@
     always_run_script = true
     title = Dunst
     class = Dunst
-    verbosity = mesg
+    # verbosity = mesg
     corner_radius = 10
     ignore_dbusclose = false
     force_xwayland = false
@@ -63,8 +63,9 @@
 #     skip_display = true
 
 [history-ignore]
-    appname = change-volume, change-brightness
-    history_ignore=yes
+    # appname = change-volume, change-brightness
+    summary = "(Battery|Volume):.*"
+    history_ignore = yes
 
 # [script-test]
 #     when encountering pattern described in summary, script will be launched
