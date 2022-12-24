@@ -12,17 +12,21 @@ rclone/
 rclone-browser/
 
 # scripts
-scripts/estimator_ckpt_converter
-scripts/google-oauthlib-tool
-scripts/import_pb_to_tensorboard
-scripts/markdown_py
-scripts/packadd
-scripts/pyrsa*
-scripts/saved_model_cli
-scripts/speedtest*
-scripts/tensorboardscripts
-scripts/tf*
-scripts/tf_li
-scripts/toco*
-scripts/ttymaps.kmap
-scripts/virtualenv*
+scripts/*
+!scripts/rclone/
+!scripts/autostart-umar
+!scripts/bt-con-earphone
+!scripts/bt-con-speaker
+!scripts/bt-discon-earphone
+!scripts/bt-discon-speaker
+!scripts/change-brightness
+!scripts/change-volume
+!scripts/compiler
+!scripts/dmenu-sysact
+!scripts/fast
+!scripts/paccache-clear
+!scripts/prompt
+!scripts/remaps
+!scripts/texclear
+!scripts/ttymaps.kmap
+!scripts/winhide

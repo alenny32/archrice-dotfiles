@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# Script for mounting all remotes of rclone
+# I have this script running automatically by `autostart-umar`
+
+remotes=$(rclone listremotes)
+
+for remote in $remotes
+do
+	remote_d=$(echo $remote | awk -F ":" '{print $1}')
+	rclone mount --daemon $remote $HOME/Cloud/$remote_d
+done
+
+export GDRIVE_UMAR="$HOME/Cloud/gdrive-umar"
+export GDRIVE_JASMINE="$HOME/Cloud/gdrive-jasmine_belajar_id"
+export ONEDRIVE_UMAR="$HOME/Cloud/onedrive-umar"
+export ONEDRIVE_BINUS="$HOME/Cloud/onedrive-binus"
