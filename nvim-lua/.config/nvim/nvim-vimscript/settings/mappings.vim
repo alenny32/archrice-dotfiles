@@ -7,12 +7,18 @@ imap <leader><leader> <esc>:keepp /<++><CR>ca<
 " CTRL-y to copy selected text to clipboard
 " Make sure [xsel or xclip] is installed if using X11
 " Make sure [wl_copy and wl_paste] is installed if using Wayland
-vmap <C-y> "+y
+	vmap <C-y> "+y
+
+" Comment is ctrl + / (vim commentary plugins require)
+    " Move down one line after comment
+	map <C-_> gccj
+	imap <C-_> <ESC>gccj
+    " Stay atthat line after comment (remove j after comment)
 
 " Mapping for compiling LaTeX docs
-map <F2> :w<CR> :!pdflatex %<CR><CR>
+	map <F2> :w<CR> :!pdflatex %<CR><CR>
 " Open evince for pdf of current LaTeX
-map <F3> :!evince $(echo % \| sed 's/tex$/pdf/') & disown<CR><CR>
+	map <F3> :!evince $(echo % \| sed 's/tex$/pdf/') & disown<CR><CR>
 
 " Perform dot commands over visual blocks:
 	vnoremap . :normal .<CR>
