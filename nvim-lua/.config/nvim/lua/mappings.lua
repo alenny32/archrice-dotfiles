@@ -11,8 +11,8 @@ local function noremap(mode, key, value)
 	vim.keymap.set(mode, key, value, { remap = false, silent = false })
 end
 
-vim.g.mapleader = ','
-vim.g.maplocalleader = ','
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
 
 map(nvo, '<leader><leader>', '<CMD>keepp /<++><CR>ca<')
 map(i, '<leader><leader>', '<CMD>keepp /<++><CR><ESC>ca<')
