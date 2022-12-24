@@ -18,7 +18,7 @@ o.scrolloff = 8
 
 -- Some basics:
 	vim.keymap.set('n', 'c', '"_c')
-	o.nocompatible = true
+	o.compatible = false
 	vim.cmd('syntax on')
 	vim.cmd('filetype plugin indent on')
 	o.encoding = 'utf-8'
@@ -34,12 +34,12 @@ o.title = true
 o.background = 'dark'
 o.go = 'a'
 o.mouse = 'a'
-o.nohlsearch = true
+o.hlsearch = true
 o.clipboard = 'unnamedplus'
 o.showmode = false
-o.noruler = true
+o.ruler = false
 o.laststatus = 0
-o.noshowcmd = true
+o.showcmd = false
 
 -- Better editing experience
 o.expandtab = true

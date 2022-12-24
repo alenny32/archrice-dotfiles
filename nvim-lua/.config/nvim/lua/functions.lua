@@ -5,10 +5,10 @@ local HiddenAll = 0
 function ToggleHiddenAll()
     if hidden_all == 0 then
         hidden_all = 1
-        o.noshowmode = true
-        o.noruler = true
+        o.showmode = false
+        o.ruler = false
         o.laststatus = 0
-        o.noshowcmd = true
+        o.showcmd = false
     else
         hidden_all = 0
         o.showmode = true
