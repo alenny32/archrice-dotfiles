@@ -8,7 +8,7 @@ function ToggleHiddenAll()
         o.noshowmode = true
         o.noruler = true
         o.laststatus = 0
-        o.showcmd = true
+        o.noshowcmd = true
     else
         hidden_all = 0
         o.showmode = true
