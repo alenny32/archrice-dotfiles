@@ -1,0 +1,5 @@
+#!/bin/sh
+anker_mac="8C:85:80:55:9B:37" # Soundcore Liberty Air 2
+
+bluetoothctl disconnect $anker_mac
+bluetoothctl power off

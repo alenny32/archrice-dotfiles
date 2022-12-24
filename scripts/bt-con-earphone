@@ -1,0 +1,13 @@
+#!/bin/sh
+anker_mac="8C:85:80:55:9B:37" # Soundcore Liberty Air 2
+anker_sink="bluez_sink.8C_85_80_55_9B_37.a2dp_sink"
+anker_source="bluez_source.8C_85_80_55_9B_37.handsfree_head_unit"
+
+bluetoothctl power on
+bluetoothctl connect $anker_mac
+# pactl set-default-sink $anker_sink
+# pactl set-default-source $anker_source
+
+# anker handsfree profile source and sink
+#bluez_sink.8C_85_80_55_9B_37.handsfree_head_unit
+#bluez_source.8C_85_80_55_9B_37.handsfree_head_unit

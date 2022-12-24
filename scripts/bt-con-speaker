@@ -1,0 +1,8 @@
+#!/bin/sh
+
+mac="F4:4E:FD:A7:9C:E9" # Tribit XSound Go
+sink="bluez_sink.F4_4E_FD_A7_9C_E9.a2dp_sink"
+
+bluetoothctl power on
+bluetoothctl connect $mac
+# pactl set-default-sink $sink

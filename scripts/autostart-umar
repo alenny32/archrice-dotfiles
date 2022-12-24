@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# All of my hand-written autostart scripts
+# I have this script autostart by bspwm (bspwmrc)
+
+scripts_home=$HOME/.local/bin
+
+# rm -d $HOME/.conf
+
+mnt-rclone_remotes

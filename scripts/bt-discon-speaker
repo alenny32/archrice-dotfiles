@@ -1,0 +1,6 @@
+#!/bin/sh
+
+mac="F4:4E:FD:A7:9C:E9" # Tribit XSound Go
+
+bluetoothctl disconnect $mac
+bluetoothctl power off

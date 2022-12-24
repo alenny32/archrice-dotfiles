@@ -1,9 +1,28 @@
+# nvim
 nvim-lua/.config/nvim/plugged/
 nvim-lua/.config/nvim/autoload/
 nvim-lua/.config/nvim/nvim-vimscript/autoload/
 nvim-lua/.config/nvim/nvim-vimscript/plugged/
 
+# zsh
 zsh/.config/zsh/.zcompdump
 
-rclone-browser/
+# rclone
 rclone/
+rclone-browser/
+
+# scripts
+scripts/estimator_ckpt_converter
+scripts/google-oauthlib-tool
+scripts/import_pb_to_tensorboard
+scripts/markdown_py
+scripts/packadd
+scripts/pyrsa*
+scripts/saved_model_cli
+scripts/speedtest*
+scripts/tensorboardscripts
+scripts/tf*
+scripts/tf_li
+scripts/toco*
+scripts/ttymaps.kmap
+scripts/virtualenv*
