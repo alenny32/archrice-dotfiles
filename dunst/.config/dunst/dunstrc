@@ -93,7 +93,6 @@
 
 [urgency_normal]
     timeout = 5
-    format = "%a<b>%s</b>\n%b"
     icon = bell
 
 [urgency_critical]
