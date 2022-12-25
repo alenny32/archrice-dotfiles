@@ -68,6 +68,9 @@
 [ignore-volume-history]
     appname = change-volume
     history_ignore = yes
+[ignore-battery-history]
+    appname = battery-notify
+    history_ignore = yes
 
 # [script-test]
 #     when encountering pattern described in summary, script will be launched
