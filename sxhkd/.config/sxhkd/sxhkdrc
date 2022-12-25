@@ -101,7 +101,7 @@ alt + Escape
 super + shift + p
     polybar-msg cmd restart
 # Open file manager (thunar) | system monitor (btop)
-super + {_,shift} + r
+super + {_,shift} + e
     {thunar,$TERMINAL -e btop}
 # Web browser (brave) | Wireless network manager (nmtui)
 super + {_,shift} + w
