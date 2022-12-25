@@ -6,6 +6,7 @@ chusr="doas"
 
 # Go into directory
 alias \
+	cdd="cd $HOME/.dotfiles" \
 	cdcol="cd $HOME/Documents/College" \
 	dolcol="dolphin $HOME/Documents/College & disown" \
 
