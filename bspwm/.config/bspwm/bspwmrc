@@ -9,7 +9,7 @@ $XDG_CONFIG_HOME/picom/launch.sh &			# Window Compositor (picom)
 $XDG_CONFIG_HOME/polybar/launch.sh &		# Status Bar (Polybar)
 nitrogen --restore &						# Wallpaper Chooser (nitrogen)
 lxsession &									# Session Manager (lxsession)
-$HOME/.local/bin/remaps &					# Remaps keyboard
+remaps &					                # Remaps keyboard
 pgrep -c ^bspswallow$ || bspswallow &       # Window Swallowing
 
 ###########################################################

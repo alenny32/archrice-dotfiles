@@ -14,21 +14,11 @@ rclone-browser/
 # scripts
 scripts/*
 !scripts/bspwm/
+!scripts/dmenu/
 !scripts/rclone/
-!scripts/autostart-umar
-!scripts/battery-notify
-!scripts/bt-con-earphone
-!scripts/bt-con-speaker
-!scripts/bt-discon-earphone
-!scripts/bt-discon-speaker
-!scripts/change-brightness
-!scripts/change-volume
+!scripts/sys/
 !scripts/compiler
-!scripts/dmenu-sysact
 !scripts/fast
-!scripts/paccache-clear
 !scripts/prompt
-!scripts/remaps
 !scripts/texclear
 !scripts/ttymaps.kmap
-!scripts/winhide
