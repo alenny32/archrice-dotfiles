@@ -4,6 +4,8 @@
     vim.cmd.autocmd('BufWritePost sxhkdrc !pkill -USR1 -x sxhkd')
 -- Relaunch bspwm whenever bspwmrc is updated
     vim.cmd.autocmd('BufWritePost bspwmrc !bspc wm -r')
+-- Relaunch dunst whenever dunstrc is updated
+    vim.cmd.autocmd('BufWritePost dunstrc !killall dunst && dunst & disown')
 
 -- Runs a script that cleans out tex build files whenever I close out of a .tex file.
     vim.cmd.autocmd('VimLeave *.tex !texclear %')
