@@ -62,14 +62,14 @@
 #     summary = "*foobar*"
 #     skip_display = true
 
-[ignore-brightness-history]
+[history-ignore-brightness]
     appname = change-brightness
     history_ignore = yes
-[ignore-volume-history]
+[history-ignore-volume]
     appname = change-volume
     history_ignore = yes
-[ignore-battery-history]
-    appname = battery-notify
+[history-ignore-blueman]
+    appname = blueman
     history_ignore = yes
 
 # [script-test]
@@ -93,6 +93,7 @@
 
 [urgency_normal]
     timeout = 5
+    format = "%a<b>%s</b>\n%b"
     icon = bell
 
 [urgency_critical]
