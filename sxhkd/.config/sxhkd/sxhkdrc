@@ -123,6 +123,9 @@ super + z
 ##### OS shortcuts #####
 ########################
 
+# Reload keyboard remaps
+super + Delete
+    remaps
 # Sytem action
 super + BackSpace
     dmenu-sysact
