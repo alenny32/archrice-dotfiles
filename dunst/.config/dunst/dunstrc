@@ -26,7 +26,7 @@
     font = FiraCode Nerd Font Medium 12
     line_height = 0
     markup = full
-    format = "<span weight='bold'>%s</span>\n%b"
+    format = "<b><span color='#61AFEF'>%a\n</span>%s\n</b>%b"
     alignment = left
     vertical_alignment = center
     show_age_threshold = 60
@@ -38,9 +38,9 @@
     show_indicators = yes
     icon_position = left
     min_icon_size = 0
-    max_icon_size = 48
-    icon_theme = "breeze, Adwaita"
-    icon_path = /home/umar/.local/share/icons:/home/umar/.config/dunst
+    max_icon_size = 32
+    icon_theme = "Papirus-Dark, breeze, Adwaita"
+    icon_path = /usr/share/icons/Papirus-Dark/32x32:/home/umar/.local/share/icons:/home/umar/.config/dunst
     icon_position = left
     sticky_history = yes
     history_length = 20
@@ -61,7 +61,6 @@
 # [ignore-summary]
 #     summary = "*foobar*"
 #     skip_display = true
-
 [history-ignore-brightness]
     appname = change-brightness
     history_ignore = yes
@@ -90,17 +89,15 @@
 [urgency_low]
     timeout = 5
     # icon = bell
-
 [urgency_normal]
     timeout = 5
     icon = bell
-
 [urgency_critical]
     background = "#900"
     foreground = "#FFF"
     frame_color = "#f00"
     timeout = -1
-    format = "<b>%s</b>\n%b"
+    format = "<b>%s\n</b>%b"
     icon = warning
 
 # Every section that isn't one of the above is interpreted as a rules to
