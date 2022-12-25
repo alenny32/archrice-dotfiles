@@ -70,6 +70,9 @@
 [history-ignore-blueman]
     appname = blueman
     history_ignore = yes
+[history-ignore-nm-applet]
+    appname = "NetworkManager Applet"
+    history_ignore = yes
 
 # [script-test]
 #     when encountering pattern described in summary, script will be launched
