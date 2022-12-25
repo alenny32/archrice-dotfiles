@@ -13,6 +13,7 @@ rclone-browser/
 
 # scripts
 scripts/*
+!scripts/bspwm/
 !scripts/rclone/
 !scripts/autostart-umar
 !scripts/battery-notify

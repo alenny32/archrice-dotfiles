@@ -10,6 +10,7 @@ $XDG_CONFIG_HOME/polybar/launch.sh &		# Status Bar (Polybar)
 nitrogen --restore &						# Wallpaper Chooser (nitrogen)
 lxsession &									# Session Manager (lxsession)
 $HOME/.local/bin/remaps &					# Remaps keyboard
+pgrep -c ^bspswallow$ || bspswallow &       # Window Swallowing
 
 ###########################################################
 #                Screen / Workspaces Setup                #
@@ -20,11 +21,15 @@ bspc monitor -d 1 2 3 4 5 6 7 8 9 10
 
 ##### Configuration #####
 
-background=$(sed -n '/^!!.*:$/I, /!!/p' $XDG_CONFIG_HOME/x11/xresources | sed -n '/color0/, /color15/p' | grep color0 | awk '{print $2}')
-primary=$(sed -n '/^!!.*:$/I, /!!/p' $XDG_CONFIG_HOME/x11/xresources | sed -n '/color0/, /color15/p' | grep color4 | awk '{print $2}')
-secondary=$(sed -n '/^!!.*:$/I, /!!/p' $XDG_CONFIG_HOME/x11/xresources | sed -n '/color0/, /color15/p' | grep color2 | awk '{print $2}')
-active=$(sed -n '/^!!.*:$/I, /!!/p' $XDG_CONFIG_HOME/x11/xresources | sed -n '/color0/, /color15/p' | grep color3 | awk '{print $2}')
-complementary=$(sed -n '/^!!.*:$/I, /!!/p' $XDG_CONFIG_HOME/x11/xresources | sed -n '/color0/, /color1/p' | grep color1 | awk '{print $2}')
+get_color() {
+    echo $(sed -n '/^!!.*:$/I, /!!/p' $XDG_CONFIG_HOME/x11/xresources | sed -n '/color0/, /color15/p' | grep "$1:" | awk '{print $2}')
+}
+
+background=$(get_color color0)
+primary=$(get_color color4)
+secondary=$(get_color color2)
+active=$(get_color color3)
+complementary=$(get_color color1)
 
 # Customization
 bspc config border_width			3
