@@ -34,7 +34,7 @@ terminus-font
 ttf-firacode-nerd
 usbutils
 ttf-font-awesome
-adobe-source-hand-sans-serif-jp-fonts
+adobe-source-han-sans-jp-fonts
 adobe-source-han-serif-jp-fonts
 
 # Desktop
@@ -50,7 +50,7 @@ picom
 polybar
 pavucontrol
 pulsemixer
-pthon-pywal
+python-pywal
 sddm
 sxhkd
 papirus-icon-theme
