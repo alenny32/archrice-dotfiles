@@ -15,6 +15,5 @@ brillo
 # libtool
 xf86-input-synaptics # laptop touchpad
 xf86-video-intel # intel UHD
-xf86-video-vesa
 
 # vim:ft=cfg
