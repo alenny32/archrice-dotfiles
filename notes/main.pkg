@@ -17,6 +17,7 @@ alsa-utils
 networkmanager
 pacman-contrib
 opendoas
+redshift
 sudo
 p7zip
 pamixer
