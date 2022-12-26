@@ -9,9 +9,9 @@ usermodmap="$XDG_CONFIG_HOME/x11/xmodmap"
 xsetroot -cursor_name left_ptr &
 
 # merge in defaults and keymaps
-[ -f $sysresources ] && xrdb -merge $sysresources
-[ -f $sysmodmap ] && xmodmap $sysmodmap
-[ -f "$userresources" ] && xrdb -merge "$userresources"
+# [ -f $sysresources ] && xrdb -merge $sysresources
+# [ -f $sysmodmap ] && xmodmap $sysmodmap
+[ -f "$userresources" ] && xrdb -load "$userresources"
 [ -f "$usermodmap" ] && xmodmap "$usermodmap"
 
 # start some nice programs
