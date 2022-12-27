@@ -169,33 +169,30 @@ schemes:
     normal:
       black:   '#0b060a'
       red:     '#D84931'
-      green:   '#9B6D51'
-      yellow:  '#58A23B'
-      blue:    '#C69765'
-      magenta: '#CAAB93'
-      cyan:    '#E9D3AF'
+      green:   '#58A23B'
+      yellow:  '#9B6D51'
+      blue:    '#477aa3'
+      magenta: '#c500ff'
+      cyan:    '#21c4d8'
       white:   '#f1ecde'
     bright:
-      black:   '#a8a59b'
+      black:   '#838178'
       red:     '#D84931'
-      green:   '#9B6D51'
-      yellow:  '#58A23B'
-      blue:    '#C69765'
-      magenta: '#CAAB93'
-      cyan:    '#E9D3AF'
+      green:   '#58A23B'
+      yellow:  '#9B6D51'
+      blue:    '#477aa3'
+      magenta: '#c500ff'
+      cyan:    '#21c4d8'
       white:   '#f1ecde'
-    # # Dim colors
-    # # If the dim colors are not set, they will be calculated automatically based
-    # # on the `normal` colors.
-    # dim:
-    #   black:   '#1e2127'
-    #   red:     '#e06c75'
-    #   green:   '#98c379'
-    #   yellow:  '#d19a66'
-    #   blue:    '#61afef'
-    #   magenta: '#c678dd'
-    #   cyan:    '#56b6c2'
-    #   white:   '#828791'
+    dim:
+      black:   '#0b060a'
+      red:     '#D84931'
+      green:   '#58A23B'
+      yellow:  '#9B6D51'
+      blue:    '#477aa3'
+      magenta: '#c500ff'
+      cyan:    '#21c4d8'
+      white:   '#737b90'
 
 
 colors: *WoodyRed
