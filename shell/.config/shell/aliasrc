@@ -10,9 +10,12 @@ alias \
 	cdcol="cd $HOME/Documents/College" \
 	dolcol="dolphin $HOME/Documents/College & disown" \
 
-# SSH keychain
+# apps
 alias \
 	sshk="keychain $HOME/.ssh/id_rsa && source $HOME/.keychain/$HOSTNAME-sh" \
+	walbg="wal -n -i $XDG_DATA_HOME/bg" \
+	walr="wal -R" \
+
 
 # Commands that are too long. Abbreviate them!
 alias \
@@ -86,12 +89,6 @@ done; unset command
 
 # Use neovim for vi if present.
 [ -x "$(command -v nvim)" ] && alias vi="nvim" vimdiff="nvim -d"
-
-
-# Luke's config for aliases in zsh
-
-# Use neovim for vim if present.
-[ -x "$(command -v nvim)" ] && alias vim="nvim" vimdiff="nvim -d"
 
 # Use $XINITRC variable if file exists.
 [ -f "$XINITRC" ] && alias startx="startx $XINITRC"
