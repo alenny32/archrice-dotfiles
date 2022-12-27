@@ -22,6 +22,7 @@ sudo
 p7zip
 pamixer
 plocate
+playerctl
 python-pip
 stow
 vi
