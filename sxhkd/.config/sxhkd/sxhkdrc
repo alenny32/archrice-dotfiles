@@ -153,3 +153,6 @@ XF86Audio{RaiseVolume,LowerVolume,Mute}
 # Brightness control
 XF86MonBrightness{Up,Down}
     change-brightness {up,down}
+# Media control
+XF86Audio{Play,Prev,Next}
+	playerctl {play-pause,previous,next}
