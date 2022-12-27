@@ -7,4 +7,4 @@ killall -q picom
 while pgrep -x picom >/dev/null; do sleep 1; done
 
 # Launch compton
-picom -config $XDG_CONFIG_HOME/picom/picom.conf &
+picom --config $XDG_CONFIG_HOME/picom/picom.conf &
