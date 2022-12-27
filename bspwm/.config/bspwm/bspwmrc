@@ -58,9 +58,9 @@ bspc config pointer_action3 resize_corner
 ##########################################################
 
 bspc rule -a Guake state=floating
-bspc rule -a xev state=floating
 bspc rule -a KeePassXC state=floating
 bspc rule -a rclone-browser state=floating
+
 bspc rule -a mpv state=fullscreen
 
 bspc rule -a Brave-browser desktop='^2'
@@ -75,6 +75,9 @@ bspc rule -a Screenkey manage=off
 # bspc rule -a mplayer2 state=floating
 # bspc rule -a Kupfer.py focus=on
 
+## Not working rules. Need to be worked on.
+# bspc rule -a xev state=floating                     # no WM_CLASS.
+# bspc rule -a motion_recorder state=floating         # line browser extension. idk.
 
 ######################
 #        Misc        #
