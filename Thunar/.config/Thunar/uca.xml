@@ -3,11 +3,29 @@
 <action>
 	<icon>Alacritty</icon>
 	<name>Open Terminal Here</name>
+	<submenu></submenu>
 	<unique-id>1670789308335359-1</unique-id>
 	<command>alacritty --working-directory %f</command>
 	<description>Open directory with Alacritty </description>
+	<range></range>
 	<patterns>*</patterns>
 	<startup-notify/>
 	<directories/>
+</action>
+<action>
+	<icon></icon>
+	<name>Open 7zFM Here</name>
+	<submenu></submenu>
+	<unique-id>1672142991223229-1</unique-id>
+	<command>7zFM %f</command>
+	<description>Open directory with 7zFM</description>
+	<range>*</range>
+	<patterns>*</patterns>
+	<directories/>
+	<audio-files/>
+	<image-files/>
+	<other-files/>
+	<text-files/>
+	<video-files/>
 </action>
 </actions>
