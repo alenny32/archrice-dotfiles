@@ -50,7 +50,7 @@ local o = vim.o
     o.list = true
     -- o.listchars = 'trail:·,nbsp:◇,tab:→ ,extends:▸,precedes:◂'
     -- for 4 spaces indentations
-        o.listchars = 'eol:¬,space:·,lead: ,trail:·,nbsp:◇,tab:→-,extends:▸,precedes:◂,multispace:···⬝,leadmultispace:│   ,'
+        o.listchars = 'eol:¬,lead: ,trail:·,nbsp:◇,tab:→-,extends:▸,precedes:◂,multispace:···⬝,leadmultispace:│   ,'
     -- for 2 spaces indentations
         -- o.listchars = 'eol:¬,space:·,lead: ,trail:·,nbsp:◇,tab:→-,extends:▸,precedes:◂,multispace:··,leadmultispace:│ ,'
     o.formatoptions = 'qrn1'
