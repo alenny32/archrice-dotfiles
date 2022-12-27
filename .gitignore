@@ -13,6 +13,7 @@ rclone-browser/
 
 # scripts
 scripts/*
+!scripts/apps/
 !scripts/bspwm/
 !scripts/dmenu/
 !scripts/rclone/
