@@ -76,6 +76,9 @@
 [history-ignore-spotify]
     summary = "*Spotify*"
     history_ignore = yes
+[history-ignore-wallpaper]
+    summary = "*wallpaper*"
+    history_ignore = yes
 
 # [script-test]
 #     when encountering pattern described in summary, script will be launched
