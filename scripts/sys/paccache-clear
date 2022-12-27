@@ -22,4 +22,7 @@ AUR_CACHE="$(find "$AUR_CACHE_DIR" -maxdepth 1 -type d | awk '{ print "-c " $1 }
 /usr/bin/paccache -qrk2 -c /var/cache/pacman/pkg $AUR_CACHE
 
 # Send notification
-notify-send -u critical -a paccache-clear "Clear chache" "Pacman and AUR packages cache are cleared"
+export DISPLAY=:0
+export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/1000/bus"
+
+notify-send "Clear chache" "Pacman and AUR packages cache are cleared" -u critical -a paccache-clear
