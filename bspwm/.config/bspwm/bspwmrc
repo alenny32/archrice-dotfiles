@@ -57,6 +57,8 @@ bspc config pointer_action3 resize_corner
 #                      Window Rules                      #
 ##########################################################
 
+bspc rule -a Zathura state=tiled
+
 bspc rule -a Guake state=floating
 bspc rule -a KeePassXC state=floating
 bspc rule -a rclone-browser state=floating
