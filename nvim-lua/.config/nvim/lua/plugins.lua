@@ -20,6 +20,7 @@ vim.cmd([[ call plug#begin(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nv
     Plug('tpope/vim-commentary')
     Plug('ap/vim-css-color')
     Plug('sheerun/vim-polyglot')
+    Plug('lervag/vimtex')
 
     -- Theming
     Plug('joshdick/onedark.vim')
