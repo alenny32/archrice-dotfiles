@@ -29,8 +29,8 @@ map(i, '<leader><leader>', '<CMD>keepp /<++><CR><ESC>ca<')
 
 -- Compile LaTeX documents
     map(nvo, '<F2>', '<CMD>w<CR> <CMD>!pdflatex %<CR><CR>')
--- Open evince for pdf of current LaTeX
-    map(nvo, '<F3>', "<CMD>!evince $(echo % | sed 's/tex$/pdf/') & disown<CR><CR>")
+-- Open zathura for pdf of current LaTeX
+    map(nvo, '<F3>', "<CMD>!zathura $(echo % | sed 's/tex$/pdf/') & disown<CR><CR>")
 
 -- Keeping cursor in center for next/previous search occurence
     map(n, 'n', 'nzz')
