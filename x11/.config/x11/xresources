@@ -15,6 +15,24 @@ Xcursor.size: 36
 
 !! Set the background, foreground and cursor colors as below:
 
+!! WoodyRed:
+*.color0:        #0b060a
+*.color8:        #838178
+*.color1:        #D84931
+*.color9:        #D84931
+*.color2:        #58A23B
+*.color10:       #58A23B
+*.color3:        #9B6D51
+*.color11:       #9B6D51
+*.color4:        #477aa3
+*.color12:       #477aa3
+*.color5:        #c500ff
+*.color13:       #c500ff
+*.color6:        #21c4d8
+*.color14:       #21c4d8
+*.color7:        #f1ecde
+*.color15:       #ffffff
+
 /* !! Dracula: */
 /* *.foreground: #F8F8F2 */
 /* *.background: #282A36 */
@@ -35,27 +53,27 @@ Xcursor.size: 36
 /* *.color7:     #BFBFBF */
 /* *.color15:    #E6E6E6 */
 
-!! One Dark:
-*.foreground:    #ABB2BF
-*.background:    #1E2127
-*.cursorColor:   #5C6370
-*.highlightColor:#3A3F4B
-*.color0:        #1E2127
-*.color8:        #5C6370
-*.color1:        #E06C75
-*.color9:        #E06C75
-*.color2:        #98C379
-*.color10:       #98C379
-*.color3:        #D19A66
-*.color11:       #D19A66
-*.color4:        #61AFEF
-*.color12:       #61AFEF
-*.color5:        #C678DD
-*.color13:       #C678DD
-*.color6:        #56B6C2
-*.color14:       #56B6C2
-*.color7:        #ABB2BF
-*.color15:       #FFFFFF
+/* !! One Dark: */
+/* *.foreground:    #ABB2BF */
+/* *.background:    #1E2127 */
+/* *.cursorColor:   #5C6370 */
+/* *.highlightColor:#3A3F4B */
+/* *.color0:        #1E2127 */
+/* *.color8:        #5C6370 */
+/* *.color1:        #E06C75 */
+/* *.color9:        #E06C75 */
+/* *.color2:        #98C379 */
+/* *.color10:       #98C379 */
+/* *.color3:        #D19A66 */
+/* *.color11:       #D19A66 */
+/* *.color4:        #61AFEF */
+/* *.color12:       #61AFEF */
+/* *.color5:        #C678DD */
+/* *.color13:       #C678DD */
+/* *.color6:        #56B6C2 */
+/* *.color14:       #56B6C2 */
+/* *.color7:        #ABB2BF */
+/* *.color15:       #FFFFFF */
 
 /* !! gruvbox: */
 /* *.color0: #1d2021 */
