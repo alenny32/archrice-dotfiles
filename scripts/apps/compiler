@@ -26,6 +26,7 @@ textype() { \
 		biber --input-directory "${textarget%/*}" "${textarget%.*}" &&
 		$command --output-directory="${textarget%/*}" "${textarget%.*}" &&
 		$command --output-directory="${textarget%/*}" "${textarget%.*}"
+	# xdotool key Enter
 }
 
 case "$ext" in
