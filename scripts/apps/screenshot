@@ -7,4 +7,4 @@ case "$1" in
 	*) scrot "$output" -e 'xclip -selection clipboard -t image/png -i $f' || exit ;;
 esac
 
-notify-send "Screenshot taken."
+notify-send "Screenshot taken." -u low -a "screenshot" -t 2000
