@@ -143,6 +143,10 @@ ctrl + shift + period
 ctrl + grave
     dunstctl history-pop
 
+# Screenshots
+{_,ctrl,alt} + Print
+    screenshot {_,select,window}
+
 ###################
 ##### Fn Keys #####
 ###################
