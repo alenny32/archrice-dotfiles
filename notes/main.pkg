@@ -60,6 +60,10 @@ papirus-icon-theme
 breeze-gtk
 
 # Applications
+ffmpegthumbnailer
+ffmpeg
+lf
+ueberzug
 texlive-most
 texlive-lang
 syncthing
