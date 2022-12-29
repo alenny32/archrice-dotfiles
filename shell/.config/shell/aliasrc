@@ -19,6 +19,7 @@ alias \
 
 # Commands that are too long. Abbreviate them!
 alias \
+    sued="sudoedit" \
     fetch="fastfetch" \
     sdn="shutdown now" \
     hibernate="systemctl hibernate" \
