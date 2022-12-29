@@ -60,6 +60,7 @@ papirus-icon-theme
 breeze-gtk
 
 # Applications
+moreutils
 atool
 ffmpegthumbnailer
 ffmpeg
