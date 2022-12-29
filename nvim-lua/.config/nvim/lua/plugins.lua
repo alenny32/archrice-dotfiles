@@ -20,6 +20,7 @@ vim.cmd([[ call plug#begin(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nv
     Plug('tpope/vim-commentary')
     Plug('ap/vim-css-color')
     Plug('sheerun/vim-polyglot')
+    Plug('lervag/vimtex')
 
     -- Theming
     Plug('joshdick/onedark.vim')
@@ -27,7 +28,7 @@ vim.cmd([[ call plug#begin(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nv
     Plug('folke/tokyonight.nvim', { ['branch'] = 'main' })
 vim.cmd([[ call plug#end() ]])
 
--- Plugins(configuration)
+-- Plugins (configuration):
 local nvo = {'n', 'v', 'o'}
 local function map(mode, key, value)
     vim.keymap.set(mode, key, value, { remap = true, silent = false })
@@ -36,15 +37,15 @@ end
 -- Goyo plugin makes text more readable when writing prose:
     map(nvo, '<leader>f', '<CMD>Goyo | set bg=light | set linebreak<CR>')
 
--- Enable Goyo by default for mutt writing
+-- Enable Goyo by default for mutt writing:
 vim.cmd([[
-	autocmd BufRead,BufNewFile /tmp/neomutt* let g:goyo_width=80
-	autocmd BufRead,BufNewFile /tmp/neomutt* :Goyo | set bg=light
-	autocmd BufRead,BufNewFile /tmp/neomutt* map ZZ :Goyo|x!<CR>
-	autocmd BufRead,BufNewFile /tmp/neomutt* map ZQ :Goyo|q!<CR>
+    autocmd BufRead,BufNewFile /tmp/neomutt* let g:goyo_width=80
+    autocmd BufRead,BufNewFile /tmp/neomutt* :Goyo | set bg=light
+    autocmd BufRead,BufNewFile /tmp/neomutt* map ZZ :Goyo|x!<CR>
+    autocmd BufRead,BufNewFile /tmp/neomutt* map ZQ :Goyo|q!<CR>
 ]])
 
--- Nerd tree
+-- Nerd tree:
     map(nvo, '<leader>n', '<CMD>NERDTreeToggle<CR>')
     vim.cmd('autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif')
     vim.cmd([[
@@ -61,3 +62,6 @@ vim.cmd([[
     map(nvo, '<leader>i', '<CMD>call ToggleIPA()<CR>')
     map('i', '<leader>i <ESC>', '<CMD>call ToggleIPA()<CR>a')
     map (nvo, '<leader>q', '<CMD>call ToggleProse()<CR>')
+
+-- VimTeX:
+    vim.g.vimtex_view_method = 'zathura'

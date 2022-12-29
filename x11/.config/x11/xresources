@@ -5,6 +5,13 @@ Xft.dpi: 96
 Xcursor.theme: "capitaine-cursors"
 Xcursor.size: 36
 
+! Sxiv configuration
+Sxiv.background: #17080b
+Sxiv.foreground: #D84931
+
+! Transparency
+*.alpha: 0.8
+
 !! Set a default font and font size as below:
 *.font:	FiraCode Nerd Font:style=Medium:size=12:antialias=true:autohint=true;
 /* *.font:	Liberation Mono:pixelsize=12:antialias=true:autohint=true; */

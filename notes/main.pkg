@@ -60,11 +60,21 @@ papirus-icon-theme
 breeze-gtk
 
 # Applications
+biber
+moreutils
+atool
+ffmpegthumbnailer
+ffmpeg
+lf
+ueberzug
+bat
+trash-cli
 texlive-most
 texlive-lang
 syncthing
 thunar
 sxiv
+scrot
 mpv
 mvp-mpris
 neovim

@@ -103,6 +103,9 @@ super + shift + p
 # Open file manager (thunar) | system monitor (btop)
 super + {_,shift} + e
     {thunar,$TERMINAL -e btop}
+# Open file manager (lf)
+super + {_,shift} + r
+    $TERMINAL -e lfub
 # Web browser (brave) | Wireless network manager (nmtui)
 super + {_,shift} + w
     {$BROWSER,$TERMINAL -e nmtui}
@@ -142,6 +145,10 @@ ctrl + shift + period
     dunstctl context
 ctrl + grave
     dunstctl history-pop
+
+# Screenshots
+{_,ctrl,alt} + Print
+    screenshot {_,select,window}
 
 ###################
 ##### Fn Keys #####
