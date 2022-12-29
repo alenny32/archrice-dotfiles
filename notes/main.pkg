@@ -60,10 +60,13 @@ papirus-icon-theme
 breeze-gtk
 
 # Applications
+atool
 ffmpegthumbnailer
 ffmpeg
 lf
 ueberzug
+bat
+trash-cli
 texlive-most
 texlive-lang
 syncthing
