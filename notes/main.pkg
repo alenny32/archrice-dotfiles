@@ -15,6 +15,7 @@ acpi
 alacritty
 alsa-utils
 cups
+poppler
 perl-file-mimeinfo
 networkmanager
 pacman-contrib
@@ -29,6 +30,8 @@ python-pip
 stow
 vi
 tree
+odt2txt
+docx2txt
 wmname
 xcape
 xdotool
@@ -97,7 +100,11 @@ lxappearance
 qbittorrent
 qt5ct
 screenkey
+gnome-epub-thumbnailer
 zathura
-
+zathura-cb
+zathura-djvu
+zathura-pdf-poppler
+zathura-ps
 
 # vim:ft=cfg
