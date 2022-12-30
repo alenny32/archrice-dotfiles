@@ -58,7 +58,10 @@ cmd open ${{
 cmd mkdir $mkdir -p "$(echo $* | tr ' ' '\ ')"
 
 # Trash bindings
-cmd trash-restore $trash-restore
+cmd trash-restore ${{
+    clear; tput cup $(($(tput lines)/3)); tput bold
+    trash-restore
+}}
 cmd trash-put ${{
     clear; tput cup $(($(tput lines)/3)); tput bold
     set -f
