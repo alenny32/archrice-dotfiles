@@ -22,15 +22,13 @@ map(i, '<leader><leader>', '<CMD>keepp /<++><CR><ESC>ca<')
 
 -- Comment is ctrl + / (vim commentary plugins require)
     -- Move down one line after comment
-    map(n, '<C-_>', '<Plug>CommentaryLine j')
-    map(i, '<C-_>', '<ESC><Plug>CommentaryLine j')
+        map(n, '<C-_>', '<Plug>CommentaryLine j')
+        map(i, '<C-_>', '<ESC><Plug>CommentaryLine j')
     -- Stay atthat line after comment (remove j after comment)
-    map(v, '<C-_>', '<Plug>Commentary')
+        map(v, '<C-_>', '<Plug>Commentary')
 
 -- Compile LaTeX documents
     map(nvo, '<F2>', '<CMD>w<CR> <CMD>!pdflatex %<CR><CR>')
--- Open zathura for pdf of current LaTeX
-    map(nvo, '<F3>', "<CMD>!zathura $(echo % | sed 's/tex$/pdf/') & disown<CR><CR>")
 
 -- Keeping cursor in center for next/previous search occurence
     map(n, 'n', 'nzz')
