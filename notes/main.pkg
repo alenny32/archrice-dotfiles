@@ -15,6 +15,7 @@ acpi
 alacritty
 alsa-utils
 cups
+perl-file-mimeinfo
 networkmanager
 pacman-contrib
 opendoas
