@@ -181,8 +181,8 @@ cmd bulkrename $vidir
     map Y $printf "%s" "$fx" | xclip -selection clipboard
 
 # Open app
-    map <a-e> $thunar .
-    map <a-E> $thunar "$f"
+    map e $thunar .
+    map <a-e> $thunar "$f"
 
 # Rename
     map A rename # at the very end
