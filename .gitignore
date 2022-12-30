@@ -1,4 +1,5 @@
 # nvim
+nvim-lua/.config/nvim/spell/
 nvim-lua/.config/nvim/plugged/
 nvim-lua/.config/nvim/autoload/
 nvim-lua/.config/nvim/nvim-vimscript/autoload/
