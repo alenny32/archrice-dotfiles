@@ -123,6 +123,11 @@ cmd copyto ${{
     notify-send "📋 File(s) copied." "File(s) copies to $dest."
 }}
 
+cmd mime-ask ${{
+    clear; tput cup $(($(tput lines)/3));
+    mimeopen --ask "$f"
+}}
+
 cmd setbg "$1"
 cmd bulkrename $vidir
 
@@ -159,7 +164,7 @@ map Tt push $touch<space>
 map x $$f
 map X !$f
 map o &mimeopen "$f"
-map O $mimeopen --ask "$f"
+map O mime-ask
 map b $setbg $f
 map W $setsid -f $TERMINAL >/dev/null 2>&1
 map Y $printf "%s" "$fx" | xclip -selection clipboard
