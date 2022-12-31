@@ -148,7 +148,7 @@ ctrl + grave
 
 # Screenshots
 {_,ctrl,alt,super} + Print
-    screenshot {_,select,window,clipboard}
+    screenshot {_,select,clipboard,window}
 
 ###################
 ##### Fn Keys #####

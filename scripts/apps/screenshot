@@ -2,10 +2,11 @@
 output=${XDG_PICTURES_DIR:-$HOME/Pictures}/screenshots/%Y-%m-%d-%T-screenshot.png
 
 case "$1" in
-	"select") scrot "$output" --select --line mode=edge -e 'xclip -selection clipboard -t image/png -i $f' || exit ;;
-	"window") scrot "$output" --focused -e 'xclip -selection clipboard -t image/png -i $f' || exit ;;
-	"clipboard") scrot --select --line mode=edge -e 'xclip -selection clipboard -t image/png -i $f' || exit ;;
-	*) scrot "$output" -e 'xclip -selection clipboard -t image/png -i $f' || exit ;;
+    "select") scrot "$output" --select --line mode=edge -e 'xclip -selection clipboard -t image/png -i $f' || exit ;;
+    "window") scrot "$output" --focused -e 'xclip -selection clipboard -t image/png -i $f' || exit ;;
+    "clipboard") scrot "/tmp/screenshot.png" --select --line mode=edge -e 'xclip -selection clipboard -t image/png -i $f' || exit
+        rm "/tmp/screenshot.png" ;;
+    *) scrot "$output" -e 'xclip -selection clipboard -t image/png -i $f' || exit ;;
 esac
 
 notify-send "Screenshot taken." -u low -a "screenshot" -t 2000
