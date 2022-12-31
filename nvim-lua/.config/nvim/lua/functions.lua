@@ -42,4 +42,4 @@ function CycleThemes()
         theme = 0
     end
 end
-vim.keymap.set({'n', 'v', 'o'}, '<leader>t', CycleThemes)
+vim.keymap.set({'n', 'v', 'o'}, '<leader>tt', CycleThemes)

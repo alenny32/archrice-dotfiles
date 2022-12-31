@@ -4,11 +4,15 @@ local i = 'i'
 local nvo = {'n', 'v', 'o'} -- map
 
 local function map(mode, key, value)
-	vim.keymap.set(mode, key, value, { remap = true, silent = false })
+    vim.keymap.set(mode, key, value, { remap = true, silent = false })
 end
 
 local function noremap(mode, key, value)
-	vim.keymap.set(mode, key, value, { remap = false, silent = false })
+    vim.keymap.set(mode, key, value, { remap = false, silent = false })
+end
+
+local function resize(key, value)
+    vim.keymap.set({'n', 'v', 'o', 'i'}, key, value, { remap = false, silent = true })
 end
 
 vim.g.mapleader = ','
@@ -66,6 +70,16 @@ map(i, '<leader><leader>', '<CMD>keepp /<++><CR><ESC>ca<')
     map(nvo, '<C-j>', '<C-w>j')
     map(nvo, '<C-k>', '<C-w>k')
     map(nvo, '<C-l>', '<C-w>l')
+
+-- Make adjusting split sizes a bit more friendly:
+    resize('<C-Left>',  '<CMD>vertical resize +3<CR>')
+    resize('<C-Right>',  '<CMD>vertical resize -3<CR>')
+    resize('<C-Up>',  '<CMD>resize +3<CR>')
+    resize('<C-Down>',  '<CMD>resize -3<CR>')
+
+-- Change 2 split windows from vertical to horizontal or vice versa
+    map(nvo, '<leader>th', '<C-w>t<C-w>H')
+    map(nvo, '<leader>tk', '<C-w>t<C-w>K')
 
 -- Replace ex mode with gq
     map(nvo, 'Q', 'gq')
