@@ -13,7 +13,7 @@ local function noremap(mode, key, value)
     vim.keymap.set(mode, key, value, { remap = false, silent = true })
 end
 
--- LaTeX
+-- LaTeX:
     -- Compile
         map(nvo, '<F2>', '<CMD>w<CR> <CMD>!pdflatex %<CR><CR>')
     -- Add section
@@ -23,8 +23,8 @@ end
         map(nvo, '<leader>.A', 'i\\subsection{}\n\n<++><ESC>kk$i')
         map(i, '<leader>.A', '\\subsection{}\n\n<++><ESC>kk$i')
     -- Insert table environment
-        map(nvo, '<leader>.t', 'i\\begin{table}[htbp]\n\\caption{<++>}\n\\begin{center}\n\\begin{tabular}{|c|c|}\n<++>\n\\end{tabular}\n\\end{center}\n\\label{tab:<++>}\n\\end{table}%<ESC>kkkkkkkk^')
-        map(i, '<leader>.t', '\\begin{table}[htbp]\n\\caption{<++>}\n\\begin{center}\n\\begin{tabular}{|c|c|}\n<++>\n\\end{tabular}\n\\end{center}\n\\label{tab:<++>}\n\\end{table}%<ESC>kkkkkkkk^')
+        map(nvo, '<leader>.t', 'i\\begin{table}[htbp]\n\\caption{<++>}\n\\begin{center}\n\\begin{tabular}{|c|c|}\n<++>\n\\end{tabular}\n\\end{center}\n\\label{tab:<++>}\n\\end{table}<ESC>{j^')
+        map(i, '<leader>.t', '\\begin{table}[htbp]\n\\caption{<++>}\n\\begin{center}\n\\begin{tabular}{|c|c|}\n<++>\n\\end{tabular}\n\\end{center}\n\\label{tab:<++>}\n\\end{table}<ESC>{j^')
     -- -- Insert \hline
     --     -- below current line
     --         map(nvo, '<leader>.h', 'o\\hline<ESC>')
@@ -32,4 +32,6 @@ end
     --     -- above current line
     --         map(nvo, '<leader>.H', 'O\\hline<ESC>')
     --         map(i, '<leader>.H', '<ESC>O\\hline<ESC>')
-    -- Reserved
+    -- Insert figure environment
+        map(nvo, '<leader>.f', 'i\\begin{figure}[htbp]\n\\begin{center}\n<++>\n\\caption{<++>}\n\\label{fig:<++>}\n\\end{center}\n\\end{figure}<ESC>{j^')
+        map(i, '<leader>.f', '\\begin{figure}[htbp]\n\\begin{center}\n<++>\n\\caption{<++>}\n\\label{fig:<++>}\n\\end{center}\n\\end{figure}<ESC>{j^')
