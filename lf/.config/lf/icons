@@ -193,6 +193,7 @@ ex  
 *.sol           ﲹ
 *.pem           
 # *.tex           ﭨ
+# *.tex           
 
 # file names (vim-devicons) (case-insensitive not supported in lf)
 *gruntfile.coffee       
