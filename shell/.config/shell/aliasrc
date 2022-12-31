@@ -46,6 +46,8 @@ alias \
     gp="git push" \
     gm="git merge" \
     gpl="git pull" \
+    gl="git log" \
+    glo="git log --oneline" \
 
 # Make alias
 alias \

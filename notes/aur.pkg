@@ -15,10 +15,10 @@ dataspell-jre
 dataspell
 gitkraken
 pycharm-professional
-onlyoffice-bin
 visual-studio-code-bin
 whatsapp-nativefier
 zoom
+# onlyoffice-bin
 
 # Nice to have
 python2-bin

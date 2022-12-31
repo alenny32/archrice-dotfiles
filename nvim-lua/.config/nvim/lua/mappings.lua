@@ -22,15 +22,10 @@ map(i, '<leader><leader>', '<CMD>keepp /<++><CR><ESC>ca<')
 
 -- Comment is ctrl + / (vim commentary plugins require)
     -- Move down one line after comment
-    map(n, '<C-_>', '<Plug>CommentaryLine j')
-    map(i, '<C-_>', '<ESC><Plug>CommentaryLine j')
+        map(n, '<C-_>', '<Plug>CommentaryLine j')
+        map(i, '<C-_>', '<ESC><Plug>CommentaryLine j')
     -- Stay atthat line after comment (remove j after comment)
-    map(v, '<C-_>', '<Plug>Commentary')
-
--- Compile LaTeX documents
-    map(nvo, '<F2>', '<CMD>w<CR> <CMD>!pdflatex %<CR><CR>')
--- Open zathura for pdf of current LaTeX
-    map(nvo, '<F3>', "<CMD>!zathura $(echo % | sed 's/tex$/pdf/') & disown<CR><CR>")
+        map(v, '<C-_>', '<Plug>Commentary')
 
 -- Keeping cursor in center for next/previous search occurence
     map(n, 'n', 'nzz')
@@ -90,6 +85,16 @@ map(i, '<leader><leader>', '<CMD>keepp /<++><CR><ESC>ca<')
 
 -- Open corresponding .pdf/.html or preview
     map(nvo, '<leader>p', '<CMD>!opout "%:p"<CR>')
+
+-- LaTeX
+    -- Compile
+        map(nvo, '<F2>', '<CMD>w<CR> <CMD>!pdflatex %<CR><CR>')
+    -- Add section
+        map(nvo, '<leader>a', 'i\\section{}\n\n<++><ESC>kk$i')
+        map(i, '<leader>a', '\\section{}\n\n<++><ESC>kk$i')
+    -- Add subsection
+        map(nvo, '<leader>A', 'i\\subsection{}\n\n<++><ESC>kk$i')
+        map(i, '<leader>A', '\\subsection{}\n\n<++><ESC>kk$i')
 
 -- Load command shortcuts generated from bm-dirs and bm-files via shortcuts script.
 -- Here leader is ";".
