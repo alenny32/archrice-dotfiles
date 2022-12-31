@@ -105,7 +105,8 @@ gnome-epub-thumbnailer
 zathura
 zathura-cb
 zathura-djvu
-zathura-pdf-poppler
+# zathura-pdf-poppler
+zathura-pdf-mupdf
 zathura-ps
 
 # vim:ft=cfg
