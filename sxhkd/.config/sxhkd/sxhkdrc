@@ -147,8 +147,8 @@ ctrl + grave
     dunstctl history-pop
 
 # Screenshots
-{_,ctrl,alt} + Print
-    screenshot {_,select,window}
+{_,ctrl,alt,super} + Print
+    screenshot {_,select,clipboard,window}
 
 ###################
 ##### Fn Keys #####
