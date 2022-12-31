@@ -23,8 +23,8 @@ end
         map(nvo, '<leader>.A', 'i\\subsection{}\n\n<++><ESC>kk$i')
         map(i, '<leader>.A', '\\subsection{}\n\n<++><ESC>kk$i')
     -- Insert table environment
-        map(nvo, '<leader>.t', 'i\\begin{table}[htbp] \\label{tab:<++>}\n\\caption{<++>}\n\\begin{center}\n\\begin{tabular}{|c|c|}\n<++>\n\\end{tabular}\n\\end{center}\n\\end{table}%<ESC>kkkkkkk^')
-        map(i, '<leader>.t', '\\begin{table}[htbp] \\label{tab:<++>}\n\\caption{<++>}\n\\begin{center}\n\\begin{tabular}{|c|c|}\n<++>\n\\end{tabular}\n\\end{center}\n\\end{table}%<ESC>kkkkkkk^')
+        map(nvo, '<leader>.t', 'i\\begin{table}[htbp]\n\\caption{<++>}\n\\begin{center}\n\\begin{tabular}{|c|c|}\n<++>\n\\end{tabular}\n\\end{center}\n\\label{tab:<++>}\n\\end{table}%<ESC>kkkkkkk^')
+        map(i, '<leader>.t', '\\begin{table}[htbp]\n\\caption{<++>}\n\\begin{center}\n\\begin{tabular}{|c|c|}\n<++>\n\\end{tabular}\n\\end{center}\n\\label{tab:<++>}\n\\end{table}%<ESC>kkkkkkk^')
     -- -- Insert \hline
     --     -- below current line
     --         map(nvo, '<leader>.h', 'o\\hline<ESC>')
