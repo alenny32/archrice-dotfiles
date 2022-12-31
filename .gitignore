@@ -24,3 +24,6 @@ scripts/*
 !scripts/prompt
 !scripts/texclear
 !scripts/ttymaps.kmap
+
+# Thunar
+Thunar/.config/Thunar/accels.scm
