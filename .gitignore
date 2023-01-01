@@ -14,9 +14,11 @@ rclone-browser/
 
 # scripts
 scripts/*
+scripts/polybar/polyweather*
 !scripts/apps/
 !scripts/bspwm/
 !scripts/dmenu/
+!scripts/polybar/
 !scripts/rclone/
 !scripts/sys/
 !scripts/compiler
