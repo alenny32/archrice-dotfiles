@@ -80,6 +80,10 @@ if [ -n "$current" ] && [ -n "$forecast" ]; then
     forecast_temp=$(echo "$forecast" | jq ".list[].main.temp" | cut -d "." -f 1)
     forecast_icon=$(echo "$forecast" | jq -r ".list[].weather[0].icon")
 
+    pop=$(echo "$forecast" | jq ".list[].pop")
+    pop=$(echo "$pop * 100" | bc | cut -d "." -f 1)
+    pop="🌧️ $pop%"
+
     if [ "$current_temp" -gt "$forecast_temp" ]; then
         trend="%{F$icon_color}ﰬ%{F-}"
     elif [ "$current_temp" -lt "$forecast_temp" ]; then
@@ -88,5 +92,5 @@ if [ -n "$current" ] && [ -n "$forecast" ]; then
         trend="%{F$icon_color}%{F-}"
     fi
 
-    echo "$(get_icon "$current_icon") $current_temp$SYMBOL $trend $(get_icon "$forecast_icon") $forecast_temp$SYMBOL"
+    echo "$(get_icon "$current_icon") $current_temp$SYMBOL $trend $(get_icon "$forecast_icon") $forecast_temp$SYMBOL $pop"
 fi
