@@ -204,15 +204,17 @@ ex  
 *gulpfile.ls            
 *mix.lock               
 *dropbox                
-*.ds_store              
-*.gitconfig             
-*.gitignore             
-*.gitattributes         
+*.ds_store              
+*.git                   
+*.gitconfig             
+*.gitignore             
+*.gitattributes         
+*.github                
 *.gitlab-ci.yml         
-*.bashrc                
-*.zshrc                 
-*.zshenv                
-*.zprofile              
+*.bashrc                
+*.zshrc                 
+*.zshenv                
+*.zprofile              
 *.vimrc                 
 *.gvimrc                
 *_vimrc                 
@@ -231,6 +233,14 @@ ex  
 *makefile               
 *cmakelists.txt         
 *robots.txt             ﮧ
+# *.ds_store              
+# *.zshrc                 
+# *.zshenv                
+# *.zprofile              
+# *.bashrc                
+# *.gitconfig             
+# *.gitignore             
+# *.gitattributes         
 
 # file names (case-sensitive adaptations)
 *Gruntfile.coffee       
@@ -272,3 +282,5 @@ ex  
 *mootools.min.js        
 *vimrc                  
 Vagrantfile             
+
+# vim:ft=config
