@@ -45,6 +45,7 @@ get_icon() {
     # echo $icon
     echo "%{F$icon_color}$icon%{F-}"
 }
+
 KEY=""
 CITY=""
 UNITS="metric"
@@ -92,5 +93,8 @@ if [ -n "$current" ] && [ -n "$forecast" ]; then
         trend="%{F$icon_color}%{F-}"
     fi
 
-    echo "$(get_icon "$current_icon") $current_temp$SYMBOL $trend $(get_icon "$forecast_icon") $forecast_temp$SYMBOL $pop"
+    # # Full
+    # echo "$(get_icon "$current_icon") $current_temp$SYMBOL $trend $(get_icon "$forecast_icon") $forecast_temp$SYMBOL $pop"
+    # No weather temp forecast
+    echo "$(get_icon "$current_icon") $current_temp$SYMBOL $trend $pop"
 fi
