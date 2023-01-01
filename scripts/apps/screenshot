@@ -1,6 +1,9 @@
 #! /bin/sh
 output=${XDG_PICTURES_DIR:-$HOME/Pictures}/screenshots/%Y-%m-%d-%T-screenshot.png
 
+# if screenshot folder does not exist in pictures dir then make dir
+[ ! -d ${XDG_PICTURES_DIR:-$HOME/Pictures}/screenshots ] && mkdir -p ${XDG_PICTURES_DIR:-$HOME/Pictures}/screenshots
+
 case "$1" in
     "select") scrot "$output" --select --line mode=edge -e 'xclip -selection clipboard -t image/png -i $f' || exit ;;
     "window") scrot "$output" --focused -e 'xclip -selection clipboard -t image/png -i $f' || exit ;;
