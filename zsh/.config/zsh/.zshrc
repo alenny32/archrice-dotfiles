@@ -6,6 +6,9 @@
 
 ######## Umar's config for the Zoomer Shell ########
 
+# Load ssh key passphrase
+# keychain $HOME/.ssh/id_ed25519 && source $HOME/.keychain/$HOSTNAME-sh
+
 mkcd() {
 	mkdir -pv "$1"
 	cd "$1"

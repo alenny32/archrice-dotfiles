@@ -12,7 +12,7 @@ alias \
 
 # apps
 alias \
-    sshk="keychain $HOME/.ssh/id_rsa && source $HOME/.keychain/$HOSTNAME-sh" \
+    sshk="keychain $HOME/.ssh/id_ed25519 && source $HOME/.keychain/$HOSTNAME-sh" \
     walbg="wal -n -i $XDG_DATA_HOME/bg" \
     walr="wal -R" \
 
