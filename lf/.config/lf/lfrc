@@ -163,6 +163,14 @@ cmd bulkrename $vidir
 # Movement
     map gh
     map gg top
+    map gd cd ~/Documents
+    map gD cd ~/Downloads
+    map gp cd ~/Pictures
+    map gc cd ~/.config
+    map gr cd ~/Repos
+    map gv cd ~/Videos
+    map gs cd ~/.local/bin
+    map gt cd ~/.local/share/Trash/files
     map <c-e> down
     map <c-y> up
 
@@ -176,13 +184,13 @@ cmd bulkrename $vidir
     map X !$f
     map o &mimeopen "$f"
     map O mime-ask
-    map b $setbg $f
+    map b $setbg $f &
     map W $setsid -f $TERMINAL >/dev/null 2>&1
     map Y $printf "%s" "$fx" | xclip -selection clipboard
 
 # Open app
-    map e $thunar .
-    map <a-e> $thunar "$f"
+    map e $thunar . &
+    map <a-e> $thunar "$f" &
 
 # Rename
     map A rename # at the very end
