@@ -7,6 +7,12 @@ efibootmgr
 mtools
 
 # System
+nvidia
+nvidia-utils
+nvidia-settings
+nvidia-prime
+opencl-nvidia
+vulkan-devel
 base-devel
 arandr
 dash
@@ -27,6 +33,7 @@ pamixer
 plocate
 playerctl
 python-pip
+mesa-utils
 stow
 vi
 tree
@@ -38,10 +45,10 @@ xdotool
 xorg
 xclip
 zsh
-terminus-font
-ttf-firacode-nerd
 usbutils
 shellcheck
+terminus-font
+ttf-firacode-nerd
 ttf-font-awesome
 adobe-source-han-sans-jp-fonts
 adobe-source-han-serif-jp-fonts
