@@ -76,6 +76,7 @@ breeze-gtk
 biber
 moreutils
 atool
+pandoc
 ffmpegthumbnailer
 ffmpeg
 lf
