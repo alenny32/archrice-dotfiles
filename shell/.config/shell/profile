@@ -27,7 +27,7 @@ export archrice_conf_home="$HOME/Repos/archrice/.config"
 
 # Add cursor theme
 export XCURSOR_PATH=$HOME/.icons
-export XCURSOR_THEME="capitaine-cursors"
+export XCURSOR_THEME="/home/umar/.icons/Posy_Cursor_Black_125_175"
 
 # Add local cloud directories
 export GDRIVE_UMAR="$HOME/Cloud/gdrive-umar"
