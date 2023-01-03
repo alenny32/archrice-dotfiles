@@ -1,7 +1,7 @@
 Xft.dpi: 96
 
 ! Set cursor theme and size
-! Cursor theme name can be found in /usr/share/icons/
+! Cursor theme name can be found in /usr/share/icons:~/.icons:~/.local/share/icons
 /* Xcursor.theme: capitaine-cursors */
 /* Xcursor.theme: WhiteSur-cursors */
 Xcursor.theme: Posy_Cursor_Black_125_175
@@ -11,8 +11,8 @@ Xcursor.size: 32
 Sxiv.background: #17080b
 Sxiv.foreground: #D84931
 
-! Transparency
-*.alpha: 0.8
+/* ! Transparency */
+/* *.alpha: 0.8 */
 
 !! Set a default font and font size as below:
 *.font:	FiraCode Nerd Font:style=Medium:size=12:antialias=true:autohint=true;

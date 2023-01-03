@@ -10,12 +10,6 @@
 # Add HOSTNAME to env var
 export HOSTNAME="$(cat /etc/hostname)"
 
-# Add Neovim
-export INIT_VIM_PATH="$HOME/.config/nvim/init.vim"
-
-# Add archrice config path
-export archrice_conf_home="$HOME/Repos/archrice/.config"
-
 # Additional colours for less and man (rest is in Luke's config)
 # export LESS_TERMCAP_mr=$(tput rev)
 # export LESS_TERMCAP_mh=$(tput dim)
@@ -25,9 +19,9 @@ export archrice_conf_home="$HOME/Repos/archrice/.config"
 # export LESS_TERMCAP_ZW=$(tput rsupm)
 # export GROFF_NO_SGR=1         # For Konsole and Gnome-terminal
 
-# Add cursor theme
-export XCURSOR_PATH=$HOME/.icons
-export XCURSOR_THEME="/home/umar/.icons/Posy_Cursor_Black_125_175"
+# # Add cursor theme
+# export XCURSOR_PATH=/usr/share/icons:$HOME/.icons:$HOME/.local/share/icons
+# export XCURSOR_THEME="/home/umar/.icons/Posy_Cursor_Black_125_175"
 
 # Add local cloud directories
 export GDRIVE_UMAR="$HOME/Cloud/gdrive-umar"
@@ -35,10 +29,7 @@ export GDRIVE_JASMINE="$HOME/Cloud/gdrive-jasmine_belajar_id"
 export ONEDRIVE_UMAR="$HOME/Cloud/onedrive-umar"
 export ONEDRIVE_BINUS="$HOME/Cloud/onedrive-binus"
 
-
-
 ################################################################################
-
 
 # Adds `~/.local/bin` to $PATH recursively
 export PATH="$PATH:${$(find ~/.local/bin -type d -printf %p:)%%:}"
