@@ -191,6 +191,7 @@ cmd bulkrename $vidir
 # Open app
     map e $thunar . &
     map <a-e> $thunar "$f" &
+    map <a-m> $mpv "%s" "$fx" &
 
 # Rename
     map A rename # at the very end
