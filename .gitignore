@@ -15,7 +15,7 @@ rclone-browser/
 # scripts
 scripts/*
 scripts/polybar/polyweather*
-!scripts/apps/
+!scripts/personal/
 !scripts/bspwm/
 !scripts/dmenu/
 !scripts/polybar/
