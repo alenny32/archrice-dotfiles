@@ -70,7 +70,8 @@ alias \
     cfp="$EDITOR $XDG_CONFIG_HOME/polybar/config.ini" \
     cfpi="$EDITOR $XDG_CONFIG_HOME/picom/picom.conf" \
     cfd="$EDITOR $XDG_CONFIG_HOME/dunst/dunstrc" \
-    cfsynaptics="$chusr $EDITOR /etc/X11/xorg.conf.d/70-synaptics.conf" \
+    cfm="$EDITOR $XDG_CONFIG_HOME/mpv/mpv.conf" \
+    cfmi="$EDITOR $XDG_CONFIG_HOME/mpv/input.conf" \
     cfxinit="$EDITOR $XDG_CONFIG_HOME/x11/xinitrc" \
     cfxr="$EDITOR $XDG_CONFIG_HOME/x11/xresources" \
 

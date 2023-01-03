@@ -12,6 +12,9 @@ zsh/.config/zsh/.zcompdump
 rclone/
 rclone-browser/
 
+# mpv
+mpv/.config/mpv/watch_later/
+
 # scripts
 scripts/*
 scripts/polybar/polyweather*
