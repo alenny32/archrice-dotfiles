@@ -8,6 +8,9 @@ nvim-lua/.config/nvim/nvim-vimscript/plugged/
 # zsh
 zsh/.config/zsh/.zcompdump
 
+# systemd
+systemd/.config/systemd/user/default.target.wants/
+
 # rclone
 rclone/
 rclone-browser/
