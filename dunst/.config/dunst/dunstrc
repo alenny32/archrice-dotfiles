@@ -4,7 +4,7 @@
     monitor = 0
     follow = mouse
     width = 350
-    offset = 10x35
+    offset = 5x30
     progress_bar = true
     progress_bar_height = 10
     progress_bar_frame_width = 1
@@ -20,7 +20,7 @@
     # frame_color = "#61AFEF"
     # foreground = "#ABB2BF"
     # background = "#1E2127E6"
-    frame_color = "#D84931"
+    frame_color = "#f77416"
     foreground = "#f1ecde"
     background = "#0b060aE6"
     separator_color = frame
@@ -30,7 +30,7 @@
     line_height = 0
     markup = full
     # format = "<b><span color='#61AFEF'>%a\n</span>%s\n</b>%b"
-    format = "<b><span color='#D84931'>%a\n</span>%s\n</b>%b"
+    format = "<b><span color='#f77416'>%a\n</span>%s\n</b>%b"
     alignment = left
     vertical_alignment = center
     show_age_threshold = 60
