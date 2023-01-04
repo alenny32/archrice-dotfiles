@@ -3,8 +3,8 @@ Xft.dpi: 96
 ! Set cursor theme and size
 ! Cursor theme name can be found in /usr/share/icons:~/.icons:~/.local/share/icons
 /* Xcursor.theme: capitaine-cursors */
-/* Xcursor.theme: WhiteSur-cursors */
-Xcursor.theme: Posy_Cursor_Black_125_175
+Xcursor.theme: WhiteSur-cursors
+/* Xcursor.theme: Posy_Cursor_Black_125_175 */
 Xcursor.size: 32
 
 ! Sxiv configuration
