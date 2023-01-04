@@ -155,3 +155,9 @@ alias \
     mpv="devour mpv" \
     sxiv="devour sxiv" \
     zathura="devour zathura" \
+    lowriter="devour lowriter" \
+    localc="devour localc" \
+    loimpress="devour loimpress" \
+    lodraw="devour lodraw" \
+    lomath="devour lomath" \
+    lobase="devour lobase" \
