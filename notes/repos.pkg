@@ -1,0 +1,22 @@
+# paru | aur helper
+https://github.com/Morganamilo/paru.git
+
+# devour | window swallowing
+https://github.com/salman-abedin/devour.git
+
+# bspswallow | window swallowing for bspwm
+https://github.com/JopStro/bspswallow.git
+
+# dmenu | app/command launcher
+https://github.com/alenny32/dmenu.git
+
+# polybar-scripts | script for polybar
+https://github.com/polybar/polybar-scripts.git
+
+# vidir | bulk rename directory (can be installed with moreutils pkg in arch linux)
+https://github.com/trapd00r/vidir.git
+
+# all of my torrents
+git@github.com:alenny32/torrents.git
+
+# vim:ft=config
