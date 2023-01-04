@@ -83,7 +83,7 @@ if [ -n "$current" ] && [ -n "$forecast" ]; then
 
     pop=$(echo "$forecast" | jq ".list[].pop")
     pop=$(echo "$pop * 100" | bc | cut -d "." -f 1)
-    pop="🌧️ $pop%"
+    pop_display="🌧️ $pop%"
 
     if [ "$current_temp" -gt "$forecast_temp" ]; then
         trend="%{F$icon_color}ﰬ%{F-}"
@@ -96,5 +96,9 @@ if [ -n "$current" ] && [ -n "$forecast" ]; then
     # # Full
     # echo "$(get_icon "$current_icon") $current_temp$SYMBOL $trend $(get_icon "$forecast_icon") $forecast_temp$SYMBOL $pop"
     # No weather temp forecast
-    echo "$(get_icon "$current_icon") $current_temp$SYMBOL $trend $pop"
+    if [ $pop -eq 0 ] ; then
+        echo "$(get_icon "$current_icon") $current_temp$SYMBOL $trend $(get_icon "$forecast_icon") $forecast_temp$SYMBOL"
+    else
+        echo "$(get_icon "$current_icon") $current_temp$SYMBOL $trend $pop_display"
+    fi
 fi
