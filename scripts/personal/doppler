@@ -5,4 +5,4 @@ img=""https://inderaja.bmkg.go.id/Radar/$loc""_SingleLayerCRefQC.png""
 img_save_path=""/tmp/$loc""-doppler.png""
 
 curl -so "$img_save_path" "$img"
-sxiv "$img_save_path"
+devour sxiv "$img_save_path"

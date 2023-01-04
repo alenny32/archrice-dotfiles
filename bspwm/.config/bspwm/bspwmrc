@@ -10,7 +10,7 @@ $XDG_CONFIG_HOME/polybar/launch.sh &            # Status Bar (Polybar)
 nitrogen --restore &                            # Wallpaper Chooser (nitrogen)
 lxsession &                                     # Session Manager (lxsession)
 remaps &                                        # Remaps keyboard
-pgrep -c ^bspswallow$ || bspswallow &           # Window Swallowing
+# pgrep -c ^bspswallow$ || bspswallow &           # Window Swallowing
 
 ###########################################################
 #                Screen / Workspaces Setup                #
