@@ -10,13 +10,6 @@ alias \
     cdcol="cd $HOME/Documents/College" \
     dolcol="dolphin $HOME/Documents/College & disown" \
 
-# apps
-alias \
-    sshk="keychain $HOME/.ssh/id_ed25519 && source $HOME/.keychain/$HOSTNAME-sh" \
-    walbg="wal -n -i $XDG_DATA_HOME/bg" \
-    walr="wal -R" \
-
-
 # Commands that are too long. Abbreviate them!
 alias \
     sued="sudoedit" \
@@ -143,10 +136,22 @@ alias \
     xi="$chusr xbps-install" \
     xr="$chusr xbps-remove -R" \
     xq="xbps-query" \
-    z="zathura"
+    z="devour zathura"
 
 alias \
     lf="lfub" \
     magit="$EDITOR -c MagitOnly" \
     ref="shortcuts >/dev/null; source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc ; source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/zshnameddirrc" \
     weath="less -S ${XDG_CACHE_HOME:-$HOME/.cache}/weatherreport" \
+
+# apps
+alias \
+    sshk="keychain $HOME/.ssh/id_ed25519 && source $HOME/.keychain/$HOSTNAME-sh" \
+    walbg="wal -n -i $XDG_DATA_HOME/bg" \
+    walr="wal -R" \
+
+# Window swallowing (install devour from https://github.com/salman-abedin/devour)
+alias \
+    mpv="devour mpv" \
+    sxiv="devour sxiv" \
+    zathura="devour zathura" \
