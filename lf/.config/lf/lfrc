@@ -128,6 +128,13 @@ cmd mime-ask ${{
     mimeopen --ask "$f"
 }}
 
+cmd gen-preview ${{
+    case "$(file --dereference --brief --mime-type -- "$fx")" in
+        application/vnd.openxmlformats-officedocument.wordprocessingml.document) docx2txt "$fx" ;;
+        application/vnd.oasis.opendocument.text) odt2txt "$fx" > "$fx.txt";;
+    esac
+}}
+
 cmd setbg "$1"
 cmd bulkrename $vidir
 
@@ -157,6 +164,7 @@ cmd bulkrename $vidir
     map E extract
     map C copyto
     map M moveto
+    map P gen-preview
     map Tp trash-put
     map Tr trash-restore
 
@@ -178,7 +186,6 @@ cmd bulkrename $vidir
     map <c-n> push :mkdir<space>
     map V push $nvim<space>
     map Tt push $touch<space>
-
 # Shell
     map x $$f
     map X !$f
