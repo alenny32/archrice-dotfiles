@@ -9,16 +9,15 @@ timeshift
 ttf-ms-fonts
 xinit-xsession
 rclone-browser
+downgrade
 
 # Important Applications
-dataspell-jre
-dataspell
-gitkraken
 pycharm-professional
+dataspell
+dataspell-jre
 visual-studio-code-bin
 whatsapp-nativefier
 zoom
-# onlyoffice-bin
 
 # Nice to have
 python2-bin
@@ -26,9 +25,13 @@ fastfetch
 pfetch
 usbtop
 
-## Theme
-# dracula-gtk-theme
+# Laptop
+brillo
 
+## Theme
+posy-improved-cursors
+whitesur-cursor-theme-git
+sddm-sugar-candy-git
 
 ## Not needed
 # noto-fonts-emoji-apple

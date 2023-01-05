@@ -16,6 +16,7 @@ vulkan-devel
 base-devel
 arandr
 dash
+dog
 cronie
 acpi
 alacritty
@@ -72,6 +73,7 @@ sddm
 sxhkd
 papirus-icon-theme
 breeze-gtk
+breeze
 
 # Applications
 biber
@@ -118,5 +120,16 @@ zathura-djvu
 # zathura-pdf-poppler
 zathura-pdf-mupdf
 zathura-ps
+
+# Bluetooth
+blueman
+bluez
+bluez-utils
+pulseaudio-bluetooth
+
+# Laptop
+# libtool
+xf86-input-synaptics # laptop touchpad
+xf86-video-intel # intel UHD
 
 # vim:ft=cfg
