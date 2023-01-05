@@ -3,33 +3,34 @@
 # A dmenu wrapper script for system functions.
 export WM="bspwm"
 case "$(readlink -f /sbin/init)" in
-	*systemd*) ctl='systemctl' ;;
-	*) ctl='loginctl' ;;
+    *systemd*) ctl='systemctl' ;;
+    *) ctl='loginctl' ;;
 esac
 
 wmpid(){ # This function is needed if there are multiple instances of the window manager.
-	tree="$(pstree -ps $$)"
-	tree="${tree#*$WM(}"
-	echo "${tree%%)*}"
+    tree="$(pstree -ps $$)"
+    tree="${tree#*$WM(}"
+    echo "${tree%%)*}"
 }
 
 # chosen="$(printf "🔒 lock\n🚪 leave $WM\n♻️ renew $WM\n🐻 hibernate\n🔃 reboot\n🖥️ shutdown\n💤 sleep\n📺 display off" | dmenu -i -p 'Action: ')"
-# 	"♻️ renew $WM") bspc wm -r ;;
-# 	'🐻 hibernate') $ctl hibernate ;;
-# 	'💤 sleep') $ctl suspend-then-hibernate ;;
-# 	'🔃 reboot') $ctl reboot -i ;;
-# 	'🖥️ shutdown') $ctl poweroff -i ;;
-# 	'📺 display off') xset dpms force off ;;
-# 	*) exit 1 ;;
+#     "♻️ renew $WM") bspc wm -r ;;
+#     '🐻 hibernate') $ctl hibernate ;;
+#     '💤 sleep') $ctl suspend-then-hibernate ;;
+#     '🔃 reboot') $ctl reboot -i ;;
+#     '🖥️ shutdown') $ctl poweroff -i ;;
+#     '📺 display off') xset dpms force off ;;
+#     *) exit 1 ;;
 # esac
 
 chosen="$(printf "  Power Off\n  Restart\n  Suspend\n  Hibernate\n  Log Out\n  Lock" | dmenu -i -p 'Action: ')"
 case "$chosen" in
-	"  Power Off") $ctl poweroff ;;
-	"  Restart") $ctl reboot ;;
-	"  Suspend") $ctl suspend-then-hibernate ;;
-	"  Hibernate") $ctl  hibernate ;;
-	"  Log Out") bspc quit ;;
-	"  Lock") betterlockscreen -l ;;
-	*) exit 1 ;;
+    "  Power Off") $ctl poweroff ;;
+    "  Restart") $ctl reboot ;;
+    "  Suspend") $ctl suspend-then-hibernate ;;
+    "  Hibernate") $ctl  hibernate ;;
+    # "  Log Out") bspc quit ;;
+    "  Log Out") loginctl session-status | awk 'NR==1 {print $1}' | xargs loginctl terminate-session "$1" ;;
+    "  Lock") betterlockscreen -l ;;
+    *) exit 1 ;;
 esac
