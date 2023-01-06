@@ -41,6 +41,7 @@ tree
 odt2txt
 docx2txt
 wmname
+wmctrl
 xcape
 xdo
 xdotool

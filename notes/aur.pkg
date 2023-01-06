@@ -26,7 +26,9 @@ pfetch
 usbtop
 
 # Laptop
-brillo
+brillo # add $USER to 'video' group
+libinput-gestures # add $USER to 'input' group
+gestures
 
 ## Theme
 posy-improved-cursors
