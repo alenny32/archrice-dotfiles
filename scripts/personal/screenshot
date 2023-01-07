@@ -1,5 +1,7 @@
 #! /bin/sh
-output=${XDG_PICTURES_DIR:-$HOME/Pictures}/screenshots/%Y-%m-%d-%T-screenshot.png
+
+fn="%Y-%m-%d-%T-screenshot.png"
+output=${XDG_PICTURES_DIR:-$HOME/Pictures}/screenshots/$fn
 
 # if screenshot folder does not exist in pictures dir then make dir
 [ ! -d ${XDG_PICTURES_DIR:-$HOME/Pictures}/screenshots ] && mkdir -p ${XDG_PICTURES_DIR:-$HOME/Pictures}/screenshots
@@ -7,8 +9,7 @@ output=${XDG_PICTURES_DIR:-$HOME/Pictures}/screenshots/%Y-%m-%d-%T-screenshot.pn
 case "$1" in
     "select") scrot "$output" --select --line mode=edge -e 'xclip -selection clipboard -t image/png -i $f' || exit ;;
     "window") scrot "$output" --focused -e 'xclip -selection clipboard -t image/png -i $f' || exit ;;
-    "clipboard") scrot "/tmp/screenshot.png" --select --line mode=edge -e 'xclip -selection clipboard -t image/png -i $f' || exit
-        rm "/tmp/screenshot.png" ;;
+    "clipboard") scrot "/tmp/$fn" --select --line mode=edge -e 'xclip -selection clipboard -t image/png -i $f' || exit;;
     *) scrot "$output" -e 'xclip -selection clipboard -t image/png -i $f' || exit ;;
 esac
 
