@@ -35,8 +35,8 @@ plocate
 playerctl
 python-pip
 mesa-utils
+gnome-keyring
 stow
-vi
 tree
 odt2txt
 docx2txt
