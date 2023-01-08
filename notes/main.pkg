@@ -15,6 +15,7 @@ opencl-nvidia
 vulkan-devel
 base-devel
 arandr
+at
 dash
 dog
 cronie
@@ -113,6 +114,7 @@ keepassxc
 lxappearance
 qbittorrent
 qt5ct
+yt-dlp
 screenkey
 gnome-epub-thumbnailer
 zathura
