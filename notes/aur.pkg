@@ -11,6 +11,11 @@ xinit-xsession
 rclone-browser
 downgrade
 
+# mpv
+webtorrent-cli
+webtorrent-desktop-bin
+xidel
+
 # Important Applications
 pycharm-professional
 dataspell
