@@ -40,6 +40,7 @@ local o = vim.o
     o.ruler = false
     o.laststatus = 0
     o.showcmd = false
+    o.conceallevel = 2
 
 -- Better editing experience
     o.expandtab = true
