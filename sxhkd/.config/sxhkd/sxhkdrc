@@ -114,6 +114,9 @@ super + {_,shift} + w
 # Virtual Studio Code
 super + v
     code
+# mpv (paste from clipboard)
+super + shift + m
+    devour mpv "$(xclip -o)"
 # Vimwiki Index (nvim)
 super + n
     $TERMINAL -e nvim -c VimwikiIndex
@@ -135,7 +138,7 @@ super + Delete
 super + BackSpace
     dmenu-sysact
 # Mute volume
-super + shift + m
+super + alt + m
     change-volume mute
 
 # Notifications

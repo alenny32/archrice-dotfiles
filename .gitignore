@@ -17,6 +17,7 @@ rclone-browser/
 
 # mpv
 mpv/.config/mpv/watch_later/
+mpv/.config/mpv/mpvClipboard.log
 
 # scripts
 scripts/*
