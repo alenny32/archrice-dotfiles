@@ -89,19 +89,26 @@ lfcd () {
         [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
     fi
 }
-bindkey -s '^o' '^ulfcd\n'
 
-bindkey -s '^a' '^ubc -lq\n'
+# Add movement shortcut
+bindkey '^a' beginning-of-line
+bindkey -M vicmd '^a' beginning-of-line
+bindkey '^e' end-of-line
+bindkey -M vicmd '^e' end-of-line
+
+bindkey -s '^o' '^e^ulfcd\n'
+
+bindkey -s '^b' '^ubc -lq\n'
 
 bindkey -s '^f' '^ucd "$(dirname "$(fzf)")"\n'
 
 bindkey '^[[P' delete-char
 
-# Edit line in vim with ctrl-e:
+# Edit line in vim with ctrl-v:
 autoload edit-command-line; zle -N edit-command-line
-bindkey '^e' edit-command-line
+bindkey '^v' edit-command-line
 bindkey -M vicmd '^[[P' vi-delete-char
-bindkey -M vicmd '^e' edit-command-line
+bindkey -M vicmd '^v' edit-command-line
 bindkey -M visual '^[[P' vi-delete
 
 # Load syntax highlighting; should be last.
