@@ -40,6 +40,7 @@ unsetopt PROMPT_SP
 # Default programs:
 export EDITOR="nvim"
 export VISUAL="nvim"
+export TERM="alacritty"
 export TERMINAL="alacritty"
 export BROWSER="brave"
 
