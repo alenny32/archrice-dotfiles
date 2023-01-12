@@ -23,7 +23,7 @@ vim.keymap.set({'n', 'v', 'o'}, '<leader>h', ToggleHiddenAll)
 local theme = 0
 function CycleThemes()
     if theme == 0 then
-        vim.cmd('source $XDG_CONFIG_HOME/nvim/themes/onedark.vim')
+        vim.cmd('source /home/umar/.config/nvim/themes/onedark.vim')
         theme = theme + 1
     elseif theme == 1 then
         vim.cmd('source $XDG_CONFIG_HOME/nvim/themes/dracula.vim')
