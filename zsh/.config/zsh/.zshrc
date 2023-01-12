@@ -23,10 +23,7 @@ source /usr/bin/virtualenvwrapper.sh
 autoload -Uz compinit && compinit
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 
-
 ######################################################################
-
-######## Luke's config for the Zoomer Shell ########
 
 # Enable colors and change prompt:
 autoload -U colors && colors	# Load colors
