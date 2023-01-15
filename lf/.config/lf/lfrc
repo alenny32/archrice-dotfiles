@@ -197,10 +197,10 @@ cmd bulkrename $vidir
     map Y $printf "%s" "$fx" | xclip -selection clipboard
 
 # Open app
-    map <c-v> $code . &
-    map <a-V> $code "$f" &
-    map e $devour thunar . &
-    map <a-e> $devour thunar "$f" &
+    map <c-v> $code "$fx" &
+    map <a-V> $code . &
+    map e $devour thunar "$fx" &
+    map <a-e> $devour thunar . &
     map <a-m> $devour mpv --no-terminal "$f/*.mp4" &
     map <a-M> $devour mpv --no-terminal "$f" &
 
