@@ -43,7 +43,7 @@ vim.g.maplocalleader = ','
     map(i, '<C-A>', '<C-o>^')
 
 -- Quickly save the current buffer or all buffers
-    map(n, '<leader>w', '<CMD>update<CR>')
+    -- map(n, '<leader>w', '<CMD>update<CR>')
     map(n, '<leader>W', '<CMD>wall<CR>')
 
 -- Quit neovim
