@@ -43,6 +43,7 @@ cmd open ${{
         ;;
     audio/*) devour mpv --audio-display=no $f ;;
     video/*|application/vnd.rn-realmedia) setsid -f devour mpv $f -quiet >/dev/null 2>&1 ;;
+    application/zip|application/x-7z-compressed) setsid -f devour 7zFM $f >/dev/null 2>&1 ;;
     application/pdf|application/vnd.djvu|application/epub*) setsid -f devour zathura $fx >/dev/null 2>&1 ;;
     application/pgp-encrypted) $EDITOR $fx ;;
     application/vnd.openxmlformats-officedocument.wordprocessingml.document|application/vnd.oasis.opendocument.text) setsid -f devour lowriter $fx >/dev/null 2>&1 ;;
