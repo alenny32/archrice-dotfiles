@@ -23,6 +23,7 @@ acpi
 alacritty
 alsa-utils
 cups
+hplip
 poppler
 perl-file-mimeinfo
 networkmanager
@@ -69,6 +70,7 @@ nitrogen
 network-manager-applet
 picom
 polybar
+system-config-printer
 pavucontrol
 pulsemixer
 python-pywal
