@@ -17,6 +17,7 @@
     horizontal_padding = 15
     text_icon_padding = 15
     frame_width = 2
+    highlight = "#f77416"
     # frame_color = "#61AFEF"
     # foreground = "#ABB2BF"
     # background = "#1E2127E6"
