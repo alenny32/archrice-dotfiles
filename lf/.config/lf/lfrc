@@ -160,6 +160,10 @@ cmd bulkrename $vidir
     map <c-s> set hidden!
     map <enter> shell
 
+# Unbind default key bindings
+    map <c-m>
+    map <c-M>
+
 # Function
     map D delete
     map E extract
@@ -204,6 +208,7 @@ cmd bulkrename $vidir
     map <a-e> $devour thunar . &
     map <a-m> $devour mpv --no-terminal "$f/*.mp4" &
     map <a-M> $devour mpv --no-terminal "$f" &
+    map <a-,> push $devour<space>mpv<space>--no-terminal<space>"$f/*."<space>&<left><left><left>
 
 # Rename
     map A rename # at the very end
