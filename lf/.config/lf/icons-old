@@ -158,3 +158,5 @@ ex  :
 *.xspf  :
 *.pdf  :
 *.nix  :
+
+# vim:ft=config

@@ -37,16 +37,16 @@ ex  
 *.m4a   
 *.flac  
 *.wav   
-*.mkv   
-*.mp4   
-*.webm  
-*.mpeg  
-*.avi   
-*.mov   
-*.mpg   
-*.wmv   
-*.m4b   
-*.flv   
+*.mkv	🎥
+*.mp4	🎥
+*.webm	🎥
+*.mpeg	🎥
+*.avi	🎥
+*.mov	🎥
+*.mpg	🎥
+*.wmv	🎥
+*.m4b	🎥
+*.flv	🎥
 *.zip   📦
 *.rar   📦
 *.7z    📦
@@ -69,6 +69,16 @@ ex  
 *.ged   👪
 *.part  💔
 *.torrent 🔽
+# *.mkv   
+# *.mp4   
+# *.webm  
+# *.mpeg  
+# *.avi   
+# *.mov   
+# *.mpg   
+# *.wmv   
+# *.m4b   
+# *.flv   
 
 # file extensions (vim-devicons)
 *.styl          
