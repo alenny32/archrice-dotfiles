@@ -23,7 +23,7 @@ wmpid(){ # This function is needed if there are multiple instances of the window
 #     *) exit 1 ;;
 # esac
 
-chosen="$(printf " Power Off\n Restart\n Suspend\n Hibernate\n Log Out\n Lock" | dmenu -i -nb "#0b060a" -nf "#f77416" -sb "#f77416" -p 'Action: ')"
+chosen="$(printf " Power Off\n Restart\n Suspend\n Hibernate\n Log Out\n Lock" | dmenu -i -nb "#0b060a" -nf "#f77416" -sb "#f77416" -p 'Action:')"
 case "$chosen" in
     " Power Off") $ctl poweroff ;;
     " Restart") $ctl reboot ;;

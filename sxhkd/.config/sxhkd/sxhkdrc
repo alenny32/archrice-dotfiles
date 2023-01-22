@@ -4,7 +4,7 @@
 
 # Quit || Restart bspwm
 ctrl + alt + {q,r}
-    {prompt "Are you sure you would like to quit this Xsession" "bspc quit",bspc wm -r}
+    {prompt "Log out?" "bspc quit","bspc wm -r"}
 # Close and kill window
 super + {_,shift + }q
     bspc node -{c,k}
