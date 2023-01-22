@@ -18,7 +18,7 @@
 # Basic vars
 set shellopts '-eu'
 set ifs "\n"
-set scrolloff 10
+set scrolloff 8
 set icons
 set period 1
 set hiddenfiles ".*:*.aux:*.log:*.bbl:*.bcf:*.blg:*.run.xml"
