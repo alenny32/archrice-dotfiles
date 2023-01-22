@@ -161,8 +161,8 @@ cmd bulkrename $vidir
     map <enter> shell
 
 # Unbind default key bindings
-    map <c-m>
-    map <c-M>
+    # map <c-m>
+    # map <c-M>
 
 # Function
     map D delete

@@ -43,7 +43,7 @@ case "$(file --dereference --brief --mime-type -- "$1")" in
         image "$CACHE.jpg" "$2" "$3" "$4" "$5" "$1"
         ;;
     application/vnd.oasis.opendocument.text) odt2txt "$1";;
-    application/*zip) atool --list -- "$1" ;;
+    application/*zip|application/x-7z-compressed) atool --list -- "$1" ;;
     application/pgp-encrypted) gpg -d -- "$1" ;;
 esac
 exit 1
