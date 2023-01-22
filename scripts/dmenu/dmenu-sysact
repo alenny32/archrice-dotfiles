@@ -23,14 +23,14 @@ wmpid(){ # This function is needed if there are multiple instances of the window
 #     *) exit 1 ;;
 # esac
 
-chosen="$(printf "  Power Off\n  Restart\n  Suspend\n  Hibernate\n  Log Out\n  Lock" | dmenu -i -p 'Action: ')"
+chosen="$(printf " Power Off\n Restart\n Suspend\n Hibernate\n Log Out\n Lock" | dmenu -i -nb "#0b060a" -nf "#f77416" -sb "#f77416" -p 'Action: ')"
 case "$chosen" in
-    "  Power Off") $ctl poweroff ;;
-    "  Restart") $ctl reboot ;;
-    "  Suspend") $ctl suspend-then-hibernate ;;
-    "  Hibernate") $ctl  hibernate ;;
-    # "  Log Out") bspc quit ;;
-    "  Log Out") loginctl session-status | awk 'NR==1 {print $1}' | xargs loginctl terminate-session "$1" ;;
-    "  Lock") betterlockscreen -l ;;
+    " Power Off") $ctl poweroff ;;
+    " Restart") $ctl reboot ;;
+    " Suspend") $ctl suspend-then-hibernate ;;
+    " Hibernate") $ctl  hibernate ;;
+    # " Log Out") bspc quit ;;
+    " Log Out") loginctl session-status | awk 'NR==1 {print $1}' | xargs loginctl terminate-session "$1" ;;
+    " Lock") betterlockscreen -l ;;
     *) exit 1 ;;
 esac

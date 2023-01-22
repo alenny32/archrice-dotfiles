@@ -149,6 +149,10 @@ alias \
     sshk="keychain $HOME/.ssh/id_ed25519 && source $HOME/.keychain/$HOSTNAME-sh" \
     walbg="wal -n -i $XDG_DATA_HOME/bg" \
     walr="wal -R" \
+    dmenu='dmenu -i -nb "#0b060a" -nf "#f77416" -sb "#f77416"' \
+    dmenu_run='dmenu_run -i -nb "#0b060a" -nf "#f77416" -sb "#f77416"' \
+    dm='dmenu' \
+    dr='dmenu_run' \
 
 # Window swallowing (install devour from https://github.com/salman-abedin/devour)
 alias \

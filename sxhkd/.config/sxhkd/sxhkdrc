@@ -95,7 +95,7 @@ super + {_,shift} + Return
     {$TERMINAL,guake}
 # Program launcher (dmenu) | Password manager (keepassxc)
 super + {_,shift} + d
-    {dmenu_run,keepassxc}
+    {dmenu_run -i -nb "#0b060a" -nf "#f77416" -sb "#f77416",keepassxc}
 # make sxhkd reload its configuration files:
 alt + Escape
     pkill -USR1 -x sxhkd
@@ -167,4 +167,4 @@ XF86MonBrightness{Up,Down}
     change-brightness {up,down}
 # Media control
 XF86Audio{Play,Stop,Prev,Next}
-	playerctl {play-pause,stop,previous,next}
+    playerctl {play-pause,stop,previous,next}
