@@ -38,6 +38,7 @@ playerctl
 python-pip
 mesa-utils
 gnome-keyring
+gvfs
 stow
 tree
 odt2txt
