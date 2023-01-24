@@ -35,6 +35,7 @@ local o = vim.o
     o.go = 'a'
     o.mouse = 'a'
     o.hlsearch = true
+    o.linebreak = true
     o.clipboard = 'unnamedplus'
     o.showmode = false
     o.ruler = false
