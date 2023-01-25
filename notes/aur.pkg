@@ -9,6 +9,8 @@ ttf-ms-fonts
 xinit-xsession
 rclone-browser
 downgrade
+secure-delete
+thunar-secure-delete
 
 # mpv
 webtorrent-cli
