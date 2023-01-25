@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+for file in "${@:2}" ; do
+    dir=${file%/*}
+    base="${file%.*}"
+    ext="${file##*.}"
+
+    mime_type=$(file -bh --mime-type "$file")
+    if [[ "$mime_type" == "inode/directory" ]] ; then
+        7z a "$file.7z" "$file"
+        srm -r "$file"
+        file="$file.7z"
+    fi
+
+    case $ext in
+        gpg) gpg -o "$base" -d "$file" ;;
+        *) case $1 in
+                umar) gpg -r umar -e "$file" ;;
+                *) gpg -e "$file" ;;
+            esac ;;
+    esac
+
+    srm -r "$file"
+done

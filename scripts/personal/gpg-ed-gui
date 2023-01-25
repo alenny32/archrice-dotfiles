@@ -1,0 +1,95 @@
+#!/usr/bin/env bash
+
+CONFIRM="N"
+ICON="gcr-gnupg"
+SCRIPT="gpg-ed-gui"
+TITLE="GPG Encrypt/Decrypt"
+
+exit_with_error(){
+  local -i win_length=45
+  local -i win_height=8
+  echo 1>&2 "${SCRIPT}: ERROR: ${2}"
+  notify-send --icon ${ICON} "${TITLE}: ERROR!" "${2} (${1})"
+  Xdialog --icon ${ICON} --title ${TITLE} --msgbox "${2} (${1})" ${win_height} ${win_length}
+  exit ${1}
+}
+
+exit_with_error_soft(){
+  echo 1>&2 "${SCRIPT}: ERROR: ${2}"
+  notify-send --icon ${ICON} "${TITLE}: ERROR!" "${2} (${1})"
+  exit ${1}
+}
+
+confirm_delete() {
+  # Ask user confirmation before irrecovably wiping files. Probably most
+  # important, if not sole reason for this script.
+  local -i win_length=45
+  local -i win_height=8
+  local -i exit_code=0
+  case ${NUM_FILES} in
+   0)
+     exit_with_error 2 "No Files to Delete, exiting"
+     ;;
+   *)
+    Xdialog --icon ${ICON} --title ${TITLE} --yesno "Encrypt/Decrypt ${NUM_FILES} File(s)?" ${win_height} ${win_length}
+    exit_code=${?}
+    ;;
+  esac
+
+  case ${exit_code} in
+   0)
+    CONFIRM="Y"
+    ;;
+   *)
+    CONFIRM="N"
+    ;;
+  esac
+}
+
+notify_complete() {
+  # libnotify end results
+  local -i win_length=45
+  local -i win_height=8
+  local -i complete_files=$((${NUM_FILES} - ${FILE_FAILS}))
+  case ${FILE_FAILS} in
+   0)
+    notify-send --icon ${ICON} "${TITLE}" "Finished Encrypt/Decrypt ${NUM_FILES} File(s)"
+    exit 0
+    ;;
+   *)
+    notify-send --icon ${ICON} "${TITLE}" "Finished Encrypt/Decrypt ${complete_files} File(s). Unable to Encrypt/Decrypt ${FILE_FAILS} file(s)"
+    exit 1
+    ;;
+  esac
+}
+
+main() {
+  declare IN_FILES=("${@:2}")
+  declare -a ED_FILES
+  declare -a ED_DIRS
+  declare -i NUM_FILES=0
+  declare -i FILE_FAILS=0
+  declare -i DIR_FAILS=0
+
+  local -a file_array
+  for file in "${IN_FILES[@]}";do
+    readarray file_array <<< $(find "${file}" -type f )
+    ED_FILES+=("${file_array[@]}")
+    readarray file_array <<< $(find "${file}" -type d )
+    ED_DIRS+=("${file_array[@]}")
+  done
+  NUM_FILES=${#ED_FILES[@]}
+  [ -z ${IN_FILES} ] && exit_with_error 4 "Nothing Specified, nothing to do!"
+
+  confirm_delete
+
+  # do the encrypt / decrypt
+  if [ ${CONFIRM} == "Y" ];then
+    gpg-ed $1 ${IN_FILES[@]}
+  else
+    exit_with_error_soft 4 "User Canceled"
+  fi
+  # Then notify the user the result
+  notify_complete
+}
+main "${@}"

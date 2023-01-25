@@ -63,6 +63,7 @@ cmd trash-restore ${{
     clear; tput cup $(($(tput lines)/3)); tput bold
     trash-restore
 }}
+
 cmd trash-put ${{
     clear; tput cup $(($(tput lines)/3)); tput bold
     set -f
@@ -149,6 +150,14 @@ cmd bulkrename $vidir
 #     read ans
 #     cp ${XDG_TEMPLATES_DIR:-$HOME/Templates}/LaTeX.tex $ans.tex
 # }}
+cmd confirm_gpg ${{
+    clear; tput cup $(($(tput lines)/3))
+    set -f
+    printf "%s\n\t" "$fx" ; tput bold
+    printf "GPG Encrypt/Decrypt? [y/N] " ; tput sgr0
+    read ans
+    [ $ans = "y" ] && gpg-ed $1 $fx
+}}
 
 # Bindings
     map <c-f> $lf -remote "send $id select \"$(fzf)\""
@@ -202,13 +211,14 @@ cmd bulkrename $vidir
     map Y $printf "%s" "$fx" | xclip -selection clipboard
 
 # Open app
-    map <c-v> $code "$fx" &
-    map <a-V> $code . &
-    map e $devour thunar "$fx" &
-    map <a-e> $devour thunar . &
-    map <a-m> $devour mpv --no-terminal "$f/*.mp4" &
-    map <a-M> $devour mpv --no-terminal "$f" &
-    map <a-,> push $devour<space>mpv<space>--no-terminal<space>"$f/*."<space>&<left><left><left>
+    map <c-v>f $code "$fx" &
+    map <c-v>v $code . &
+    map e
+    map ef $devour thunar "$fx" &
+    map ee $devour thunar . &
+    map <a-m>m $devour mpv --no-terminal "$f/*.mp4" &
+    map <a-m>M $devour mpv --no-terminal "$f" &
+    map <a-m>, push $devour<space>mpv<space>--no-terminal<space>"$f/*."<space>&<left><left><left>
 
 # Rename
     map A rename # at the very end
@@ -217,6 +227,10 @@ cmd bulkrename $vidir
     map i push A<a-b><a-b><a-f> # before extension
     map a push A<a-b> # after extension
     map B bulkrename
+
+# gpg
+    map <c-g>g confirm_gpg umar
+    map <c-g>u confirm_gpg unspecified
 
 # Copy template
     # LaTeX
