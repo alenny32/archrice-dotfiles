@@ -87,7 +87,6 @@ breeze
 biber
 moreutils
 atool
-pandoc
 ffmpegthumbnailer
 ffmpeg
 lf

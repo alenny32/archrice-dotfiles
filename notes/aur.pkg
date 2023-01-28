@@ -1,8 +1,10 @@
 # Essentials
 brave-bin
 ttf-apple-emoji
+dmenu-emoji
 p7zip-gui
-paru
+paru-bin
+pandoc-bin
 sddm-sugar-candy-git
 timeshift
 ttf-ms-fonts
@@ -23,6 +25,7 @@ webtorrent-desktop-bin
 xidel
 
 # Important Applications
+anki-bin
 pycharm-professional
 postman-bin
 dataspell
@@ -48,6 +51,8 @@ whitesur-cursor-theme-git
 sddm-sugar-candy-git
 
 ## Not needed
+# ttf-twemoji
+# ttf-twemoji-color
 # noto-fonts-emoji-apple
 # httpdirfs
 
