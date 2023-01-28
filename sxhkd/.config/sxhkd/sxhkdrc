@@ -102,12 +102,12 @@ alt + Escape
 # Restart polybar
 super + shift + p
     polybar-msg cmd restart
-# Open file manager (thunar) | system monitor (btop)
-super + {_,shift} + e
-    {thunar,$TERMINAL -e btop}
-# Open file manager (lf)
+# System monitor (btop)
+super + shift + e
+    devour $TERMINAL -e btop
+# Open file manager (lf, thunar)
 super + {_,shift} + r
-    $TERMINAL -e lfub
+    {$TERMINAL -e lfub,thunar}
 # Web browser (brave) | Wireless network manager (nmtui)
 super + {_,shift} + w
     {$BROWSER,$TERMINAL -e nmtui}
@@ -137,6 +137,9 @@ super + Delete
 # Sytem action
 super + BackSpace
     dmenu-sysact
+# Emoji selector
+super + e
+    dmenu-emoji-selector
 # Mute volume
 super + alt + m
     change-volume mute

@@ -33,7 +33,11 @@ alias \
     ga="git add" \
     gc="git commit" \
     gcm="git commit -m" \
+    gca="git commit -a" \
+    gcad="git commit --amend" \
+    gcaa="git commit --amend -a" \
     gcam="git commit -am" \
+    gcaam="git commit --amend -am" \
     gd="git diff" \
     gf="git fetch" \
     gp="git push" \
