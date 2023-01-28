@@ -59,16 +59,16 @@ cmd open ${{
 cmd mkdir $mkdir -p "$(echo $* | tr ' ' '\ ')"
 
 # Trash bindings
-cmd trash-restore ${{
+cmd trash_restore ${{
     clear; tput cup $(($(tput lines)/3)); tput bold
     trash-restore
 }}
 
-cmd trash-put ${{
+cmd trash_put ${{
     clear; tput cup $(($(tput lines)/3)); tput bold
     set -f
     printf "%s\n\t" "$fx"
-    printf "trash?[y/N]"
+    printf "trash? [y/N] "
     read ans
     [ $ans = "y" ] &&
 
@@ -89,7 +89,7 @@ cmd extract ${{
     clear; tput cup $(($(tput lines)/3)); tput bold
     set -f
     printf "%s\n\t" "$fx"
-    printf "extract?[y/N]"
+    printf "extract? [y/N] "
     read ans
     [ $ans = "y" ] && aunpack $fx
 }}
@@ -98,9 +98,18 @@ cmd delete ${{
     clear; tput cup $(($(tput lines)/3)); tput bold
     set -f
     printf "%s\n\t" "$fx"
-    printf "delete?[y/N]"
+    printf "delete? [y/N] "
     read ans
     [ $ans = "y" ] && rm -rf -- $fx
+}}
+
+cmd delete_secure ${{
+    clear; tput cup $(($(tput lines)/3)); tput bold
+    set -f
+    printf "%s\n\t" "$fx"
+    printf "Securely delete? [y/N] "
+    read ans
+    [ $ans = "y" ] && srm -r -- $fx
 }}
 
 cmd moveto ${{
@@ -125,12 +134,12 @@ cmd copyto ${{
     notify-send "📋 File(s) copied." "File(s) copies to $dest."
 }}
 
-cmd mime-ask ${{
+cmd mime_ask ${{
     clear; tput cup $(($(tput lines)/3));
     mimeopen --ask "$f"
 }}
 
-cmd gen-preview ${{
+cmd gen_preview ${{
     case "$(file --dereference --brief --mime-type -- "$fx")" in
         application/vnd.openxmlformats-officedocument.wordprocessingml.document) docx2txt "$fx" ;;
         application/vnd.oasis.opendocument.text) odt2txt "$fx" > "$fx.txt";;
@@ -175,12 +184,13 @@ cmd confirm_gpg ${{
 
 # Function
     map D delete
+    map S delete_secure
     map E extract
     map C copyto
     map M moveto
-    map P gen-preview
-    map Tp trash-put
-    map Tr trash-restore
+    map P gen_preview
+    map Tp trash_put
+    map Tr trash_restore
 
 # Movement
     map gg top
@@ -205,7 +215,7 @@ cmd confirm_gpg ${{
     map x $$f
     map X !$f
     map o &mimeopen "$f"
-    map O mime-ask
+    map O mime_ask
     map b $setbg $f &
     map W $setsid -f $TERMINAL >/dev/null 2>&1
     map Y $printf "%s" "$fx" | xclip -selection clipboard

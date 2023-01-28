@@ -97,6 +97,10 @@ texlive-most
 texlive-lang
 syncthing
 thunar
+thunar-archive-plugin
+xarchiver
+thunar-media-tags-plugin
+thunar-volman
 pcmanfm-gtk3
 sxiv
 libreoffice-fresh
