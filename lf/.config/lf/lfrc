@@ -60,15 +60,16 @@ cmd mkdir $mkdir -p "$(echo $* | tr ' ' '\ ')"
 
 # Trash bindings
 cmd trash_restore ${{
-    clear; tput cup $(($(tput lines)/3)); tput bold
+    clear; tput cup $(($(tput lines)/3))
     trash-restore
 }}
 
 cmd trash_put ${{
     clear; tput cup $(($(tput lines)/3)); tput bold
+    printf "\tTrash put:\n" ; tput sgr0
     set -f
-    printf "%s\n\t" "$fx"
-    printf "trash? [y/N] "
+    printf "%s\n\t" "$fx" ; tput bold
+    printf "Trash? [y/N] "
     read ans
     [ $ans = "y" ] &&
 
@@ -176,7 +177,7 @@ cmd confirm_gpg ${{
     clear; tput cup $(($(tput lines)/3))
     set -f
     printf "%s\n\t" "$fx" ; tput bold
-    printf "GPG Encrypt/Decrypt? [y/N] " ; tput sgr0
+    printf "GPG Encrypt/Decrypt? [y/N] "
     read ans
     [ $ans = "y" ] && gpg-ed $1 $fx
 }}
@@ -189,6 +190,8 @@ cmd confirm_gpg ${{
     map zc clear
     map <c-r> reload
     map <c-s> set hidden!
+    map <c-h> set hidden!
+    map . set hidden!
     map <enter> shell
 
 # Unbind default key bindings
