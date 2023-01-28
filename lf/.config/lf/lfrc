@@ -52,7 +52,7 @@ cmd open ${{
     application/vnd.oasis.opendocument.graphics|application/vnd.oasis.opendocument.graphics-template) setsid -f devour lodraw $fx >/dev/null 2>&1 ;;
     application/vnd.oasis.opendocument.formula) setsid -f devour lomath $fx >/dev/null 2>&1 ;;
     application/vnd.oasis.opendocument.database) setsid -f devour lobase $fx >/dev/null 2>&1 ;;
-        *) for f in $fx; do setsid -f $OPENER $f >/dev/null 2>&1; done;;
+        *) for f in $fx; do setsid -f $OPENER $f >/dev/null 2>&1; done ;;
     esac
 }}
 
@@ -86,29 +86,42 @@ cmd trash_put ${{
 }}
 
 cmd extract ${{
-    clear; tput cup $(($(tput lines)/3)); tput bold
+    clear; tput cup $(($(tput lines)/3)) ; tput bold
+    printf "\tExtract files:\n" ; tput sgr0
     set -f
-    printf "%s\n\t" "$fx"
-    printf "extract? [y/N] "
-    read ans
+    printf "%s\n\t" "$fx" ; tput bold
+    printf "Extract? [y/N] "
+    read ans ; tput sgr0
     [ $ans = "y" ] && aunpack $fx
 }}
 
-cmd delete ${{
-    clear; tput cup $(($(tput lines)/3)); tput bold
+cmd archive ${{
+    clear; tput cup $(($(tput lines)/3)) ; tput bold
+    printf "\tArchive files (7z):\n" ; tput sgr0
     set -f
-    printf "%s\n\t" "$fx"
-    printf "delete? [y/N] "
-    read ans
+    printf "%s\n\t" "$fx" ; tput bold
+    printf "Archive name: "
+    read name ; tput sgr0
+    7z a "${name}.7z" $fx
+}}
+
+cmd delete ${{
+    clear; tput cup $(($(tput lines)/3)) ; tput bold
+    printf "\tDelete files:\n" ; tput sgr0
+    set -f
+    printf "%s\n\t" "$fx"; tput bold
+    printf "Delete? [y/N] "
+    read ans ; tput sgr0
     [ $ans = "y" ] && rm -rf -- $fx
 }}
 
 cmd delete_secure ${{
-    clear; tput cup $(($(tput lines)/3)); tput bold
+    clear; tput cup $(($(tput lines)/3)) ; tput bold
+    printf "\tSecure delete files:\n" ; tput sgr0
     set -f
-    printf "%s\n\t" "$fx"
+    printf "%s\n\t" "$fx" ; tput bold
     printf "Securely delete? [y/N] "
-    read ans
+    read ans ; tput sgr0
     [ $ans = "y" ] && srm -r -- $fx
 }}
 
@@ -135,7 +148,7 @@ cmd copyto ${{
 }}
 
 cmd mime_ask ${{
-    clear; tput cup $(($(tput lines)/3));
+    clear; tput cup $(($(tput lines)/3))
     mimeopen --ask "$f"
 }}
 
@@ -183,14 +196,15 @@ cmd confirm_gpg ${{
     # map <c-M>
 
 # Function
+    map Z archive
     map D delete
     map S delete_secure
     map E extract
     map C copyto
     map M moveto
     map P gen_preview
-    map Tp trash_put
-    map Tr trash_restore
+    map T trash_put
+    map R trash_restore
 
 # Movement
     map gg top
@@ -210,7 +224,8 @@ cmd confirm_gpg ${{
 # New
     map <c-n> push :mkdir<space>
     map V push $nvim<space>
-    map Tt push $touch<space>
+    # map Tt push $touch<space>
+
 # Shell
     map x $$f
     map X !$f
@@ -244,7 +259,7 @@ cmd confirm_gpg ${{
 
 # Copy template
     # LaTeX
-        map TTl push $cp<space>${XDG_TEMPLATES_DIR:-$HOME/Templates}/LaTeX.tex<space>.tex<left><left><left><left>
+        # map TTl push $cp<space>${XDG_TEMPLATES_DIR:-$HOME/Templates}/LaTeX.tex<space>.tex<left><left><left><left>
 
 # Source Bookmarks
     # source "~/.config/lf/shortcutrc"
