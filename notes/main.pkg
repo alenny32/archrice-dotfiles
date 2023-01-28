@@ -50,6 +50,7 @@ xdo
 xdotool
 xorg
 xclip
+xdialog
 zsh
 usbutils
 shellcheck
@@ -99,8 +100,10 @@ syncthing
 thunar
 thunar-archive-plugin
 xarchiver
-thunar-media-tags-plugin
 thunar-volman
+thunar-media-tags-plugin
+catfish
+zeitgeist
 pcmanfm-gtk3
 sxiv
 libreoffice-fresh

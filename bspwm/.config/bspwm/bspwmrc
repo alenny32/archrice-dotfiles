@@ -63,6 +63,7 @@ bspc rule -a Guake state=floating
 bspc rule -a KeePassXC state=floating
 bspc rule -a rclone-browser state=floating
 bspc rule -a Xdialog state=floating
+bspc rule -a Catfish state=floating
 
 bspc rule -a mpv state=fullscreen
 

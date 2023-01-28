@@ -10,7 +10,12 @@ xinit-xsession
 rclone-browser
 downgrade
 secure-delete
+
+# Thunar
 thunar-secure-delete
+# pick one of these 2
+tumbler-extra-thumbnailers
+tumbler-folder-thumbnailer
 
 # mpv
 webtorrent-cli
