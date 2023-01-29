@@ -1,6 +1,5 @@
 # Umar's lf settings (nyolong)
 
-
 # Note on Image Previews
 # For those wanting image previews, like this system, there are four steps to
 # set it up. These are done automatically for LARBS users, but I will state
@@ -156,7 +155,7 @@ cmd mime_ask ${{
 cmd gen_preview ${{
     case "$(file --dereference --brief --mime-type -- "$fx")" in
         application/vnd.openxmlformats-officedocument.wordprocessingml.document) docx2txt "$fx" ;;
-        application/vnd.oasis.opendocument.text) odt2txt "$fx" > "$fx.txt";;
+        application/vnd.oasis.opendocument.text) odt2txt "$fx" > "${fx}.txt";;
     esac
 }}
 
@@ -173,13 +172,22 @@ cmd bulkrename $vidir
 #     read ans
 #     cp ${XDG_TEMPLATES_DIR:-$HOME/Templates}/LaTeX.tex $ans.tex
 # }}
+
 cmd confirm_gpg ${{
-    clear; tput cup $(($(tput lines)/3))
+    user_id="$1"
+    clear; tput cup $(($(tput lines)/3)); tput bold
+    printf "\tGPG Encrypt/Decrypt"
+    [ "$user_id" = "umar" ] && printf " using Umar's key"; printf ":\n"; tput sgr0
     set -f
-    printf "%s\n\t" "$fx" ; tput bold
-    printf "GPG Encrypt/Decrypt? [y/N] "
-    read ans
-    [ $ans = "y" ] && gpg-ed $1 $fx
+    printf "%s\n" "$fx"; tput bold
+    if [ "$user_id" = "prompt" ]; then
+        printf "\tEnter reciepient's GPG key user id (email or name): "
+        read gpg_user_id
+        user_id="$gpg_user_id"
+    fi
+    printf "\tEncrypt/Decrypt? [y/N] "
+    read ans ; printf "\n"; tput sgr0
+    [ $ans = "y" ] && gpg-ed "$user_id" $fx
 }}
 
 # Bindings
@@ -256,9 +264,10 @@ cmd confirm_gpg ${{
     map a push A<a-b> # after extension
     map B bulkrename
 
-# gpg
-    map <c-g>g confirm_gpg umar
-    map <c-g>u confirm_gpg unspecified
+# GPG
+    map <c-g> confirm_gpg umar
+    map <a-g> confirm_gpg prompt
+    map <a-G> confirm_gpg unspecified
 
 # Copy template
     # LaTeX

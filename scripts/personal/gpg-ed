@@ -1,24 +1,36 @@
 #!/usr/bin/env bash
 
+## THC(Van Hausen)'s Secure Delete
+SRM_PROG="srm"
+SRM_OPTS="-lr"
+
+## GNU Shred from coreutils
+# SRM_PROG=shred
+# SRM_OPTS="--remove=wipesync -f -n2"
+
 for file in "${@:2}" ; do
     dir=${file%/*}
     base="${file%.*}"
     ext="${file##*.}"
 
-    mime_type=$(file -bh --mime-type "$file")
-    if [[ "$mime_type" == "inode/directory" ]] ; then
-        7z a "$file.7z" "$file"
-        srm -r "$file"
-        file="$file.7z"
+    mime_type=$(file -bh --mime-type "${file}")
+    if [ "$mime_type" = "inode/directory" ] ; then
+        7z a "${file}.7z" "${file}"
+        ${SRM_PROG} ${SRM_OPTS} "${file}"
+        file="${file}.7z"
     fi
 
-    case $ext in
-        gpg) gpg -o "$base" -d "$file" ;;
-        *) case $1 in
-                umar) gpg -r umar -e "$file" ;;
-                *) gpg -e "$file" ;;
-            esac ;;
+    case "${ext}" in
+        gpg)
+            gpg -o "$base" -d "${file}"
+            # only trash the encrypted file (if decrypting fail, user can restore the file)
+            # trash-put "${file}"
+            ;;
+        *)
+            case "$1" in
+                "unspecified") gpg -e "${file}" ;;
+                *) gpg -r "$1" -e "${file}" ;;
+            esac
+            ${SRM_PROG} ${SRM_OPTS} "${file}" ;;
     esac
-
-    srm -r "$file"
 done
