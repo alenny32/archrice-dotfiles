@@ -13,6 +13,7 @@ nvidia-settings
 nvidia-prime
 opencl-nvidia
 vulkan-devel
+volumeicon
 base-devel
 arandr
 at

@@ -4,12 +4,13 @@
 #                    Autostart Scripts                    #
 ###########################################################
 
-"${XDG_CONFIG_HOME}"/sxhkd/launch.sh &              # Hotkey Daemon (sxhkd)
-"${XDG_CONFIG_HOME}"/picom/launch.sh &              # Window Compositor (picom)
-"${XDG_CONFIG_HOME}"/polybar/launch.sh &            # Status Bar (Polybar)
+"${XDG_CONFIG_HOME}"/sxhkd/launch.sh &          # Hotkey Daemon (sxhkd)
+"${XDG_CONFIG_HOME}"/picom/launch.sh &          # Window Compositor (picom)
+"${XDG_CONFIG_HOME}"/polybar/launch.sh &        # Status Bar (Polybar)
 nitrogen --restore &                            # Wallpaper Chooser (nitrogen)
 lxsession &                                     # Session Manager (lxsession)
 remaps &                                        # Remaps keyboard
+volumeicon &                                    # volume icon in system tray
 # pgrep -c ^bspswallow$ || bspswallow &           # Window Swallowing
 
 ###########################################################
