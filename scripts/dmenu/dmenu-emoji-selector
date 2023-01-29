@@ -1,3 +1,6 @@
 #!/bin/sh
 
-dmenu-emoji | dmenu -i -nb "#0b060a" -nf "#f77416" -sb "#f77416" -l 8 | awk '{print $1}' | xclip -selection clipboard
+# source Xresources colors
+. "${XDG_DATA_HOME:-${HOME}/.local/share}/xcolors"
+
+dmenu-emoji | dmenu -i -nb "${color0}" -nf "${color3}" -sb "${color3}" -l 8 | awk '{print $1}' | xclip -selection clipboard
