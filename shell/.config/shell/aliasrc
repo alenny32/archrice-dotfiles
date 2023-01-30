@@ -2,7 +2,8 @@
 
 # Umar's config for aliases in zsh
 
-chusr="doas"
+# chusr="doas"
+chusr="sudo"
 
 # Go into directory
 alias \
