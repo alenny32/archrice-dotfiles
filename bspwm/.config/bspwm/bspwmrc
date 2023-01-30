@@ -10,8 +10,9 @@
 nitrogen --restore &                            # Wallpaper Chooser (nitrogen)
 lxsession &                                     # Session Manager (lxsession)
 remaps &                                        # Remaps keyboard
-volumeicon &                                    # volume icon in system tray
+killall -9 volumeicon; volumeicon &             # volume icon in system tray
 # pgrep -c ^bspswallow$ || bspswallow &           # Window Swallowing
+
 
 ###########################################################
 #                Screen / Workspaces Setup                #

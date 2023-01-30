@@ -53,6 +53,8 @@ xdotool
 xorg
 xclip
 xdialog
+xdg-desktop-portal
+xdg-desktop-portal-gtk
 zsh
 usbutils
 shellcheck

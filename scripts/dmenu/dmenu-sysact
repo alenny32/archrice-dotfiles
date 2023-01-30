@@ -26,10 +26,10 @@ wmpid(){ # This function is needed if there are multiple instances of the window
 #     *) exit 1 ;;
 # esac
 
-chosen="$(printf " Power Off\n Restart\n Suspend\n Hibernate\n Log Out\n Lock" | dmenu -i -nb "${color0}" -nf "${color3}" -sb "${color3}" -p 'Action:')"
+chosen="$(printf " Power Off\n Reboot\n Suspend\n Hibernate\n Log Out\n Lock" | dmenu -i -nb "${color0}" -nf "${color3}" -sb "${color3}" -p 'Action:')"
 case "$chosen" in
     " Power Off") $ctl poweroff ;;
-    " Restart") $ctl reboot ;;
+    " Reboot") $ctl reboot ;;
     " Suspend") $ctl suspend-then-hibernate ;;
     " Hibernate") $ctl  hibernate ;;
     # " Log Out") bspc quit ;;
