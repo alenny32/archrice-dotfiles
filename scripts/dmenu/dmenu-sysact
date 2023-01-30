@@ -34,6 +34,6 @@ case "$chosen" in
     " Hibernate") $ctl  hibernate ;;
     # " Log Out") bspc quit ;;
     " Log Out") loginctl session-status | awk 'NR==1 {print $1}' | xargs loginctl terminate-session "$1" ;;
-    " Lock") betterlockscreen -l ;;
+    " Lock") betterlockscreen -l blur ;;
     *) exit 1 ;;
 esac

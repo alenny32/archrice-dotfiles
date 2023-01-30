@@ -124,7 +124,7 @@ super + n
 super + shift + s
     rclone-browser
 # Zoom
-super + z
+super + alt + z
     zoom && bspc desktop -f 4
 
 ########################
@@ -137,6 +137,12 @@ super + Delete
 # Sytem action
 super + BackSpace
     dmenu-sysact
+# Lock screen
+super + x
+    betterlockscreen -l blur
+# Suspend and hibernate
+super + {_,shift} + z
+    doas systemctl {suspend,hibernate}
 # Emoji selector
 super + e
     dmenu-emoji-selector

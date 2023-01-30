@@ -28,6 +28,7 @@ esac
 #     [ -f "$zathuraconf.bak" ] && unlink "$zathuraconf" && mv "$zathuraconf.bak" "$zathuraconf"
 # fi
 
+betterlockscreen -u "$bgloc" --fx blur
 nitrogen --save --set-zoom-fill "$bgloc"
 # If running bspwm, hit the key to refresh the color scheme.
 # pidof bspwm >/dev/null && bspc wm -r
