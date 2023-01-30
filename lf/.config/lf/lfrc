@@ -125,6 +125,27 @@ cmd delete_secure ${{
     [ $ans = "y" ] && srm -r -- $fx
 }}
 
+cmd paste_overwrite ${{
+    set -f
+    selected_files="${XDG_DATA_HOME:-$HOME/.local/share}/lf/files"
+    mode="$(head -1 ${selected_files})"
+    list="$(sed 1d ${selected_files})"
+    set -- _ $list; shift
+    [ "$#" -le 0 ] && exit
+    case "$mode" in
+        "copy")
+            rsync -urP --delete-after "$@" ./
+            ;;
+        "move")
+            rsync -urP --delete-after --remove-source-files "$@" ./
+            lf -remote "send clear"
+            ;;
+    esac
+    # lf -remote 'save\nmove\n'
+    lf -remote "send $id load"
+    lf -remote "send $id echo \"\033[0;32mPasted $# file(s)\033[0m\""
+}}
+
 cmd moveto ${{
     clear; tput cup $(($(tput lines)/3)); tput bold
     set -f
@@ -216,6 +237,9 @@ cmd confirm_gpg ${{
     map P gen_preview
     map T trash_put
     map R trash_restore
+    map p
+    map pp paste
+    map po paste_overwrite
 
 # Movement
     map gg top
