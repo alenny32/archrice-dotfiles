@@ -10,26 +10,22 @@
 # keychain $HOME/.ssh/id_ed25519 && source $HOME/.keychain/$HOSTNAME-sh
 
 mkcd() {
-	mkdir -pv "$1"
-	cd "$1"
+    mkdir -pv "$1"
+    cd "$1"
 }
 
-# Config used for virtualenvwrapper
-export WORKON_HOME=$HOME/Workspace/.virtualenvs
-export PROJECT_HOME=$HOME/Workspace
-source /usr/bin/virtualenvwrapper.sh
-
-# Set case insensitive for auto-complete
-autoload -Uz compinit && compinit
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+# # virtualenvwrapper config and source
+# export WORKON_HOME=$HOME/Workspace/.virtualenvs
+# export PROJECT_HOME=$HOME/Workspace
+# source /usr/bin/virtualenvwrapper.sh
 
 ######################################################################
 
 # Enable colors and change prompt:
-autoload -U colors && colors	# Load colors
+autoload -U colors && colors    # Load colors
 PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b " # Replaced by Powerlevel10k
-setopt autocd		# Automatically cd into typed directory.
-stty stop undef		# Disable ctrl-s to freeze terminal.
+setopt autocd                   # Automatically cd into typed directory.
+stty stop undef                 # Disable ctrl-s to freeze terminal.
 setopt interactive_comments
 
 # History in cache directory:
@@ -42,12 +38,12 @@ HISTFILE="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/history"
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc"
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/zshnameddirrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/zshnameddirrc"
 
-# Basic auto/tab complete:
-autoload -U compinit
-zstyle ':completion:*' menu select
+# Basic auto/tab complete (case insensitive):
+autoload -Uz compinit && compinit
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}' menu select
 zmodload zsh/complist
 compinit
-_comp_options+=(globdots)		# Include hidden files.
+_comp_options+=(globdots)        # Include hidden files.
 
 # vi mode
 bindkey -v
