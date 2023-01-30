@@ -92,7 +92,11 @@ cmd extract ${{
     printf "%s\n\t" "$fx" ; tput bold
     printf "Extract? [y/N] "
     read ans ; tput sgr0
-    [ $ans = "y" ] && aunpack $fx
+    if [ $ans = "y" ]; then
+        for file in $fx; do
+            aunpack $file
+        done
+    fi
 }}
 
 cmd archive ${{
