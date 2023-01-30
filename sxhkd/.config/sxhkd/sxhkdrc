@@ -139,7 +139,7 @@ super + BackSpace
     dmenu-sysact
 # Lock screen
 super + x
-    betterlockscreen -l blur
+    betterlockscreen -l
 # Suspend and hibernate
 super + {_,shift} + z
     doas systemctl {suspend,hibernate}
