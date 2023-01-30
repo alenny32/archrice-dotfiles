@@ -26,8 +26,9 @@
     vim.cmd.autocmd('BufWritePre * let currPos = getpos(".")')
     vim.cmd.autocmd('BufWritePre * %s/\\s\\+$//e')
     vim.cmd.autocmd('BufWritePre * %s/\\n\\+\\%$//e')
-    vim.cmd.autocmd('BufWritePre *.[ch] %s/\\%$/\\r/e')
     vim.cmd.autocmd('BufWritePre * cal cursor(currPos[1], currPos[2])')
+    -- add newline
+        -- vim.cmd.autocmd('BufWritePre *.[ch] %s/\\%$/\\r/e')
 
 -- When shortcut files are updated, renew bash and ranger configs with new material:
     vim.cmd.autocmd('BufWritePost bm-files,bm-dirs !shortcuts')
