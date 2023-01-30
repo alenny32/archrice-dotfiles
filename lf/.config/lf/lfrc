@@ -59,7 +59,8 @@ cmd mkdir $mkdir -p "$(echo $* | tr ' ' '\ ')"
 
 # Trash bindings
 cmd trash_restore ${{
-    clear; tput cup $(($(tput lines)/3))
+    clear; tput cup $(($(tput lines)/3)); tput bold
+    printf "Trash restore:\n"; tput sgr0
     trash-restore
 }}
 
@@ -70,19 +71,18 @@ cmd trash_put ${{
     printf "%s\n\t" "$fx" ; tput bold
     printf "Trash? [y/N] "
     read ans
-    [ $ans = "y" ] &&
+    [ "$ans" = "y" ] && trash-put -- $fx
 
-    files=$(printf "$fx" | tr '\n' ';')
-    while [ "$files" ]; do
-      file=${files%%;*}
-
-      trash-put "$(basename "$file")"
-      if [ "$files" = "$file" ]; then
-        files=''
-      else
-        files="${files#*;}"
-      fi
-    done
+    # files=$(printf "$fx" | tr '\n' ';')
+    # while [ "$files" ]; do
+    #   file=${files%%;*}
+    #   trash-put "$(basename "$file")"
+    #   if [ "$files" = "$file" ]; then
+    #     files=''
+    #   else
+    #     files="${files#*;}"
+    #   fi
+    # done
 }}
 
 cmd extract ${{
@@ -270,19 +270,19 @@ cmd confirm_gpg ${{
     map X !$f
     map o &mimeopen "$f"
     map O mime_ask
-    map b $setbg $f &
-    map W $setsid -f $TERMINAL >/dev/null 2>&1
+    map b &setbg $f
+    map W $setsid -f "$TERMINAL" >/dev/null 2>&1
     map Y $printf "%s" "$fx" | xclip -selection clipboard
 
 # Open app
-    map <c-v>f $code "$fx" &
-    map <c-v>v $code . &
-    map e
-    map ef $devour thunar "$fx" &
-    map ee $devour thunar . &
-    map <a-m>m $devour mpv --no-terminal "$f/*.mp4" &
-    map <a-m>M $devour mpv --no-terminal "$f" &
-    map <a-m>, push $devour<space>mpv<space>--no-terminal<space>"$f/*."<space>&<left><left><left>
+    map <c-v>f &code "$fx"
+    map <c-v>v &code .
+    map e # open with editor
+    map ef &devour thunar "$fx"
+    map ee &devour thunar .
+    map <a-m>m &devour mpv --no-terminal "$f/*.mp4"
+    map <a-m>M &devour mpv --no-terminal "$f"
+    map <a-m>, push &devour<space>mpv<space>--no-terminal<space>"$f/*."<space>&<left><left><left>
 
 # Rename
     map A rename # at the very end
