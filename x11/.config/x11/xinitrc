@@ -25,5 +25,10 @@ xsetroot -cursor_name left_ptr &
 # Blue light filter
 redshift &
 
+# Pipewire
+pipewire &
+pipewire-pulse &
+pipewire-media-session &
+
 # sxhkd, picom, polybar, nitrogen, etc started in bspwmrc
 exec bspwm

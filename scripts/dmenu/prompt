@@ -8,4 +8,4 @@
 [ -f "${XDG_DATA_HOME:-${HOME}/.local/share}/xcolors" ] || gen-xcolors
 . "${XDG_DATA_HOME:-${HOME}/.local/share}/xcolors"
 
-[ "$(printf "No\nYes" | dmenu -i -nb "${color0}" -nf "${color3}" -sb "${color3}" -p "$1")" = "Yes" ] && "$2"
+[ "$(printf "No\nYes" | dmenu -i -nb "${color0}" -nf "${color3}" -sb "${color3}" -p "$1")" = "Yes" ] && $2
