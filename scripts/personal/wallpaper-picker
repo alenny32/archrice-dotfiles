@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# find images in typical wallpaper directories, shuffles them,
+# and open in it sxiv
+
+find "${XDG_PUBLICSHARE_DIR:-$HOME/Public}/Pictures/Wallpapers" \
+    "${XDG_PICTURES_DIR:-$HOME/Pictures}/Wallpapers" \
+    "${XDG_PICTURES_DIR:-$HOME/Pictures}/wallpapers" \
+    -type f | shuf | sxiv -

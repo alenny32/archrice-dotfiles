@@ -5,10 +5,10 @@
 
 while read -r file; do
     case "$1" in
-        # "w")
+        # "w"|"b")
             # nitrogen --save --set-scaled "$file" &
             # ;;
-        "w")
+        "w"|"b")
             setbg "$file" &
             ;;
         "c")
