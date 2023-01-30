@@ -38,6 +38,7 @@ plocate
 playerctl
 python-pip
 mesa-utils
+mediainfo
 gnome-keyring
 gvfs
 stow
