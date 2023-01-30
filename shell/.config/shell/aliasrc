@@ -91,11 +91,17 @@ alias \
     pqq="pacman -Qq" \
     prm="pacman -R" \
     prns="pacman -Rns" \
-    # la="ls -A" \ # not supported by exa
-    # lla="ll -Al" \ # not supported by exa
+
+# Apt package manager
+alias \
+    aptupd="$chusr apt update" \
+    aptupg="$chusr apt update && $chusr apt upgrade" \
+    aptin="$chusr apt install" \
+    aptrm="$chusr apt remove" \
+    aptpg="$chusr apt purge" \
 
 # $chusr not required for some system commands
-for command in mount umount sv pacman updatedb su shutdown poweroff reboot ; do
+for command in apt mount umount sv pacman updatedb su shutdown poweroff reboot ; do
     alias $command="$chusr $command"
 done; unset command
 
