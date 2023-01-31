@@ -24,6 +24,8 @@ bspc monitor -d 1 2 3 4 5 6 7 8 9 10
 ##### Configuration #####
 
 # source Xresources colors
+[ -f "${XDG_DATA_HOME:-${HOME}/.local/share}/xcolors" ] || \
+    gen-xcolors
 . "${XDG_DATA_HOME:-${HOME}/.local/share}/xcolors"
 
 # Customization
