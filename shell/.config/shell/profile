@@ -22,6 +22,7 @@ export HOSTNAME="$(cat /etc/hostname)"
 # # Add cursor theme
 # export XCURSOR_PATH=/usr/share/icons:$HOME/.icons:$HOME/.local/share/icons
 # export XCURSOR_THEME="/home/umar/.icons/Posy_Cursor_Black_125_175"
+# export XCURSOR_SIZE=36
 
 # Add local cloud directories
 export GDRIVE_UMAR="$HOME/Cloud/gdrive-umar"

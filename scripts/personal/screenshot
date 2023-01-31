@@ -11,14 +11,15 @@ CLIPBOARD_PROGRAM="xclip"
 . "${XDG_DATA_HOME:-${HOME}/.local/share}/xcolors"
 
 # check if program is installed
-ifinstalled ${SCREENSHOT_PROGRAM} ${CLIPBOARD_PROGRAM} ${PROMPT_PROGRAM} || \
+ifinstalled ${SCREENSHOT_PROGRAM} ${CLIPBOARD_PROGRAM} || \
     exit
 
 # screenshot configuration
 datetime_format="$(date +'%Y-%m-%d-%T')"
 filename="${datetime_format}-screenshot.png"
 output="${XDG_PICTURES_DIR:-$HOME/Pictures}/screenshots/$filename"
-image_quality="--quality 95"
+image_quality=95
+temp_dir="/tmp/screenshots"
 # filename="%Y-%m-%d-%T-screenshot.png"
 
 # dmenu configuration
@@ -37,30 +38,35 @@ xclip_cmd="xclip -selection clipboard -t image/png -i $output"
 # pick which type of screenshot
 case "$1" in
     "selection")
-        scrot "$output" --select ${image_quality} --line mode=edge \
-            --exec "${xclip_cmd}" || exit
+        scrot "$output" --select --line mode=edge --quality "${image_quality}" \
+            --exec "${xclip_cmd}" || \
+            exit
         ;;
     "window")
-        scrot "$output" --focused \
-            --exec "${xclip_cmd}" || exit
+        scrot "$output" --focused --quality "${image_quality}" \
+            --exec "${xclip_cmd}" || \
+            exit
         ;;
     "fullscreen")
-        scrot "$output" \
-            --exec "${xclip_cmd}" || exit
+        scrot "$output" --quality "${image_quality}" \
+            --exec "${xclip_cmd}" || \
+            exit
         ;;
     "temp")
-        [ -d "/tmp/screenshot" ] || \
-            mkdir "/tmp/screenshot"
-        output="/tmp/screenshot/$filename"
+        [ -d "$temp_dir" ] || \
+            mkdir "$temp_dir"
+        output="$temp_dir/$filename"
         xclip_cmd="xclip -selection clipboard -t image/png -i $output"
-        scrot "$output" --select --line mode=edge \
-            --exec "${xclip_cmd}" || exit
+
+        scrot "$output" --select --line mode=edge --quality "${image_quality}" \
+            --exec "${xclip_cmd}" || \
+            exit
         ;;
     *)
         case "$(printf "\
 selection\\n\
 window\\n\
-fullscreen\\n\
+full screen\\n\
 temp\\n" \
             | ${dmenu_prompt} "$dmenu_prompt_msg")" in
                 "selection")
@@ -75,7 +81,9 @@ temp\\n" \
                 "temp")
                     screenshot "temp"
                     ;;
-        esac ;;
+        esac
+        exit
+        ;;
 esac
 
 # notify screenshot success or fail

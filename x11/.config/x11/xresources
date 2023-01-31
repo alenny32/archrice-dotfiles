@@ -5,7 +5,7 @@ Xft.dpi: 96
 /* Xcursor.theme: capitaine-cursors */
 Xcursor.theme: WhiteSur-cursors
 /* Xcursor.theme: Posy_Cursor_Black_125_175 */
-Xcursor.size: 32
+Xcursor.size: 36
 
 ! Sxiv configuration
 Sxiv.background: #17080b
