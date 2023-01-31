@@ -121,7 +121,7 @@ super + shift + m
 super + n
     $TERMINAL -e nvim -c VimwikiIndex
 # Cloud storage manager (rclone-browser)
-super + shift + s
+super + alt + s
     rclone-browser
 # Zoom
 super + alt + z
@@ -161,8 +161,10 @@ ctrl + grave
     dunstctl history-pop
 
 # Screenshots
+super + shift + s
+    screenshot
 {_,ctrl,alt,super} + Print
-    screenshot {_,select,clipboard,window}
+    screenshot {fullscreen,selection,temp,window}
 
 ###################
 ##### Fn Keys #####

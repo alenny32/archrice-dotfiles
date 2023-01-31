@@ -1,16 +1,79 @@
 #! /bin/sh
 
-fn="%Y-%m-%d-%T-screenshot.png"
-output=${XDG_PICTURES_DIR:-$HOME/Pictures}/screenshots/$fn
+# programs
+SCREENSHOT_PROGRAM="scrot"
+CLIPBOARD_PROGRAM="xclip"
+# PROMPT_PROGRAM="dmenu"
 
-# if screenshot folder does not exist in pictures dir then make dir
-[ ! -d ${XDG_PICTURES_DIR:-$HOME/Pictures}/screenshots ] && mkdir -p ${XDG_PICTURES_DIR:-$HOME/Pictures}/screenshots
+# source Xresources colors
+[ -f "${XDG_DATA_HOME:-${HOME}/.local/share}/xcolors" ] || \
+    gen-xcolors
+. "${XDG_DATA_HOME:-${HOME}/.local/share}/xcolors"
 
+# check if program is installed
+ifinstalled ${SCREENSHOT_PROGRAM} ${CLIPBOARD_PROGRAM} ${PROMPT_PROGRAM} || \
+    exit
+
+# screenshot configuration
+datetime_format="$(date +'%Y-%m-%d-%T')"
+filename="${datetime_format}-screenshot.png"
+output="${XDG_PICTURES_DIR:-$HOME/Pictures}/screenshots/$filename"
+image_quality="--quality 95"
+# filename="%Y-%m-%d-%T-screenshot.png"
+
+# dmenu configuration
+dmenu_options="-i -nb "${color0}" -nf "${color3}" -sb "${color3}" -p"
+dmenu_prompt="dmenu $dmenu_options"
+dmenu_prompt_msg="Select screenshot type:"
+
+# clipboard configuration
+xclip_cmd="xclip -selection clipboard -t image/png -i $output"
+# xclip_cmd="'xclip -selection clipboard -t image/png -i $f'"
+
+# if screenshot folder does not exist in pictures directory, then make directory
+[ ! -d "${XDG_PICTURES_DIR:-$HOME/Pictures}/screenshots" ] && \
+    mkdir -p "${XDG_PICTURES_DIR:-$HOME/Pictures}/screenshots"
+
+# pick which type of screenshot
 case "$1" in
-    "select") scrot "$output" --select --line mode=edge -e 'xclip -selection clipboard -t image/png -i $f' || exit ;;
-    "window") scrot "$output" --focused -e 'xclip -selection clipboard -t image/png -i $f' || exit ;;
-    "clipboard") scrot "/tmp/$fn" --select --line mode=edge -e 'xclip -selection clipboard -t image/png -i $f' || exit;;
-    *) scrot "$output" -e 'xclip -selection clipboard -t image/png -i $f' || exit ;;
+    "selection")
+        scrot "$output" --select ${image_quality} --line mode=edge --exec "${xclip_cmd}" || exit
+        ;;
+    "window")
+        scrot "$output" --focused --exec "${xclip_cmd}" || exit
+        ;;
+    "fullscreen")
+        scrot "$output" --exec "${xclip_cmd}" || exit
+        ;;
+    "temp")
+        [ -d "/tmp/screenshot" ] || mkdir "/tmp/screenshot"
+        output="/tmp/screenshot/$filename"
+        xclip_cmd="xclip -selection clipboard -t image/png -i $output"
+        scrot "$output" --select --line mode=edge --exec "${xclip_cmd}" || exit
+        ;;
+    *)
+        case "$(printf "\
+selection\\n\
+window\\n\
+fullscreen\\n
+temp\\n" \
+            | ${dmenu_prompt} "$dmenu_prompt_msg")" in
+                "selection")
+                    screenshot "selection"
+                    ;;
+                "window")
+                    screenshot "window"
+                    ;;
+                "full screen")
+                    screenshot "fullscreen"
+                    ;;
+                "temp")
+                    screenshot "temp"
+                    ;;
+        esac ;;
 esac
 
-notify-send "Screenshot taken." -u low -a "screenshot" -t 2000
+# notify screenshot success or fail
+[ -f "$output" ] && \
+    notify-send "Screenshot taken" -u low -a "screenshot" -i "$output" -t 3000 || \
+    notify-send "Screenshot cancelled" -u normal -a "screenshot" -i "warning" -t 6000

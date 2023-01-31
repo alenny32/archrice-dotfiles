@@ -5,49 +5,52 @@
 
 while read -r file; do
     case "$1" in
-        # "w"|"b")
+        # "w"|"b") # set background / wallpaper
             # nitrogen --save --set-scaled "$file" &
             # ;;
-        "w"|"b")
+        "w"|"b") # set background / wallpaper
             setbg "$file" &
             ;;
-        "c")
+        "c") # copy to bm-dirs
             [ -z "$destdir" ] && destdir="$(sed "s/#.*$//;/^\s*$/d" "${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs" | awk '{print $2}' | dmenu -l 20 -i -nb ${color0} -nf ${color3} -sb ${color3} -p "Copy file(s) to where?" | sed "s|~|$HOME|g")"
-            [ ! -d "$destdir" ] && notify-send "$destdir is not a directory, cancelled." && exit
+            [ ! -d "$destdir" ] && notify-send -a "sxiv" "$destdir is not a directory, cancelled." && exit
             cp "$file" "$destdir" && notify-send -i "$(readlink -f "$file")" "$file copied to $destdir." &
             ;;
-        "m")
+        "m") # move to bm-dirs
             [ -z "$destdir" ] && destdir="$(sed "s/#.*$//;/^\s*$/d" "${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs" | awk '{print $2}' | dmenu -l 20 -i -nb ${color0} -nf ${color3} -sb ${color3} -p "Move file(s) to where?" | sed "s|~|$HOME|g")"
-            [ ! -d "$destdir" ] && notify-send "$destdir is not a directory, cancelled." && exit
+            [ ! -d "$destdir" ] && notify-send -a "sxiv" "$destdir is not a directory, cancelled." && exit
             rsync -urvP --remove-source-files --delete-after "$file" "$destdir" && notify-send -i "$(readlink -f "$file")" "$file moved to $destdir." &
         ;;
-    "r")
+    "r") # rotate 90 degrees to the left
         convert -rotate 90 "$file" "$file"
         ;;
-    "R")
+    "R") # rotate 90 degrees to the right
         convert -rotate -90 "$file" "$file"
         ;;
-    "f")
+    "f") # flop (mirror)
         convert -flop "$file" "$file"
         ;;
-    "y")
+    "F") # flip
+        convert -flip "$file" "$file"
+        ;;
+    "y") # copy to clipboard
         printf "%s" "$file" | tr -d '\n' | xclip -selection clipboard &&
-        notify-send "$file copied to clipboard" & ;;
-    "Y")
+        notify-send -a "sxiv" -i "$(readlink -f "$file")" "$file copied to clipboard" & ;;
+    "Y") # copy to clipboard
         readlink -f "$file" | tr -d '\n' | xclip -selection clipboard &&
-        notify-send "$(readlink -f "$file") copied to clipboard" &
+        notify-send -a "sxiv" -i "$(readlink -f "$file")" "$(readlink -f "$file") copied to clipboard" &
         ;;
-    "d"|"t")
-        prompt "Trash $file?" "trash-put $file && notify-send $file trashed."
+    "d"|"t") # trash
+        prompt "Trash $file?" "trash-put $file && notify-send -a "sxiv" $file trashed."
         ;;
-    "D")
-        prompt "Permanently delete $file?" "rm $file && notify-send $file deleted."
+    "D") # delete
+        prompt "Permanently delete $file?" "rm $file && notify-send -a "sxiv" $file deleted."
         ;;
-    "g")
+    "g") # open in gimp
         ifinstalled gimp && setsid -f gimp "$file"
         ;;
-    "i")
-        notify-send "File information" "$(mediainfo "$file" | sed "s/[ ]\+:/:/g;s/: /: <b>/;s/$/<\/b>/" | grep "<b>")"
+    "i") # mediainfo
+        notify-send -a "sxiv" "File information" "$(mediainfo "$file" | sed "s/[ ]\+:/:/g;s/: /: <b>/;s/$/<\/b>/" | grep "<b>")"
         ;;
     esac
 done
