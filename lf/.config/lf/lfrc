@@ -111,7 +111,7 @@ cmd archive ${{
 
 cmd delete ${{
     clear; tput cup $(($(tput lines)/3)) ; tput bold
-    printf "\tDelete files:\n" ; tput sgr0
+    printf "\tDelete:\n" ; tput sgr0
     set -f
     printf "%s\n\t" "$fx"; tput bold
     printf "Delete? [y/N] "
@@ -121,7 +121,7 @@ cmd delete ${{
 
 cmd delete_secure ${{
     clear; tput cup $(($(tput lines)/3)) ; tput bold
-    printf "\tSecure delete files:\n" ; tput sgr0
+    printf "\tSecure delete:\n" ; tput sgr0
     set -f
     printf "%s\n\t" "$fx" ; tput bold
     printf "Securely delete? [y/N] "
@@ -240,6 +240,7 @@ cmd confirm_gpg ${{
     map M moveto
     map P gen_preview
     map T trash_put
+    map <delete> trash_put
     map R trash_restore
     map p
     map pp paste

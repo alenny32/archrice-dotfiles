@@ -35,7 +35,7 @@ alias \
     gc="git commit" \
     gcm="git commit -m" \
     gca="git commit -a" \
-    gcad="git commit --amend" \
+    gcd="git commit --amend" \
     gcaa="git commit --amend -a" \
     gcam="git commit -am" \
     gcaam="git commit --amend -am" \
