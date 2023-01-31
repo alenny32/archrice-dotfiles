@@ -22,8 +22,8 @@ image_quality="--quality 95"
 # filename="%Y-%m-%d-%T-screenshot.png"
 
 # dmenu configuration
-dmenu_options="-i -nb "${color0}" -nf "${color3}" -sb "${color3}" -p"
-dmenu_prompt="dmenu $dmenu_options"
+dmenu_options="-i -nb "${color0}" -nf "${color3}" -sb "${color3}""
+dmenu_prompt="dmenu $dmenu_options -p"
 dmenu_prompt_msg="Select screenshot type:"
 
 # clipboard configuration
@@ -37,25 +37,30 @@ xclip_cmd="xclip -selection clipboard -t image/png -i $output"
 # pick which type of screenshot
 case "$1" in
     "selection")
-        scrot "$output" --select ${image_quality} --line mode=edge --exec "${xclip_cmd}" || exit
+        scrot "$output" --select ${image_quality} --line mode=edge \
+            --exec "${xclip_cmd}" || exit
         ;;
     "window")
-        scrot "$output" --focused --exec "${xclip_cmd}" || exit
+        scrot "$output" --focused \
+            --exec "${xclip_cmd}" || exit
         ;;
     "fullscreen")
-        scrot "$output" --exec "${xclip_cmd}" || exit
+        scrot "$output" \
+            --exec "${xclip_cmd}" || exit
         ;;
     "temp")
-        [ -d "/tmp/screenshot" ] || mkdir "/tmp/screenshot"
+        [ -d "/tmp/screenshot" ] || \
+            mkdir "/tmp/screenshot"
         output="/tmp/screenshot/$filename"
         xclip_cmd="xclip -selection clipboard -t image/png -i $output"
-        scrot "$output" --select --line mode=edge --exec "${xclip_cmd}" || exit
+        scrot "$output" --select --line mode=edge \
+            --exec "${xclip_cmd}" || exit
         ;;
     *)
         case "$(printf "\
 selection\\n\
 window\\n\
-fullscreen\\n
+fullscreen\\n\
 temp\\n" \
             | ${dmenu_prompt} "$dmenu_prompt_msg")" in
                 "selection")

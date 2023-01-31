@@ -149,6 +149,9 @@ super + e
 # Mute volume
 super + alt + m
     change-volume mute
+# Mount devices
+super + {_,shift} + F9
+    {mounter,unmounter}
 
 # Notifications
 ctrl + space

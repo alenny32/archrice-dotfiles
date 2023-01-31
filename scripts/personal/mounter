@@ -1,0 +1,111 @@
+#!/usr/bin/env bash
+
+# Mounts Android Phones and USB drives (encrypted or not). This script will
+# replace the older `dmenumount` which had extra steps and couldn't handle
+# encrypted drives.
+# TODO: Remove already mounted Android phones from prompt.
+# TODO: Try mount first for drives if in fstab to avoid directory prompt?
+# TODO: Add some support for connecting iPhones (although they are annoying).
+
+set -e
+
+# source Xresources colors
+[ -f "${XDG_DATA_HOME:-${HOME}/.local/share}/xcolors" ] || \
+    gen-xcolors
+. "${XDG_DATA_HOME:-${HOME}/.local/share}/xcolors"
+
+# dmenu configuration
+dmenu_options="-i -nb "${color0}" -nf "${color3}" -sb "${color3}""
+dmenu_prompt="dmenu $dmenu_options -p"
+# dmenu_prompt_msg="Select screenshot type:"
+
+# root privilege
+chusr="sudo"
+# chusr="doas"
+
+# Check for phones.
+phones="$(simple-mtpfs -l 2>/dev/null | sed "s/^/📱/")"
+# Check for drives.
+alldrives="$(lsblk -rpo "uuid,name,type,size,label,mountpoint,fstype")"
+# # Get all LUKS drives
+# allluks="$(echo "$alldrives" | grep crypto_LUKS)" || true
+# # Get a list of the LUKS drive UUIDs already decrypted.
+# decrypted="$(find /dev/disk/by-id/dm-uuid-CRYPT-LUKS2-* | sed "s|.*LUKS2-||;s|-.*||")"
+# Functioning for formatting drives correctly for dmenu:
+filter() { sed "s/ /:/g" | awk -F':' '$7==""{printf "%s%s (%s) %s\n",$1,$3,$5,$6}' ; }
+
+# Get only LUKS drives that are not decrypted.
+IFS='
+'
+unopenedluks="$(for drive in $allluks; do
+    uuid="${drive%% *}"
+    uuid="${uuid//-}"    # This is a bashism.
+    for open in $decrypted; do
+        [ "$uuid" = "$open" ] && break 1
+    done && continue 1
+    echo "🔒 $drive"
+done | filter)"
+
+# Get all normal, non-encrypted or decrypted partitions that are not mounted.
+normalparts="$(echo "$alldrives"| grep -v crypto_LUKS | grep 'part\|rom\|crypt' | sed "s/^/💾 /" | filter )"
+
+# Add all to one variable. If no mountable drives found, exit.
+alldrives="$(echo "$phones
+$unopenedluks
+$normalparts" | sed "/^$/d;s/ *$//")"
+test -n "$alldrives"
+
+# Feed all found drives to dmenu and get user choice.
+chosen_mount_point="$(printf "$alldrives" | dmenu -i -nb "${color0}" -nf "${color3}" -sb "${color3}" -p "Mount which drive?")"
+
+# Function for prompting user for a mountpoint.
+getmount(){
+    mount_point="$(find /mnt /media /mount /home -maxdepth 1 -type d 2>/dev/null | dmenu -i -nb "${color0}" -nf "${color3}" -sb "${color3}" -p "Mount this drive where?")"
+    test -n "$mount_point"
+    if [ ! -d "$mount_point" ]; then
+        mkdir_yesno=$(printf "No\\nYes" | dmenu -i -nb "${color0}" -nf "${color3}" -sb "${color3}" -p "$mount_point does not exist. Create it?")
+        [ "$mkdir_yesno" = "Yes" ] && (mkdir -p "$mount_point" || "$chusr" -A mkdir -p "$mount_point")
+    fi
+}
+
+case "$chosen_mount_point" in
+    💾*)
+        chosen_mount_point="${chosen_mount_point%% *}"
+        chosen_mount_point="${chosen_mount_point:1}"    # This is a bashism.
+        getmount
+        "$chusr" mount "$chosen_mount_point" "$mount_point"
+        notify-send -a "mounter" -t 6000 -u "low" "💾Drive Mounted." \
+            "$chosen_mount_point mounted to $mount_point."
+        ;;
+
+    🔒*)
+        chosen_mount_point="${chosen_mount_point%% *}"
+        chosen_mount_point="${chosen_mount_point:1}"    # This is a bashism.
+        # Number the drive.
+        while true; do
+            [ -f "/dev/mapper/usb$num" ] || break
+            num="$(printf "%02d" "$((num +1))")"
+        done
+
+        # Decrypt in a terminal window
+        ${TERMINAL:-alacritty} -n floatterm -g 60x1 \
+            -e "$chusr" cryptsetup open "$chosen_mount_point" "usb$num"
+        # Check if now decrypted.
+        test -b "/dev/mapper/usb$num"
+
+        getmount
+        "$chusr" mount "/dev/mapper/usb$num" "$mount_point"
+        notify-send -a "mounter" -t 6000 -u "low" "🔓Decrypted drive Mounted." \
+            "$chosen_mount_point decrypted and mounted to $mount_point."
+        ;;
+
+    📱*)
+        getmount
+        echo "OK" | dmenu -i -nb "${color0}" -nf "${color3}" -sb "${color3}" -p \
+            "Tap Allow on your phone if it asks for permission and then press enter"
+        chosen_mount_point="${chosen_mount_point%%:*}"
+        chosen_mount_point="${chosen_mount_point:1}"    # This is a bashism.
+        simple-mtpfs --device "$chosen_mount_point" "$mount_point"
+        notify-send -a "mounter" -t 6000 -u "low" "🤖 Android Mounted." "Android device mounted to $mount_point."
+        ;;
+esac

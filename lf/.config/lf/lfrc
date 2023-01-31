@@ -222,13 +222,13 @@ cmd confirm_gpg ${{
 # Basic
     map zc clear
     map <c-r> reload
-    map <c-s> set hidden!
-    map <c-h> set hidden!
     map . set hidden!
     map <enter> shell
+    # map <c-s> set hidden!
+    # map <c-h> set hidden!
 
 # Unbind default key bindings
-    # map <c-m>
+    # map <c-m> # unbinds enter too?!
     # map <c-M>
 
 # Function

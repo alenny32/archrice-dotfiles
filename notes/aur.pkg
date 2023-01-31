@@ -7,6 +7,7 @@ p7zip-gui
 paru-bin
 pandoc-bin
 sddm-sugar-candy-git
+simple-mtpfs
 timeshift
 ttf-ms-fonts
 xinit-xsession
@@ -16,7 +17,7 @@ secure-delete
 
 # Thunar
 thunar-secure-delete
-# pick one of these 2
+# pick one of these two
 tumbler-extra-thumbnailers
 tumbler-folder-thumbnailer
 
