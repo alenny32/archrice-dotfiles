@@ -64,23 +64,24 @@ case "$1" in
         ;;
     *)
         case "$(printf "\
-selection\\n\
-window\\n\
-full screen\\n\
-temp\\n" \
-            | ${dmenu_prompt} "$dmenu_prompt_msg")" in
-                "selection")
-                    screenshot "selection"
-                    ;;
-                "window")
-                    screenshot "window"
-                    ;;
-                "full screen")
-                    screenshot "fullscreen"
-                    ;;
-                "temp")
-                    screenshot "temp"
-                    ;;
+selection\n\
+window\n\
+fullscreen\n\
+temp\n\
+    " \
+        | ${dmenu_prompt} "$dmenu_prompt_msg")" in
+            "selection")
+                screenshot "selection"
+                ;;
+            "window")
+                screenshot "window"
+                ;;
+            "fullscreen")
+                screenshot "fullscreen"
+                ;;
+            "temp")
+                screenshot "temp"
+                ;;
         esac
         exit
         ;;

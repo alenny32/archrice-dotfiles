@@ -1,22 +1,41 @@
 #!/bin/sh
 
-# source Xresources colors
-. "${XDG_DATA_HOME:-${HOME}/.local/share}/xcolors"
-
 # A dmenu wrapper script for system functions.
 export WM="bspwm"
 case "$(readlink -f /sbin/init)" in
-    *systemd*) ctl='systemctl' ;;
-    *) ctl='loginctl' ;;
+    *systemd*) ctl="systemctl" ;;
+    *) ctl="loginctl" ;;
 esac
 
-wmpid(){ # This function is needed if there are multiple instances of the window manager.
+# source Xresources colors
+[ -f "${XDG_DATA_HOME:-${HOME}/.local/share}/xcolors" ] || \
+    gen-xcolors
+. "${XDG_DATA_HOME:-${HOME}/.local/share}/xcolors"
+
+# dmenu configuration
+dmenu_options="-i -nb "${color0}" -nf "${color3}" -sb "${color3}""
+dmenu_prompt="dmenu $dmenu_options -p"
+dmenu_prompt_msg="Action:"
+
+# This function is needed if there are multiple instances of the window manager.
+wmpid(){
     tree="$(pstree -ps $$)"
-    tree="${tree#*$WM(}"
+    tree="${tree#*"$WM"(}"
     echo "${tree%%)*}"
 }
 
-# chosen="$(printf "🔒 lock\n🚪 leave $WM\n♻️ renew $WM\n🐻 hibernate\n🔃 reboot\n🖥️ shutdown\n💤 sleep\n📺 display off" | dmenu -i -p 'Action: ')"
+# action="$(printf "\
+# 🔒 lock\n\
+# 🚪 leave $WM\n
+# ♻️ renew $WM\n
+# 🐻 hibernate\n
+# 🔃 reboot\n
+# 🖥️ shutdown\n
+# 💤 sleep\n
+# 📺 display off\n\
+#     " | dmenu -i -p 'Action: ')"
+
+# case "$action" in
 #     "♻️ renew $WM") bspc wm -r ;;
 #     '🐻 hibernate') $ctl hibernate ;;
 #     '💤 sleep') $ctl suspend-then-hibernate ;;
@@ -26,8 +45,17 @@ wmpid(){ # This function is needed if there are multiple instances of the window
 #     *) exit 1 ;;
 # esac
 
-chosen="$(printf " Power Off\n Reboot\n Suspend\n Hibernate\n Log Out\n Lock" | dmenu -i -nb "${color0}" -nf "${color3}" -sb "${color3}" -p 'Action:')"
-case "$chosen" in
+action="$(printf "\
+ Power Off\n\
+ Reboot\n\
+ Suspend\n\
+ Hibernate\n\
+ Log Out\n\
+ Lock\n\
+󰶐 Display Off\n\
+    " | ${dmenu_prompt} "$dmenu_prompt_msg")"
+
+case "$action" in
     " Power Off") $ctl poweroff ;;
     " Reboot") $ctl reboot ;;
     " Suspend") $ctl suspend-then-hibernate ;;
@@ -35,5 +63,6 @@ case "$chosen" in
     # " Log Out") bspc quit ;;
     " Log Out") loginctl session-status | awk 'NR==1 {print $1}' | xargs loginctl terminate-session "$1" ;;
     " Lock") betterlockscreen -l ;;
+    "󰶐 Display Off") xset dpms force off ;;
     *) exit 1 ;;
 esac

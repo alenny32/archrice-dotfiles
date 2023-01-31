@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# WM indpendent logout script
+
+loginctl session-status | \
+    awk 'NR==1 {print $1}' | \
+    xargs loginctl terminate-session "$1"
