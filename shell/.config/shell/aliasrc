@@ -96,7 +96,7 @@ alias \
 # Apt package manager
 alias \
     aptupd="$chusr apt update" \
-    aptupg="$chusr apt update && $chusr apt upgrade" \
+    aptupg="$chusr apt update; $chusr apt upgrade" \
     aptin="$chusr apt install" \
     aptrm="$chusr apt remove" \
     aptpg="$chusr apt purge" \
