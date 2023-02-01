@@ -64,6 +64,7 @@ alias \
     cfvl="cd $XDG_CONFIG_HOME/$EDITOR/lua && ls" \
     cfal="$EDITOR $XDG_CONFIG_HOME/alacritty/alacritty.yml" \
     cfb="$EDITOR $XDG_CONFIG_HOME/bspwm/bspwmrc" \
+    cfbl="$EDITOR $XDG_CONFIG_HOME/bsp-layout/layoutrc" \
     cfsx="$EDITOR $XDG_CONFIG_HOME/sxhkd/sxhkdrc" \
     cfp="$EDITOR $XDG_CONFIG_HOME/polybar/config.ini" \
     cfpi="$EDITOR $XDG_CONFIG_HOME/picom/picom.conf" \

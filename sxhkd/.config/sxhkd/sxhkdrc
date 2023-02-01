@@ -17,6 +17,9 @@ super + y
 # Swap the current node and the biggest window
 super + g
     bspc node -s biggest.window
+# Cycle tiling layout
+super + alt + c
+    bsp-layout-cycle
 
 ##### Focus/swap #####
 

@@ -1,0 +1,11 @@
+
+# Tall layout config
+TALL_RATIO=0.53
+
+# Wide layout config
+WIDE_RATIO=0.53
+
+# Use desktop names(1) or ids(0)
+USE_NAMES=1
+
+# vim: ft=config

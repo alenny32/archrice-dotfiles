@@ -103,6 +103,11 @@ vim.g.maplocalleader = ','
 -- Open corresponding .pdf/.html or preview
     map(nvo, '<leader>p', '<CMD>!opout "%:p"<CR>')
 
+-- Give execute permission on current buffer
+    map(nvo, '<leader>x', '<CMD>!chmod +x %<CR>')
+    -- Remove execute permission on current buffer
+        map(nvo, '<leader>X', '<CMD>!chmod -x %<CR>')
+
 -- Load command shortcuts generated from bm-dirs and bm-files via shortcuts script.
 -- Here leader is ";".
 -- So ":vs ;cfz" will expand into ":vs /home/<user>/.config/zsh/.zshrc"

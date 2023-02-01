@@ -1,0 +1,37 @@
+#!/bin/sh
+
+# Script to set all tiling layout for your bspwm desktop. Put this script on to
+# your bspwmrc file to auto set all your desktop layouts.
+#
+# This script assumes you are using desktop names to configure the layouts if
+# you do not have the configuration file for bsp-layout. You can configure
+# layout options in $XDG_CONFIG_DIR/bsp-layout/layoutrc file. An example of
+# that file can be found in example.layoutrc
+# ( https://github.com/phenax/bsp-layout/blob/master/example.layoutrc ).
+
+# Check if bspwm and bsp-layout is installed
+ifinstalled "bspwm" "bsp-layout" || \
+    exit
+
+# Use desktop names by default
+USE_NAMES=1;
+
+# Set the default layout
+# Available layouts: tiled, monocle, even, grid, rgrid, rtall, rwide, tall, wide
+LAYOUT="tall"
+
+# Check layoutrc file
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/bsp-layout/layoutrc" ] && \
+    . "${XDG_CONFIG_HOME:-$HOME/.config}/bsp-layout/layoutrc"
+
+# Get the desktop identifiers
+if [ "$USE_NAMES" -eq 1 ]; then
+    DESKTOPS="$(bspc query -D --names)"
+else
+    DESKTOPS="$(bspc query -D)"
+fi
+
+# Set all desktop layout
+for desktop in $DESKTOPS; do
+    bsp-layout set "$LAYOUT" "$desktop"
+done
