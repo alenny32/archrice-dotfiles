@@ -134,12 +134,18 @@ cmd delete_secure ${{
 }}
 
 cmd paste_overwrite ${{
+    ifinstalled "rsync" || \
+        exit
+
     set -f
     selected_files="${XDG_DATA_HOME:-$HOME/.local/share}/lf/files"
     mode="$(head -1 ${selected_files})"
     list="$(sed 1d ${selected_files})"
     set -- _ $list; shift
-    [ "$#" -le 0 ] && exit
+
+    [ "$#" -le 0 ] && \
+        exit
+
     case "$mode" in
         "copy")
             rsync -urP --delete-after "$@" ./
@@ -149,6 +155,7 @@ cmd paste_overwrite ${{
             lf -remote "send clear"
             ;;
     esac
+
     # lf -remote 'save\nmove\n'
     lf -remote "send $id load"
     lf -remote "send $id echo \"\033[0;32mPasted $# file(s)\033[0m\""
