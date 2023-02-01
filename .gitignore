@@ -36,3 +36,11 @@ scripts/polybar/polyweather*
 
 # Thunar
 Thunar/.config/Thunar/accels.scm
+
+# GTK-*
+gtk-2.0/.config/gtk-2.0/
+gtk-3.0/.config/gtk-3.0/
+gtk-4.0/.config/gtk-4.0/
+!gtk-2.0/.config/gtk-2.0/gtkrc-2.0
+!gtk-3.0/.config/gtk-3.0/settings.ini
+!gtk-4.0/.config/gtk-4.0/settings.ini
