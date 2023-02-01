@@ -28,11 +28,7 @@ scripts/polybar/polyweather*
 !scripts/polybar/
 !scripts/rclone/
 !scripts/sys/
-!scripts/compiler
 !scripts/fast
-!scripts/prompt
-!scripts/texclear
-!scripts/ttymaps.kmap
 
 # Thunar
 Thunar/.config/Thunar/accels.scm

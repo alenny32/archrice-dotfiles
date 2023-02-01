@@ -114,7 +114,7 @@ export _JAVA_AWT_WM_NONREPARENTING=1 # Fix for Java applications in dwm
 # [ "$(tty)" = "/dev/tty1" ] && ! pidof -s Xorg >/dev/null 2>&1 && exec startx "$XINITRC"
 
 # Switch escape and caps if tty and no passwd required:
-doas loadkeys $HOME/.local/bin/ttymaps.kmap 2>/dev/null
+sudo loadkeys "$HOME/.local/bin/sys/ttymaps.kmap" 2>/dev/null
 
 # Nix profile
 [ -e /home/umar/.nix-profile/etc/profile.d/nix.sh ] && . /home/umar/.nix-profile/etc/profile.d/nix.sh # added by Nix installer
