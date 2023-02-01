@@ -11,7 +11,10 @@ xresources_path="$HOME/.config/x11/xresources"
 
 # get xresources colors
 get_color() {
-   sed -n '/^!!.*:$/I, /!!/p' "${xresources_path}" | sed -n '/color0/, /color15/p' | grep "$1:" | awk '{print $2}'
+    sed -n '/^!!.*:$/I, /!!/p' "${xresources_path}" |
+        sed -n '/color0/, /color15/p' |
+        grep "$1:" |
+        awk '{print $2}'
 }
 
 # boilerplate

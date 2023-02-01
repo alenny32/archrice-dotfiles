@@ -42,6 +42,7 @@ python2-bin
 fastfetch
 pfetch
 usbtop
+adobe-source-han-mono-fonts
 
 # Laptop
 brillo # add $USER to 'video' group

@@ -104,7 +104,7 @@ alias \
     aptpg="$chusr apt purge" \
 
 # $chusr not required for some system commands
-for command in apt mount umount sv pacman updatedb su shutdown poweroff reboot ; do
+for command in downgrade apt mount umount sv pacman updatedb su shutdown poweroff reboot ; do
     alias $command="$chusr $command"
 done; unset command
 

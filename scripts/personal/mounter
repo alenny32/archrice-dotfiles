@@ -10,7 +10,7 @@
 set -e
 
 # source Xresources colors
-[ -f "${XDG_DATA_HOME:-${HOME}/.local/share}/xcolors" ] || \
+[ -f "${XDG_DATA_HOME:-${HOME}/.local/share}/xcolors" ] ||
     gen-xcolors
 . "${XDG_DATA_HOME:-${HOME}/.local/share}/xcolors"
 
@@ -64,7 +64,8 @@ getmount(){
     test -n "$mount_point"
     if [ ! -d "$mount_point" ]; then
         mkdir_yesno=$(printf "No\\nYes" | dmenu -i -nb "${color0}" -nf "${color3}" -sb "${color3}" -p "$mount_point does not exist. Create it?")
-        [ "$mkdir_yesno" = "Yes" ] && (mkdir -p "$mount_point" || "$chusr" -A mkdir -p "$mount_point")
+        [ "$mkdir_yesno" = "Yes" ] &&
+            (mkdir -p "$mount_point" || "$chusr" -A mkdir -p "$mount_point")
     fi
 }
 

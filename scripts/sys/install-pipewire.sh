@@ -1,15 +1,16 @@
 #!/bin/sh
 
-# Script to switch from pulseaudio to pipewire
+# Script to switch from pulseaudio to pipewire.
+# Run this script as root.
 
 # Remove pulseaudio and all packages depends on it first, then
-# install pipewire and all of uninstalled packages
+# install pipewire and all of uninstalled packages.
 
 ## Elevating privilege
-chusr="sudo"
+# chusr="sudo"
 # chusr="doas"
 
-"$chusr" pacman -Rns \
+pacman -Rns \
     pulseaudio-alsa \
     pulseaudio-bluetooth \
     pulseaudio-jack \
@@ -23,7 +24,7 @@ chusr="sudo"
     volumeicon \
     pavucontrol
 
-"$chusr" pacman -S --needed \
+pacman -S --needed \
     pipewire \
     pipewire-media-session \
     pipewire-alsa \

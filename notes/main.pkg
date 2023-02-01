@@ -25,6 +25,7 @@ alacritty
 alsa-utils
 cups
 hplip
+hdparm
 poppler
 perl-file-mimeinfo
 networkmanager

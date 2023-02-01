@@ -6,7 +6,7 @@
 #    If wal is installed, also generates a colorscheme.
 
 SCRIPT_NAME="$(basename "$0")"
-ifinstalled "nitrogen" "betterlockscreen" || \
+ifinstalled "nitrogen" "betterlockscreen" ||
     exit
 
 # Location of link to wallpaper link.
@@ -16,7 +16,8 @@ background_location="${XDG_DATA_HOME:-$HOME/.local/share}/bg"
 dunstconf="${XDG_CONFIG_HOME:-$HOME/.config}/dunst/dunstrc"
 zathuraconf="${XDG_CONFIG_HOME:-$HOME/.config}/zathura/zathurarc"
 
-true_location="$(readlink -f "$1")" &&
+true_location="$(readlink -f "$1")"
+
 case "$(file --mime-type -bh "$true_location")" in
     image/* )
         ln -sf \

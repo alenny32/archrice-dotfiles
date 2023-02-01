@@ -3,8 +3,8 @@
 # Script to change brightness and notify using brillo and dunst.
 
 SCRIPT_NAME="$(basename "$0")"
-ifinstalled "brillo" || \
-    exit
+ifinstalled "brillo" ||
+    exit 1
 
 send_notification() {
     brightness=$(printf "%.0f\n" "$(brillo -G)")

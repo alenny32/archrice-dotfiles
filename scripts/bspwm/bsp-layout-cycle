@@ -3,7 +3,7 @@
 # Script to cycle tiling layout on focused desktop using bsp-layout.
 
 # Check if required program is installed
-ifinstalled "bspwm" "bsp-layout" || \
+ifinstalled "bspwm" "bsp-layout" ||
     exit 1
 
 # Set the layouts to cycle (CSV)

@@ -77,7 +77,7 @@ super + {Left,Down,Up,Right}
     bspc node -v {-20 0,0 20,0 -20,20 0}
 # Hide a window
 super + shift + i
-    win-hide
+    bsp-hide
 
 ##### state/flags #####
 
@@ -142,10 +142,10 @@ super + BackSpace
     dmenu-sysact
 # Lock screen
 super + x
-    betterlockscreen -l
+    ifinstalled "betterlockscreen" && betterlockscreen -l
 # Suspend and hibernate
 super + {_,shift} + z
-    doas systemctl {suspend,hibernate}
+    sudo systemctl {suspend,hibernate}
 # Emoji selector
 super + e
     dmenu-emoji-selector

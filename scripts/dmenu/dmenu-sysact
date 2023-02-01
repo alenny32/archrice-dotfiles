@@ -3,12 +3,16 @@
 # A dmenu wrapper script for system functions.
 export WM="bspwm"
 case "$(readlink -f /sbin/init)" in
-    *systemd*) ctl="systemctl" ;;
-    *) ctl="loginctl" ;;
+    *"systemd"*)
+        ctl="systemctl"
+        ;;
+    *)
+        ctl="loginctl"
+        ;;
 esac
 
 # source Xresources colors
-[ -f "${XDG_DATA_HOME:-${HOME}/.local/share}/xcolors" ] || \
+[ -f "${XDG_DATA_HOME:-${HOME}/.local/share}/xcolors" ] ||
     gen-xcolors
 . "${XDG_DATA_HOME:-${HOME}/.local/share}/xcolors"
 
@@ -56,13 +60,31 @@ action="$(printf "\
     " | ${dmenu_prompt} "$dmenu_prompt_msg")"
 
 case "$action" in
-    " Power Off") $ctl poweroff ;;
-    " Reboot") $ctl reboot ;;
-    " Suspend") $ctl suspend-then-hibernate ;;
-    " Hibernate") $ctl  hibernate ;;
-    # " Log Out") bspc quit ;;
-    " Log Out") loginctl session-status | awk 'NR==1 {print $1}' | xargs loginctl terminate-session "$1" ;;
-    " Lock") betterlockscreen -l ;;
-    "󰶐 Display Off") xset dpms force off ;;
-    *) exit 1 ;;
+    " Power Off")
+        $ctl poweroff
+        ;;
+    " Reboot")
+        $ctl reboot
+        ;;
+    " Suspend")
+        $ctl suspend-then-hibernate
+        ;;
+    " Hibernate")
+        $ctl  hibernate
+        ;;
+    # " Log Out")
+        # bspc quit
+        # ;;
+    " Log Out")
+        loginctl session-status | awk 'NR==1 {print $1}' | xargs loginctl terminate-session "$1"
+        ;;
+    " Lock")
+        betterlockscreen -l
+        ;;
+    "󰶐 Display Off")
+        xset dpms force off
+        ;;
+    *)
+        exit 1
+        ;;
 esac

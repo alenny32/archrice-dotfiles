@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# if file is not a gpg file Encrypt file and permanently deletes it
+
 ## THC(Van Hausen)'s Secure Delete
 SRM_PROG="srm"
 SRM_OPTS="-lr"
@@ -14,7 +16,7 @@ for file in "${@:2}" ; do
     ext="${file##*.}"
 
     mime_type=$(file -bh --mime-type "${file}")
-    if [ "$mime_type" = "inode/directory" ] ; then
+    if [ "$mime_type" = "inode/directory" ]; then
         7z a "${file}.7z" "${file}"
         ${SRM_PROG} ${SRM_OPTS} "${file}"
         file="${file}.7z"
@@ -28,9 +30,14 @@ for file in "${@:2}" ; do
             ;;
         *)
             case "$1" in
-                "unspecified") gpg -e "${file}" ;;
-                *) gpg -r "$1" -e "${file}" ;;
+                "unspecified")
+                    gpg -e "${file}"
+                    ;;
+                *)
+                    gpg -r "$1" -e "${file}"
+                    ;;
             esac
-            ${SRM_PROG} ${SRM_OPTS} "${file}" ;;
+            ${SRM_PROG} ${SRM_OPTS} "${file}"
+            ;;
     esac
 done

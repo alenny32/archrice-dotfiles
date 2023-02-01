@@ -27,31 +27,84 @@ set autoquit on
 
 # cmds/functions
 cmd open ${{
-    case $(file --mime-type "$(readlink -f $f)" -b) in
-    application/vnd.openxmlformats-officedocument.spreadsheetml.sheet) devour localc $fx ;;
-    image/vnd.djvu|application/pdf|application/octet-stream|application/postscript) setsid -f devour zathura $fx >/dev/null 2>&1 ;;
-        text/*|application/json|inode/x-empty) $EDITOR $fx;;
-    image/x-xcf) setsid -f gimp $f >/dev/null 2>&1 ;;
-    image/svg+xml) display -- $f ;;
-    image/*) rotdir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" |
-        setsid -f devour sxiv -aio 2>/dev/null | while read -r file; do
-            [ -z "$file" ] && continue
-            lf -remote "send select \"$file\""
-            lf -remote "send toggle"
-        done &
-        ;;
-    audio/*) devour mpv --audio-display=no $f ;;
-    video/*|application/vnd.rn-realmedia) setsid -f devour mpv $f -quiet >/dev/null 2>&1 ;;
-    application/zip|application/x-7z-compressed) setsid -f devour 7zFM $f >/dev/null 2>&1 ;;
-    application/pdf|application/vnd.djvu|application/epub*) setsid -f devour zathura $fx >/dev/null 2>&1 ;;
-    application/pgp-encrypted) $EDITOR $fx ;;
-    application/vnd.openxmlformats-officedocument.wordprocessingml.document|application/vnd.oasis.opendocument.text) setsid -f devour lowriter $fx >/dev/null 2>&1 ;;
-    application/vnd.openxmlformats-officedocument.spreadsheetml.sheet|application/octet-stream|application/vnd.oasis.opendocument.spreadsheet|application/vnd.oasis.opendocument.spreadsheet-template) setsid -f devour localc $fx >/dev/null 2>&1 ;;
-    application/vnd.openxmlformats-officedocument.presentationml.presentation|application/vnd.oasis.opendocument.presentation-template|application/vnd.oasis.opendocument.presentation|application/vnd.ms-powerpoint) setsid -f devour loimpress $fx >/dev/null 2>&1 ;;
-    application/vnd.oasis.opendocument.graphics|application/vnd.oasis.opendocument.graphics-template) setsid -f devour lodraw $fx >/dev/null 2>&1 ;;
-    application/vnd.oasis.opendocument.formula) setsid -f devour lomath $fx >/dev/null 2>&1 ;;
-    application/vnd.oasis.opendocument.database) setsid -f devour lobase $fx >/dev/null 2>&1 ;;
-        *) for f in $fx; do setsid -f $OPENER $f >/dev/null 2>&1; done ;;
+    case "$(file --mime-type "$(readlink -f $f)" -b)" in
+        "image/vnd.djvu" | \
+        "application/pdf" | \
+        "application/octet-stream" | \
+        "application/postscript")
+            setsid -f devour zathura $fx >/dev/null 2>&1
+            ;;
+        "text/"* | "application/json" | "inode/x-empty")
+            $EDITOR $fx
+            ;;
+        "image/x-xcf")
+            ifinstalled "gimp" || exit 1
+            setsid -f gimp $f >/dev/null 2>&1
+            ;;
+        "image/svg+xml")
+            # devour display -- "$f"
+            devour sxiv "$f"
+            ;;
+        "image/"*)
+            rotdir $f |
+                grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" |
+                setsid -f devour sxiv -aio 2>/dev/null |
+                while read -r file; do
+                    [ -z "$file" ] && continue
+                    lf -remote "send select \"$file\""
+                    lf -remote "send toggle"
+                done &
+            ;;
+        "audio/"*)
+            devour mpv --audio-display=no $f
+            ;;
+        "video/"* | \
+        "application/vnd.rn-realmedia")
+            setsid -f devour mpv $f -quiet >/dev/null 2>&1
+            ;;
+        "application/zip" | \
+        "application/x-7z-compressed")
+            setsid -f devour 7zFM $f >/dev/null 2>&1
+            ;;
+        "application/pdf" | \
+        "application/vnd.djvu" | \
+        "application/epub*")
+            setsid -f devour zathura $fx >/dev/null 2>&1
+            ;;
+        "application/pgp-encrypted")
+            $EDITOR $fx
+            ;;
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document" | \
+        "application/vnd.oasis.opendocument.text")
+            setsid -f devour lowriter $fx >/dev/null 2>&1
+            ;;
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" | \
+        "application/vnd.oasis.opendocument.spreadsheet" | \
+        "application/vnd.oasis.opendocument.spreadsheet-template")
+        # "application/octet-stream" | \
+            setsid -f devour localc $fx >/dev/null 2>&1
+            ;;
+        "application/vnd.openxmlformats-officedocument.presentationml.presentation" | \
+        "application/vnd.oasis.opendocument.presentation-template" | \
+        "application/vnd.oasis.opendocument.presentation" | \
+        "application/vnd.ms-powerpoint")
+            setsid -f devour loimpress $fx >/dev/null 2>&1
+            ;;
+        "application/vnd.oasis.opendocument.graphics" | \
+        "application/vnd.oasis.opendocument.graphics-template")
+            setsid -f devour lodraw $fx >/dev/null 2>&1
+            ;;
+        "application/vnd.oasis.opendocument.formula")
+            setsid -f devour lomath $fx >/dev/null 2>&1
+            ;;
+        "application/vnd.oasis.opendocument.database")
+            setsid -f devour lobase $fx >/dev/null 2>&1
+            ;;
+        *)
+            for f in $fx; do
+                setsid -f $OPENER $f >/dev/null 2>&1
+            done
+            ;;
     esac
 }}
 
@@ -59,13 +112,19 @@ cmd mkdir $mkdir -p "$(echo $* | tr ' ' '\ ')"
 
 # Trash bindings
 cmd trash_restore ${{
-    clear; tput cup $(($(tput lines)/3)); tput bold
+    ifinstalled "trash-cli" ||
+        exit 1
+
+    clear; tput cup "$(($(tput lines)/3))"; tput bold
     printf "Trash restore:\n"; tput sgr0
     trash-restore
 }}
 
 cmd trash_put ${{
-    clear; tput cup $(($(tput lines)/3)); tput bold
+    ifinstalled "trash-cli" ||
+        exit 1
+
+    clear; tput cup "$(($(tput lines)/3))"; tput bold
     printf "\tTrash put:\n" ; tput sgr0
     set -f
     printf "%s\n\t" "$fx" ; tput bold
@@ -73,7 +132,7 @@ cmd trash_put ${{
     read ans
     [ "$ans" = "y" ] && trash-put -- $fx
 
-    # files=$(printf "$fx" | tr '\n' ';')
+    # files="$(printf "$fx" | tr '\n' ';')"
     # while [ "$files" ]; do
     #   file=${files%%;*}
     #   trash-put "$(basename "$file")"
@@ -86,7 +145,7 @@ cmd trash_put ${{
 }}
 
 cmd extract ${{
-    clear; tput cup $(($(tput lines)/3)) ; tput bold
+    clear; tput cup "$(($(tput lines)/3))" ; tput bold
     printf "\tExtract files:\n" ; tput sgr0
     set -f
     printf "%s\n\t" "$fx" ; tput bold
@@ -100,21 +159,21 @@ cmd extract ${{
 }}
 
 cmd archive ${{
-    clear; tput cup $(($(tput lines)/3)) ; tput bold
+    clear; tput cup "$(($(tput lines)/3))" ; tput bold
     printf "\tArchive files (7z):\n" ; tput sgr0
     set -f
     printf "%s\n\t" "$fx" ; tput bold
     printf "Archive name (empty to cancel): "
     read archive_name ; tput sgr0
 
-    [ -z "$archive_name" ] && \
+    [ -z "$archive_name" ] &&
         return
 
     7z a "${archive_name}.7z" $fx
 }}
 
 cmd delete ${{
-    clear; tput cup $(($(tput lines)/3)) ; tput bold
+    clear; tput cup "$(($(tput lines)/3))" ; tput bold
     printf "\tDelete:\n" ; tput sgr0
     set -f
     printf "%s\n\t" "$fx"; tput bold
@@ -124,7 +183,7 @@ cmd delete ${{
 }}
 
 cmd delete_secure ${{
-    clear; tput cup $(($(tput lines)/3)) ; tput bold
+    clear; tput cup "$(($(tput lines)/3))" ; tput bold
     printf "\tSecure delete:\n" ; tput sgr0
     set -f
     printf "%s\n\t" "$fx" ; tput bold
@@ -134,7 +193,7 @@ cmd delete_secure ${{
 }}
 
 cmd paste_overwrite ${{
-    ifinstalled "rsync" || \
+    ifinstalled "rsync" ||
         exit
 
     set -f
@@ -143,7 +202,7 @@ cmd paste_overwrite ${{
     list="$(sed 1d ${selected_files})"
     set -- _ $list; shift
 
-    [ "$#" -le 0 ] && \
+    [ "$#" -le 0 ] &&
         exit
 
     case "$mode" in
@@ -162,36 +221,42 @@ cmd paste_overwrite ${{
 }}
 
 cmd moveto ${{
-    clear; tput cup $(($(tput lines)/3)); tput bold
+    clear; tput cup "$(($(tput lines)/3))"; tput bold
     set -f
     clear; echo "Move to where?"
-    dest="$(sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//' ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | fzf | sed 's|~|$HOME|')" &&
-    for x in $fx; do
-        eval mv -iv \"$x\" \"$dest\"
-    done &&
-    notify-send "🚚 File(s) moved." "File(s) moved to $dest."
+    destination="$(sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//' ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | fzf | sed 's|~|$HOME|')"
+    for file in $fx; do
+        # eval mv -iv \"$file\" \"$destination\"
+        mv -iv "$file" "$destination"
+    done
+    notify-send -a "lf-moveto" -u "low" -i "bell" "🚚 File(s) moved." "File(s) moved to $destination."
 }}
 
 cmd copyto ${{
-    clear; tput cup $(($(tput lines)/3)); tput bold
+    clear; tput cup "$(($(tput lines)/3))"; tput bold
     set -f
     clear; echo "Copy to where?"
-    dest="$(sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//' ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | fzf | sed 's|~|$HOME|')" &&
-    for x in $fx; do
-        eval cp -ivr \"$x\" \"$dest\"
-    done &&
-    notify-send "📋 File(s) copied." "File(s) copies to $dest."
+    destination="$(sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//' ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | fzf | sed 's|~|$HOME|')"
+    for file in $fx; do
+        # eval cp -ivr \"$file\" \"$destination\"
+        cp -ivr "$file" "$destination"
+    done
+    notify-send -a "lf-copyto" -u "low" "📋 File(s) copied." "File(s) copies to $destination."
 }}
 
 cmd mime_ask ${{
-    clear; tput cup $(($(tput lines)/3))
+    clear; tput cup "$(($(tput lines)/3))"
     mimeopen --ask "$f"
 }}
 
 cmd gen_preview ${{
-    case "$(file --dereference --brief --mime-type -- "$fx")" in
-        application/vnd.openxmlformats-officedocument.wordprocessingml.document) docx2txt "$fx" ;;
-        application/vnd.oasis.opendocument.text) odt2txt "$fx" > "${fx}.txt";;
+    case "$(file -bh --mime-type -- "$fx")" in
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+            docx2txt "$fx"
+            ;;
+        "application/vnd.oasis.opendocument.text")
+            odt2txt "$fx" > "${fx}.txt"
+            ;;
     esac
 }}
 
@@ -200,7 +265,7 @@ cmd bulkrename $vidir
 
 # Template copying commands
 # cmd cp-temp-latex ${{
-#     clear; tput cup $(($(tput lines)/3)); tput bold
+#     clear; tput cup "$(($(tput lines)/3))"; tput bold
 #     set -f
 #     printf "%s\n\t" "$fx"
 #     printf "Copying LaTeX template...\n"
@@ -211,9 +276,10 @@ cmd bulkrename $vidir
 
 cmd confirm_gpg ${{
     user_id="$1"
-    clear; tput cup $(($(tput lines)/3)); tput bold
+    clear; tput cup "$(($(tput lines)/3))"; tput bold
     printf "\tGPG Encrypt/Decrypt"
-    [ "$user_id" = "umar" ] && printf " using Umar's key"; printf ":\n"; tput sgr0
+    [ "$user_id" = "umar" ] &&
+        printf " using Umar's key"; printf ":\n"; tput sgr0
     set -f
     printf "%s\n" "$fx"; tput bold
     if [ "$user_id" = "prompt" ]; then
@@ -223,7 +289,8 @@ cmd confirm_gpg ${{
     fi
     printf "\tEncrypt/Decrypt? [y/N] "
     read ans ; printf "\n"; tput sgr0
-    [ "$ans" = "y" ] && gpg-ed "$user_id" $fx
+    [ "$ans" = "y" ] &&
+        gpg-ed "$user_id" $fx
 }}
 
 # Bindings

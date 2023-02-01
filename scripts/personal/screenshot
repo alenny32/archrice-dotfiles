@@ -7,12 +7,12 @@ CLIPBOARD_PROGRAM="xclip"
 SCRIPT_NAME="$(basename "$0")"
 
 # source Xresources colors
-[ -f "${XDG_DATA_HOME:-${HOME}/.local/share}/xcolors" ] || \
+[ -f "${XDG_DATA_HOME:-${HOME}/.local/share}/xcolors" ] ||
     gen-xcolors
 . "${XDG_DATA_HOME:-${HOME}/.local/share}/xcolors"
 
 # check if program is installed
-ifinstalled ${SCREENSHOT_PROGRAM} ${CLIPBOARD_PROGRAM} || \
+ifinstalled ${SCREENSHOT_PROGRAM} ${CLIPBOARD_PROGRAM} ||
     exit
 
 # screenshot configuration
@@ -33,33 +33,37 @@ xclip_cmd="xclip -selection clipboard -t image/png -i $output"
 # xclip_cmd="'xclip -selection clipboard -t image/png -i $f'"
 
 # if "$SCRIPT_NAME" folder does not exist in pictures directory, then make directory
-[ ! -d "${XDG_PICTURES_DIR:-$HOME/Pictures}/screenshots" ] && \
+[ ! -d "${XDG_PICTURES_DIR:-$HOME/Pictures}/screenshots" ] &&
     mkdir -p "${XDG_PICTURES_DIR:-$HOME/Pictures}/screenshots"
 
 # pick which type of screenshot
 case "$1" in
     "selection")
-        "$SCREENSHOT_PROGRAM" "$output" --select --line mode=edge --quality "${image_quality}" \
+        "$SCREENSHOT_PROGRAM" "$output" --select --line mode=edge \
+            --quality "${image_quality}" \
             --exec "${xclip_cmd}" || \
             exit
         ;;
     "window")
-        "$SCREENSHOT_PROGRAM" "$output" --focused --quality "${image_quality}" \
+        "$SCREENSHOT_PROGRAM" "$output" --focused \
+            --quality "${image_quality}" \
             --exec "${xclip_cmd}" || \
             exit
         ;;
     "fullscreen")
-        "$SCREENSHOT_PROGRAM" "$output" --quality "${image_quality}" \
+        "$SCREENSHOT_PROGRAM" "$output" \
+            --quality "${image_quality}" \
             --exec "${xclip_cmd}" || \
             exit
         ;;
     "temp")
-        [ -d "$temp_dir" ] || \
+        [ -d "$temp_dir" ] ||
             mkdir "$temp_dir"
         output="$temp_dir/$filename"
         xclip_cmd="xclip -selection clipboard -t image/png -i $output"
 
-        "$SCREENSHOT_PROGRAM" "$output" --select --line mode=edge --quality "${image_quality}" \
+        "$SCREENSHOT_PROGRAM" "$output" --select --line mode=edge \
+            --quality "${image_quality}" \
             --exec "${xclip_cmd}" || \
             exit
         ;;

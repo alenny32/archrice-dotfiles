@@ -3,8 +3,8 @@
 # Script to change volume and notify using pamixer and dunst.
 
 SCRIPT_NAME="$(basename "$0")"
-ifinstalled "pamixer" || \
-    exit
+ifinstalled "pamixer" ||
+    exit 1
 
 send_notification() {
     volume="$(pamixer --get-volume)"
