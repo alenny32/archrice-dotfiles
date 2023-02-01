@@ -6,10 +6,10 @@
 # install pipewire and all of uninstalled packages
 
 ## Elevating privilege
-# chusr="sudo"
-chusr="doas"
+chusr="sudo"
+# chusr="doas"
 
-${chusr} pacman -Rns --noconfirm \
+"$chusr" pacman -Rns \
     pulseaudio-alsa \
     pulseaudio-bluetooth \
     pulseaudio-jack \
@@ -23,7 +23,7 @@ ${chusr} pacman -Rns --noconfirm \
     volumeicon \
     pavucontrol
 
-${chusr} pacman -S --needed \
+"$chusr" pacman -S --needed \
     pipewire \
     pipewire-media-session \
     pipewire-alsa \

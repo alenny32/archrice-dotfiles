@@ -4,19 +4,20 @@ CONFIRM="N"
 ICON="gcr-gnupg"
 SCRIPT="gpg-ed-gui"
 TITLE="GPG Encrypt/Decrypt"
+SCRIPT_NAME="$(basename "$0")"
 
 exit_with_error(){
   local -i win_length=45
   local -i win_height=8
   echo 1>&2 "${SCRIPT}: ERROR: ${2}"
-  notify-send --icon ${ICON} "${TITLE}: ERROR!" "${2} (${1})"
+  notify-send -a "$SCRIPT_NAME" --icon ${ICON} "${TITLE}: ERROR!" "${2} (${1})"
   Xdialog --icon ${ICON} --title ${TITLE} --msgbox "${2} (${1})" ${win_height} ${win_length}
   exit ${1}
 }
 
 exit_with_error_soft(){
   echo 1>&2 "${SCRIPT}: ERROR: ${2}"
-  notify-send --icon ${ICON} "${TITLE}: ERROR!" "${2} (${1})"
+  notify-send -a "$SCRIPT_NAME" --icon ${ICON} "${TITLE}: ERROR!" "${2} (${1})"
   exit ${1}
 }
 
@@ -53,11 +54,11 @@ notify_complete() {
   local -i complete_files=$((${NUM_FILES} - ${FILE_FAILS}))
   case ${FILE_FAILS} in
    0)
-    notify-send --icon ${ICON} "${TITLE}" "Finished Encrypt/Decrypt ${NUM_FILES} File(s)"
+    notify-send -a "$SCRIPT_NAME" --icon ${ICON} "${TITLE}" "Finished Encrypt/Decrypt ${NUM_FILES} File(s)"
     exit 0
     ;;
    *)
-    notify-send --icon ${ICON} "${TITLE}" "Finished Encrypt/Decrypt ${complete_files} File(s). Unable to Encrypt/Decrypt ${FILE_FAILS} file(s)"
+    notify-send -a "$SCRIPT_NAME" --icon ${ICON} "${TITLE}" "Finished Encrypt/Decrypt ${complete_files} File(s). Unable to Encrypt/Decrypt ${FILE_FAILS} file(s)"
     exit 1
     ;;
   esac

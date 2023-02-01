@@ -92,7 +92,7 @@ cmd extract ${{
     printf "%s\n\t" "$fx" ; tput bold
     printf "Extract? [y/N] "
     read ans ; tput sgr0
-    if [ $ans = "y" ]; then
+    if [ "$ans" = "y" ]; then
         for file in $fx; do
             aunpack $file
         done
@@ -104,9 +104,13 @@ cmd archive ${{
     printf "\tArchive files (7z):\n" ; tput sgr0
     set -f
     printf "%s\n\t" "$fx" ; tput bold
-    printf "Archive name: "
-    read name ; tput sgr0
-    7z a "${name}.7z" $fx
+    printf "Archive name (empty to cancel): "
+    read archive_name ; tput sgr0
+
+    [ -z "$archive_name" ] && \
+        return
+
+    7z a "${archive_name}.7z" $fx
 }}
 
 cmd delete ${{
@@ -116,7 +120,7 @@ cmd delete ${{
     printf "%s\n\t" "$fx"; tput bold
     printf "Delete? [y/N] "
     read ans ; tput sgr0
-    [ $ans = "y" ] && rm -rf -- $fx
+    [ "$ans" = "y" ] && rm -rf -- $fx
 }}
 
 cmd delete_secure ${{
@@ -126,7 +130,7 @@ cmd delete_secure ${{
     printf "%s\n\t" "$fx" ; tput bold
     printf "Securely delete? [y/N] "
     read ans ; tput sgr0
-    [ $ans = "y" ] && srm -r -- $fx
+    [ "$ans" = "y" ] && srm -r -- $fx
 }}
 
 cmd paste_overwrite ${{
@@ -212,7 +216,7 @@ cmd confirm_gpg ${{
     fi
     printf "\tEncrypt/Decrypt? [y/N] "
     read ans ; printf "\n"; tput sgr0
-    [ $ans = "y" ] && gpg-ed "$user_id" $fx
+    [ "$ans" = "y" ] && gpg-ed "$user_id" $fx
 }}
 
 # Bindings
@@ -279,6 +283,7 @@ cmd confirm_gpg ${{
     map <c-v>f &code "$fx"
     map <c-v>v &code .
     map e # open with editor
+    map ed $"$EDITOR" "$fx"
     map ef &devour thunar "$fx"
     map ee &devour thunar .
     map <a-m>m &devour mpv --no-terminal "$f/*.mp4"

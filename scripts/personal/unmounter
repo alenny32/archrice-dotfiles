@@ -5,6 +5,8 @@
 
 set -e
 
+SCRIPT_NAME="$(basename "$0")"
+
 # source Xresources colors
 [ -f "${XDG_DATA_HOME:-${HOME}/.local/share}/xcolors" ] || \
     gen-xcolors
@@ -14,24 +16,32 @@ set -e
 dmenu_options="-i -nb "${color0}" -nf "${color3}" -sb "${color3}""
 dmenu_prompt="dmenu $dmenu_options -p"
 
-mounteddroids="$(grep simple-mtpfs /etc/mtab | awk '{print "📱" $2}')"
+mounteddroids="$(grep simple-mtpfs /etc/mtab | \
+    awk '{print "📱" $2}')"
 lsblkoutput="$(lsblk -nrpo "name,type,size,mountpoint")"
-mounteddrives="$(echo "$lsblkoutput" | awk '($2=="part"||$2="crypt")&&$4!~/\/boot|\/home$|SWAP/&&length($4)>1{printf "💾%s (%s)\n",$4,$3}')"
+mounteddrives="$(echo "$lsblkoutput" | \
+    awk '($2=="part"||$2="crypt")&&$4!~/\/boot|\/home$|SWAP/&&length($4)>1{printf "💾%s (%s)\n",$4,$3}')"
 
-allunmountable="$(echo "$mounteddroids
-$mounteddrives" | sed "/^$/d;s/ *$//")"
-test -n "$allunmountable"
+allunmountable="$(echo "$mounteddroids $mounteddrives" | \
+    sed "/^$/d;s/ *$//")" \
+    test -n "$allunmountable"
 
-chosen="$(echo "$allunmountable" | ${dmenu_prompt} "Unmount which drive?")"
+chosen="$(echo "$allunmountable" | \
+    ${dmenu_prompt} "Unmount which drive?")"
 chosen="${chosen%% *}"
 test -n "$chosen"
 
 sudo -A umount -l "/${chosen#*/}"
-notify-send -a "unmounter" -t 6000 -u "low" "Device unmounted." "$chosen has been unmounted."
+notify-send -a "$SCRIPT_NAME" -u "low" -t 6000 \
+    "Device unmounted." \
+    "$chosen has been unmounted."
 
 # Close the chosen drive if decrypted.
-cryptid="$(echo "$lsblkoutput" | grep "/${chosen#*/}$")"
+cryptid="$(echo "$lsblkoutput" | \
+    grep "/${chosen#*/}$")"
 cryptid="${cryptid%% *}"
 test -b /dev/mapper/"${cryptid##*/}"
 sudo -A cryptsetup close "$cryptid"
-notify-send -a "unmounter" -t 6000 -u "low" "🔒Device dencryption closed." "Drive is now securely locked again."
+notify-send -a "$SCRIPT_NAME" -u "low" -t 6000 \
+    "🔒Device dencryption closed." \
+    "Drive is now securely locked again."

@@ -96,9 +96,15 @@ if [ -n "$current" ] && [ -n "$forecast" ]; then
     # # Full
     # echo "$(get_icon "$current_icon") $current_temp$SYMBOL $trend $(get_icon "$forecast_icon") $forecast_temp$SYMBOL $pop"
     # No weather temp forecast
-    if [ $pop -eq 0 ] ; then
-        echo "$(get_icon "$current_icon") $current_temp$SYMBOL $trend $(get_icon "$forecast_icon") $forecast_temp$SYMBOL"
+    if [ "$pop" -lt 10 ] || [ "$pop" -gt 90 ]; then
+        echo "\
+$(get_icon "$current_icon") $current_temp$SYMBOL \
+$trend \
+$(get_icon "$forecast_icon") $forecast_temp$SYMBOL"
     else
-        echo "$(get_icon "$current_icon") $current_temp$SYMBOL $trend $pop_display"
+        echo "\
+$(get_icon "$current_icon") $current_temp$SYMBOL \
+$trend \
+$pop_display"
     fi
 fi

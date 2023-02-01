@@ -1,10 +1,13 @@
 #!/bin/sh
 
-file_name="xcolors"
-save_path="${XDG_DATA_HOME:-${HOME}/.local/share}"
-full_path="${save_path}/${file_name}"
+# Script to generate color variables based on xresources.
 
-xresources_path="${HOME}/.Xresources"
+file_name="xcolors"
+save_path="${XDG_DATA_HOME:-$HOME/.local/share}"
+full_path="$save_path/$file_name"
+
+# xresources_path="$HOME/.Xresources"
+xresources_path="$HOME/.config/x11/xresources"
 
 # get xresources colors
 get_color() {
