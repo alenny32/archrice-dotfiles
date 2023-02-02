@@ -107,14 +107,19 @@ export MOZ_USE_XINPUT2="1" # Mozilla smooth scrolling/touchpads.
 export AWT_TOOLKIT="MToolkit wmname LG3D" # May have to install wmname
 export _JAVA_AWT_WM_NONREPARENTING=1 # Fix for Java applications in dwm
 
-[ ! -f ${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc ] && setsid shortcuts > /dev/null 2>&1
+# Create shortcutrc file if not exist
+[ ! -f ${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc ] &&
+    setsid shortcuts > /dev/null 2>&1
 
-# # Start graphical server on user's current tty if not already running.
-# # Commented if using login manager
-# [ "$(tty)" = "/dev/tty1" ] && ! pidof -s Xorg >/dev/null 2>&1 && exec startx "$XINITRC"
+# Start graphical server on user's current tty if not already running.
+# Comment it if using login manager
+# [ "$(tty)" = "/dev/tty1" ] &&
+#     ! pidof -s Xorg >/dev/null 2>&1 && exec startx "$XINITRC"
 
 # Switch escape and caps if tty and no passwd required:
 sudo loadkeys "$HOME/.local/bin/sys/ttymaps.kmap" 2>/dev/null
 
 # Nix profile
-[ -e /home/umar/.nix-profile/etc/profile.d/nix.sh ] && . /home/umar/.nix-profile/etc/profile.d/nix.sh # added by Nix installer
+# added by Nix installer
+[ -e /home/umar/.nix-profile/etc/profile.d/nix.sh ] &&
+    . /home/umar/.nix-profile/etc/profile.d/nix.sh

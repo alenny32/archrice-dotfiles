@@ -1,31 +1,31 @@
 # Created by newuser for 5.9
 
-## Powerlevel10k
-# To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
-[[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
-
 ######## Umar's config for the Zoomer Shell ########
 
-# Load ssh key passphrase
+## Powerlevel10k
+# To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/.p10k.zsh" ] &&
+    source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/.p10k.zsh"
+# Load Powerlevel10K
+source "$XDG_CONFIG_HOME/zsh/plugins/powerlevel10k/powerlevel10k.zsh-theme" 2>/dev/null
+
+## Load ssh key passphrase (will ask for passphrase first).
 # keychain $HOME/.ssh/id_ed25519 && source $HOME/.keychain/$HOSTNAME-sh
 
-mkcd() {
-    mkdir -pv "$1"
-    cd "$1"
-}
-
-# # virtualenvwrapper config and source
+## virtualenvwrapper config and source
 # export WORKON_HOME=$HOME/Workspace/.virtualenvs
 # export PROJECT_HOME=$HOME/Workspace
 # source /usr/bin/virtualenvwrapper.sh
 
 ######################################################################
 
-# Enable colors and change prompt:
-autoload -U colors && colors    # Load colors
-PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b " # Replaced by Powerlevel10k
-setopt autocd                   # Automatically cd into typed directory.
-stty stop undef                 # Disable ctrl-s to freeze terminal.
+## Enable colors and change prompt:
+## Replaced by Powerlevel10k
+# autoload -U colors && colors    # Load colors
+# PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
+
+setopt autocd                     # Automatically cd into typed directory.
+stty   stop undef                 # Disable ctrl-s to freeze terminal.
 setopt interactive_comments
 
 # History in cache directory:
@@ -33,10 +33,13 @@ HISTSIZE=10000000
 SAVEHIST=10000000
 HISTFILE="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/history"
 
-# Load aliases and shortcuts if existent.
-[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc"
-[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc"
-[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/zshnameddirrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/zshnameddirrc"
+# Load aliases and shortcuts if exists.
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc" ] &&
+    source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc"
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc" ] &&
+    source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc"
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/zshnameddirrc" ] &&
+    source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/zshnameddirrc"
 
 # Basic auto/tab complete (case insensitive):
 autoload -Uz compinit
@@ -44,7 +47,8 @@ zstyle ":completion:*" menu select
 zstyle ":completion:*" matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 zmodload zsh/complist
 compinit
-_comp_options+=(globdots)        # Include hidden files.
+# Include hidden files.
+_comp_options+=(globdots)
 
 # vi mode
 bindkey -v
@@ -60,28 +64,41 @@ bindkey -v '^?' backward-delete-char
 # Change cursor shape for different vi modes.
 function zle-keymap-select () {
     case $KEYMAP in
-        vicmd) echo -ne '\e[1 q';;      # block
-        viins|main) echo -ne '\e[5 q';; # beam
+        "vicmd") echo -ne '\e[1 q';;      # block
+        "viins"|"main") echo -ne '\e[5 q';; # beam
     esac
 }
 zle -N zle-keymap-select
 zle-line-init() {
-    zle -K viins # initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
+    # initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
+    zle -K viins
     echo -ne "\e[5 q"
 }
 zle -N zle-line-init
-echo -ne '\e[5 q' # Use beam shape cursor on startup.
-preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
+# Use beam shape cursor on startup.
+echo -ne '\e[5 q'
+# Use beam shape cursor for each new prompt.
+preexec() { echo -ne '\e[5 q' ;}
 
 # Use lf to switch directories and bind it to ctrl-o
 lfcd () {
     tmp="$(mktemp -uq)"
-    trap 'rm -f $tmp >/dev/null 2>&1 && trap - HUP INT QUIT TERM PWR EXIT' HUP INT QUIT TERM PWR EXIT
+    trap \
+        'rm -f $tmp >/dev/null 2>&1 && trap - HUP INT QUIT TERM PWR EXIT' \
+        HUP INT QUIT TERM PWR EXIT
     lf -last-dir-path="$tmp" "$@"
     if [ -f "$tmp" ]; then
         dir="$(cat "$tmp")"
-        [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
+        [ -d "$dir" ] &&
+            [ "$dir" != "$(pwd)" ] &&
+                cd "$dir"
     fi
+}
+
+# Make directory and cd into it
+mkcd() {
+    mkdir -pv "$1"
+    cd "$1"
 }
 
 # Add movement shortcut
@@ -89,13 +106,9 @@ bindkey '^a' beginning-of-line
 bindkey -M vicmd '^a' beginning-of-line
 bindkey '^e' end-of-line
 bindkey -M vicmd '^e' end-of-line
-
 bindkey -s '^o' '^e^ulfcd\n'
-
 bindkey -s '^b' '^ubc -lq\n'
-
 bindkey -s '^f' '^ucd "$(dirname "$(fzf)")"\n'
-
 bindkey '^[[P' delete-char
 
 # Edit line in vim with ctrl-v:
@@ -106,7 +119,6 @@ bindkey -M vicmd '^v' edit-command-line
 bindkey -M visual '^[[P' vi-delete
 
 # Load syntax highlighting; should be last.
-source $XDG_CONFIG_HOME/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh 2>/dev/null
-
-# Load Powerlevel10K
-source $XDG_CONFIG_HOME/zsh/plugins/powerlevel10k/powerlevel10k.zsh-theme 2>/dev/null
+source \
+    "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh" \
+    2>/dev/null
