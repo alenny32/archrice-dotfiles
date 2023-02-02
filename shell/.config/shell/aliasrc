@@ -75,26 +75,6 @@ alias \
     cfxinit="$EDITOR $XDG_CONFIG_HOME/x11/xinitrc" \
     cfxr="$EDITOR $XDG_CONFIG_HOME/x11/xresources" \
 
-# Verbosity and settings that you pretty much just always are going to want.
-alias \
-    df="df -h" \
-    du="du -h" \
-
-# Common commands with certain options
-alias \
-    la="ls -a" \
-    ll="ls -l" \
-    lla="ll -al" \
-    lsd="ls -D" \
-    pin="pacman -S" \
-    pup="pacman -Syu" \
-    pss="pacman -Ss" \
-    pq="pacman -Q" \
-    pqs="pacman -Qs" \
-    pqq="pacman -Qq" \
-    prm="pacman -R" \
-    prns="pacman -Rns" \
-
 # Apt package manager
 alias \
     aptupd="$chusr apt update" \
@@ -102,11 +82,6 @@ alias \
     aptin="$chusr apt install" \
     aptrm="$chusr apt remove" \
     aptpg="$chusr apt purge" \
-
-# $chusr not required for some system commands
-for command in downgrade apt mount umount sv pacman updatedb su shutdown poweroff reboot ; do
-    alias $command="$chusr $command"
-done; unset command
 
 # Use neovim for vi if present.
 [ -x "$(command -v nvim)" ] && \
@@ -120,24 +95,58 @@ se() { cd ~/.local/bin; $EDITOR $(fzf) ;}
 
 # Verbosity and settings that you pretty much just always are going to want.
 alias \
-    cp="cp -iv" \
+    cp="cp -Liv" \
     mv="mv -iv" \
     rm="rm -vI" \
-    th="trash -v" \
+    th="trash-put -v" \
     bc="bc -ql" \
     mkd="mkdir -pv" \
+    df="df -h" \
+    du="du -h" \
     yt="yt-dlp --embed-metadata -i" \
     yta="yt -x -f bestaudio/best" \
-    ffmpeg="ffmpeg -hide_banner"
+    ffmpeg="ffmpeg -hide_banner" \
 
 # Colorize commands when possible.
 alias \
-    ls="exa --icons -h --color=auto --group-directories-first" \
     grep="grep --color=auto" \
     diff="diff --color=auto" \
     ccat="highlight --out-format=ansi" \
     ip="ip -color=auto"
-    # ls="exa -hN --color=auto --group-directories-first" \
+
+# Use exa instead of ls if installed
+alias ll="ls -l"
+if [ "$(command -v exa)" ]; then
+    alias la="ls -a"
+    alias lla="ls -al"
+    alias lsd="ls -D"
+    alias ls="exa -h --icons --color=auto --group-directories-first"
+else
+    alias la="ls -A"
+    alias lla="ls -Al"
+    alias lsd="ls -d"
+    alias ls="ls -hN --color=auto --group-directories-first"
+fi
+
+# Sudo / doas not required for some system commands
+for command in downgrade apt mount umount sv pacman updatedb su shutdown poweroff reboot; do
+    alias $command="$chusr $command"
+done; unset command
+
+# Common commands with certain options
+alias \
+    pin="pacman -S" \
+    pup="pacman -Syu" \
+    pss="pacman -Ss" \
+    pq="pacman -Q" \
+    pqs="pacman -Qs" \
+    pqq="pacman -Qq" \
+    prm="pacman -R" \
+    prns="pacman -Rns" \
+    pf="pacman -F" \
+    pfy="pacman -Fy" \
+    pfx="pacman -Fx" \
+    pfyx="pacman -Fyx" \
 
 # These common commands are just too long! Abbreviate them.
 alias \
@@ -151,17 +160,20 @@ alias \
     xi="$chusr xbps-install" \
     xr="$chusr xbps-remove -R" \
     xq="xbps-query" \
-    z="devour zathura"
+    z="devour zathura" \
 
 alias \
     lf="lfub" \
     magit="$EDITOR -c MagitOnly" \
-    ref="shortcuts >/dev/null; source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc ; source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/zshnameddirrc" \
+    ref="shortcuts >/dev/null; \
+        source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc; \
+        source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/zshnameddirrc" \
     weath="less -S ${XDG_CACHE_HOME:-$HOME/.cache}/weatherreport" \
 
-# apps
+# Apps
 alias \
-    sshk="keychain $HOME/.ssh/id_ed25519; source $HOME/.keychain/$HOSTNAME-sh" \
+    sshk="keychain $HOME/.ssh/id_ed25519; \
+        source $HOME/.keychain/$HOSTNAME-sh" \
     walbg="wal -n -i $XDG_DATA_HOME/bg" \
     walr="wal -R" \
     dmenu='dmenu -i -nb "#0b060a" -nf "#f77416" -sb "#f77416"' \
@@ -169,7 +181,8 @@ alias \
     dm='dmenu' \
     dr='dmenu_run' \
 
-# Window swallowing (install devour from https://github.com/salman-abedin/devour)
+# Window swallowing using devour
+# install devour from (https://github.com/salman-abedin/devour)
 alias \
     mpv="devour mpv" \
     sxiv="devour sxiv" \
