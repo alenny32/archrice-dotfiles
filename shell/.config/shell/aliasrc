@@ -84,11 +84,11 @@ alias \
     aptpg="$chusr apt purge" \
 
 # Use neovim for vi if present.
-[ -x "$(command -v nvim)" ] && \
+[ -x "$(command -v nvim)" ] &&
     alias vi="nvim" vimdiff="nvim -d"
 
 # Use $XINITRC variable if file exists.
-[ -f "$XINITRC" ] && \
+[ -f "$XINITRC" ] &&
     alias startx="startx $XINITRC"
 
 se() { cd ~/.local/bin; $EDITOR $(fzf) ;}
@@ -105,6 +105,7 @@ alias \
     du="du -h" \
     yt="yt-dlp --embed-metadata -i" \
     yta="yt -x -f bestaudio/best" \
+    wget="wget -c -r -p -k -np -nv -nH -R 'index.html' --show-progress" \
     ffmpeg="ffmpeg -hide_banner" \
 
 # Colorize commands when possible.
@@ -156,6 +157,7 @@ alias \
     sdn="shutdown -h now" \
     e="$EDITOR" \
     v="$VISUAL" \
+    b="bat" \
     p="pacman" \
     xi="$chusr xbps-install" \
     xr="$chusr xbps-remove -R" \

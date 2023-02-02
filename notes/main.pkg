@@ -1,6 +1,9 @@
 # Installation
+base
+base-devel
+linux
+linux-firmware
 grub
-git
 os-prober
 dosfstools
 efibootmgr
@@ -30,6 +33,7 @@ poppler
 perl-file-mimeinfo
 networkmanager
 pacman-contrib
+parallel
 opendoas
 redshift
 sudo
@@ -42,12 +46,14 @@ mesa-utils
 mediainfo
 gnome-keyring
 gvfs
+git
 stow
 tree
 odt2txt
 docx2txt
 wmname
 wmctrl
+wget
 xcape
 xdo
 xdotool

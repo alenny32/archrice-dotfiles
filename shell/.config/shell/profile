@@ -50,6 +50,7 @@ export TERM="alacritty"
 export TERMINAL="alacritty"
 export BROWSER="brave"
 export OPENER="xdg-open"
+export VIEWER="bat"
 
 # ~/ Clean-up:
 export XDG_CONFIG_HOME="$HOME/.config"
