@@ -3,7 +3,8 @@
 local g = vim.g
 local o = vim.o
 
--- o.termguicolors = true
+-- Background and colors
+    -- o.termguicolors = true
     -- o.background = 'dark'
 
 -- Do not save when switching buffers
@@ -19,15 +20,15 @@ local o = vim.o
 -- Some basics:
     vim.keymap.set('n', 'c', '"_c')
     o.compatible = false
-    vim.cmd('syntax on')
-    vim.cmd('filetype plugin indent on')
+    vim.cmd.syntax('on')
+    vim.cmd.filetype('plugin indent on')
     o.encoding = 'utf-8'
     o.number = true
     o.relativenumber = true
--- Enable autocompletion:
+-- Enable completion:
     o.wildmode = 'longest,list,full'
---Disables automatic commenting on newline
-    vim.cmd('autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o')
+-- Disables automatic commenting on newline
+    vim.cmd.autocmd('FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o')
 
 -- Better editor UI
     o.title = true
@@ -42,19 +43,26 @@ local o = vim.o
     o.laststatus = 0
     o.showcmd = false
     o.conceallevel = 2
+    o.cursorline = true
+    o.cursorlineopt = 'number,line'
+    -- o.cursorlineopt = 'number,line'
+    -- o.cursorcolumn = true
 
 -- Better editing experience
     o.expandtab = true
     o.smarttab = true
     o.tabstop = 4
     o.shiftwidth = 0
-    o.softtabstop = -1 -- if value negative, shiftwidth value is used
+    -- if softtabstop value negative, shiftwidth value is used
+        o.softtabstop = -1
     o.list = true
-    -- o.listchars = 'trail:·,nbsp:◇,tab:→ ,extends:▸,precedes:◂'
-    -- for 4 spaces indentations
-        o.listchars = 'eol:¬,lead: ,trail:·,nbsp:◇,tab:→-,extends:▸,precedes:◂,multispace:···⬝,leadmultispace:│   ,'
-    -- for 2 spaces indentations
-        -- o.listchars = 'eol:¬,space:·,lead: ,trail:·,nbsp:◇,tab:→-,extends:▸,precedes:◂,multispace:··,leadmultispace:│ ,'
+    -- listchars concise
+        -- o.listchars = 'trail:·,nbsp:◇,tab:→ ,extends:▸,precedes:◂'
+    -- listchars verbose
+        -- for 4 spaces indentations
+            o.listchars = 'eol:¬,lead: ,trail:·,nbsp:◇,tab:→-,extends:▸,precedes:◂,multispace:···⬝,leadmultispace:│   ,'
+        -- for 2 spaces indentations
+            -- o.listchars = 'eol:¬,space:·,lead: ,trail:·,nbsp:◇,tab:→-,extends:▸,precedes:◂,multispace:··,leadmultispace:│ ,'
     o.formatoptions = 'qrn1'
 
 -- Case insensitive searching UNLESS /C or capital in search
@@ -71,13 +79,13 @@ local o = vim.o
     ]])
 
 -- Undo and backup options
-    -- o.backup = false
-    -- o.writebackup = false
-    -- o.undofile = true
-    -- o.swapfile = false
-    -- o.backupdir = '/tmp/'
-    -- o.directory = '/tmp/'
-    -- o.undodir = '/tmp/'
+    o.backup = false
+    o.writebackup = true
+    -- o.backupdir = '.,$XDG_STATE_HOME/nvim/backup//'
+    o.swapfile = true
+    -- o.directory = '.,$XDG_STATE_HOME/nvim/swap//'
+    -- o.undofile = 'nvim-undo'
+    -- o.undodir = '.,$XDG_STATE_HOME/nvim/undo//'
 
 -- Remember 50 items in commandline history
     o.history = 50

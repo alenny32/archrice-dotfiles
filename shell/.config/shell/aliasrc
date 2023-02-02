@@ -21,7 +21,7 @@ alias \
     soz="source $XDG_CONFIG_HOME/zsh/.zshrc" \
     soa="source $XDG_CONFIG_HOME/shell/aliasrc" \
     ss="cd $HOME/.local/bin; ls" \
-    sslf="lfcd $HOME/.local/bin" \
+    ssl="lfcd $HOME/.local/bin/" \
     loc="locate" \
     bt="bluetoothctl" \
     SS="$chusr systemctl" \
@@ -62,7 +62,7 @@ alias \
     cfa="$EDITOR $XDG_CONFIG_HOME/shell/aliasrc" \
     cfv="$EDITOR $XDG_CONFIG_HOME/$EDITOR/$EDITOR-vimscript/init.vim" \
     cfl="$EDITOR $XDG_CONFIG_HOME/lf/lfrc" \
-    cfvl="cd $XDG_CONFIG_HOME/$EDITOR/lua; ls" \
+    cfvl="lfcd $XDG_CONFIG_HOME/$EDITOR/lua/" \
     cfal="$EDITOR $XDG_CONFIG_HOME/alacritty/alacritty.yml" \
     cfb="$EDITOR $XDG_CONFIG_HOME/bspwm/bspwmrc" \
     cfbl="$EDITOR $XDG_CONFIG_HOME/bsp-layout/layoutrc" \

@@ -55,6 +55,7 @@ export VIEWER="bat"
 # ~/ Clean-up:
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_STATE_HOME="$HOME/.local/state"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DESKTOP_DIR="$HOME/Desktop"
 export XDG_DOWNLOAD_DIR="$HOME/Downloads"
@@ -109,7 +110,7 @@ export AWT_TOOLKIT="MToolkit wmname LG3D" # May have to install wmname
 export _JAVA_AWT_WM_NONREPARENTING=1 # Fix for Java applications in dwm
 
 # Create shortcutrc file if not exist
-[ ! -f ${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc ] &&
+[ -f ${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc ] ||
     setsid shortcuts > /dev/null 2>&1
 
 # Start graphical server on user's current tty if not already running.

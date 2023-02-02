@@ -11,10 +11,10 @@ Xcursor.size: 32
 Sxiv.background: #17080b
 Sxiv.foreground: #D84931
 
-/* ! Transparency */
+! Transparency
 /* *.alpha: 0.8 */
 
-!! Set a default font and font size as below:
+! Set a default font and font size as below:
 *.font:	FiraCode Nerd Font:style=Medium:size=12:antialias=true:autohint=true;
 /* *.font:	Liberation Mono:pixelsize=12:antialias=true:autohint=true; */
 
@@ -22,7 +22,7 @@ Sxiv.foreground: #D84931
 ! st.termname: st-256color
 ! st.borderpx: 2
 
-!! Set the background, foreground and cursor colors as below:
+! Set the background, foreground and cursor colors as below:
 
 !! WoodyRed:
 *.color0:        #0b060a
@@ -62,7 +62,7 @@ Sxiv.foreground: #D84931
 /* *.color7:     #BFBFBF */
 /* *.color15:    #E6E6E6 */
 
-/* !! One Dark: */
+/* !! OneDark: */
 /* *.foreground:    #ABB2BF */
 /* *.background:    #1E2127 */
 /* *.cursorColor:   #5C6370 */

@@ -23,22 +23,22 @@ vim.keymap.set({'n', 'v', 'o'}, '<leader>h', ToggleHiddenAll)
 local theme = 0
 function CycleThemes()
     if theme == 0 then
-        vim.cmd('source /home/umar/.config/nvim/themes/onedark.vim')
+        vim.cmd.source('$XDG_CONFIG_HOME/nvim/themes/onedark.vim')
         theme = theme + 1
     elseif theme == 1 then
-        vim.cmd('source $XDG_CONFIG_HOME/nvim/themes/dracula.vim')
+        vim.cmd.source('$XDG_CONFIG_HOME/nvim/themes/dracula.vim')
         theme = theme + 1
     elseif theme == 2 then
-        vim.cmd('source $XDG_CONFIG_HOME/nvim/themes/tokyonight-night.vim')
+        vim.cmd.source('$XDG_CONFIG_HOME/nvim/themes/tokyonight-night.vim')
         theme = theme + 1
     elseif theme == 3 then
-        vim.cmd('source $XDG_CONFIG_HOME/nvim/themes/tokyonight-moon.vim')
+        vim.cmd.source('$XDG_CONFIG_HOME/nvim/themes/tokyonight-moon.vim')
         theme = theme + 1
     elseif theme == 4 then
-        vim.cmd('source $XDG_CONFIG_HOME/nvim/themes/tokyonight-storm.vim')
+        vim.cmd.source('$XDG_CONFIG_HOME/nvim/themes/tokyonight-storm.vim')
         theme = theme + 1
     elseif theme == 5 then
-        vim.cmd('source $XDG_CONFIG_HOME/nvim/themes/tokyonight-day.vim')
+        vim.cmd.source('$XDG_CONFIG_HOME/nvim/themes/tokyonight-day.vim')
         theme = 0
     end
 end

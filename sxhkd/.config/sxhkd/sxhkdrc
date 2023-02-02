@@ -1,157 +1,206 @@
-#########################
-##### bspwm hotkeys #####
-#########################
+#######################################################
+#                                                     #
+#                    BSPWM Hotkeys                    #
+#                                                     #
+#######################################################
 
 # Quit || Restart bspwm
-ctrl + alt + {q,r}
+super + alt + {q,r}
     {prompt " Log out?" "log-out",bspc wm -r}
-# Close and kill window
-super + {_,shift + }q
+
+# Close and / or kill window
+super + {_,shift} + q
     bspc node -{c,k}
+
 # Alternate between the tiled and monocle layout
 super + m
     bspc desktop -l next
+
 # Send the newest marked node to the newest preselected node
 super + y
     bspc node newest.marked.local -n newest.!automatic.local
+
 # Swap the current node and the biggest window
-super + g
-    bspc node -s biggest.window
-# Cycle tiling layout
-super + alt + c
+    # local and global
+super + {_,shift} + b
+    bspc node -s biggest.{local,window}
+
+# Cycle tiling layout on current desktop
+super + c
     bsp-layout-cycle
 
-##### Focus/swap #####
+#############################
+#           Focus           #
+#############################
 
 # Focus the node in the given direction
-super + {_,shift + }{h,j,k,l}
+super + {_,shift} + {h,j,k,l}
     bspc node -{f,s} {west,south,north,east}
-# focus the node for the given path jump
-super + {p,b,comma,period}
-    bspc node -f @{parent,brother,first,second}
-# focus the next/previous window in the current desktop
-super + {_,shift + }c
-    bspc node -f {next,prev}.local.!hidden.window
-# focus the next/previous desktop in the current monitor
+
+# Focus the next/previous window in the current desktop
+    # super + {_,shift} + c
+super + {comma,period}
+    bspc node -f {prev,next}.local.!hidden.window
+
+# Focus the next/previous desktop in the current monitor
 super + bracket{left,right}
     bspc desktop -f {prev,next}.local
 ctrl + super + {Left,Right}
     bspc desktop -f {prev,next}.local
-# focus the last node/desktop
+
+# Focus the last node/desktop
 super + {grave,Tab}
     bspc {node,desktop} -f last
-# focus the older or newer node in the focus history
+
+# Focus the older or newer node in the focus history
 super + {o,i}
     bspc wm -h off; \
     bspc node {older,newer} -f; \
     bspc wm -h on
-# focus or send to the given desktop
-super + {_,shift + }{1-9,0}
+
+# Focus or send to the given desktop
+super + {_,shift} + {1-9,0}
     bspc {desktop -f,node -d} '^{1-9,10}'
 
-##### preselect #####
+# # Focus the node for the given path jump
+# super + {p,b,comma,period}
+#     bspc node -f @{parent,brother,first,second}
 
-# preselect the direction
+#############################
+#         Preselect         #
+#############################
+
+# Preselect the direction
 super + ctrl + {h,j,k,l}
     bspc node -p {west,south,north,east}
-# preselect the ratio
+
+# Preselect the ratio
 super + ctrl + {1-9}
     bspc node -o 0.{1-9}
-# cancel the preselection for the focused node
+
+# Cancel the preselection for the focused node
 super + ctrl + space
     bspc node -p cancel
-# cancel the preselection for the focused desktop
+
+# Cancel the preselection for the focused desktop
 super + ctrl + shift + space
     bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
 
-##### move/resize and "minimise (hide)"#####
+#####################################
+#       Move, resize and hide       #
+#####################################
 
-# expand a window by moving one of its side outward
+# Expand a window by moving one of its side outward
 super + alt + {h,j,k,l}
     bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
-# contract a window by moving one of its side inward
+
+# Contract a window by moving one of its side inward
 super + alt + shift + {h,j,k,l}
     bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
-# move a floating window
-super + {Left,Down,Up,Right}
-    bspc node -v {-20 0,0 20,0 -20,20 0}
+
 # Hide a window
 super + shift + i
     bsp-hide
 
-##### state/flags #####
+# # Move a floating window
+# super + {Left,Down,Up,Right}
+#     bspc node -v {-20 0,0 20,0 -20,20 0}
+
+#############################
+#        State-flags        #
+#############################
 
 # Toggle the window state.
 super + {t,shift + t,s,f}
     bspc node -t \~{tiled,pseudo_tiled,floating,fullscreen}
-# set the node flags
+# Set the node flags
 super + ctrl + {m,x,y,z}
     bspc node -g {marked,locked,sticky,private}
 
+########################################################
+#                                                      #
+#                     Applications                     #
+#                                                      #
+########################################################
 
-########################
-##### Applications #####
-########################
-
-# terminal emulator ($TERMINAL | Guake)
+# Terminal emulator
+    # ($TERMINAL | Guake)
 super + {_,shift} + Return
     {$TERMINAL,guake}
-# Program launcher (dmenu) | Password manager (keepassxc)
+
+# Program launcher (dmenu)
+    # Password manager (keepassxc)
 super + {_,shift} + d
     {dmenu_run -i -nb "#0b060a" -nf "#f77416" -sb "#f77416",keepassxc}
-# make sxhkd reload its configuration files:
+
+# Reload sxhkd configuration files:
 alt + Escape
     pkill -USR1 -x sxhkd
+
 # Restart polybar
 super + shift + p
     polybar-msg cmd restart
+
 # System monitor (btop)
-super + shift + e
+super + shift + r
     devour $TERMINAL -e btop
-# Open file manager (lf, thunar)
+
+# Open file manager
+    # (lf, thunar)
 super + {_,shift} + r
     {$TERMINAL -e lfub,thunar}
-# Web browser (brave) | Wireless network manager (nmtui)
+
+# Web browser (brave)
+    # Wireless network manager (nmtui)
 super + {_,shift} + w
     {$BROWSER,$TERMINAL -e nmtui}
-# Virtual Studio Code
+
+# Visual Studio Code
 super + v
     code
-# mpv (paste from clipboard)
+
+# Mpv (paste from clipboard)
 super + shift + m
     devour mpv "$(xclip -o)"
+
 # Vimwiki Index (nvim)
 super + n
     $TERMINAL -e nvim -c VimwikiIndex
+
 # Cloud storage manager (rclone-browser)
 super + alt + s
     rclone-browser
-# Zoom
-super + alt + z
-    zoom && bspc desktop -f 4
 
-########################
-##### OS shortcuts #####
-########################
+########################################################
+#                                                      #
+#                          OS                          #
+#                                                      #
+########################################################
 
 # Reload keyboard remaps
 super + Delete
     remaps
+
 # Sytem action
 super + BackSpace
     dmenu-sysact
+
 # Lock screen
 super + x
-    ifinstalled "betterlockscreen" && betterlockscreen -l
+    betterlockscreen -l
+
 # Suspend and hibernate
 super + {_,shift} + z
     sudo systemctl {suspend,hibernate}
+
 # Emoji selector
 super + e
     dmenu-emoji-selector
+
 # Mute volume
 super + alt + m
     change-volume mute
+
 # Mount devices
 super + {_,shift} + F9
     {mounter,unmounter}
@@ -172,16 +221,20 @@ super + shift + s
 {_,ctrl,alt,super} + Print
     screenshot {fullscreen,selection,temp,window}
 
-###################
-##### Fn Keys #####
-###################
+#######################################################
+#                                                     #
+#                       Fn Keys                       #
+#                                                     #
+#######################################################
 
 # Volume control
 XF86Audio{RaiseVolume,LowerVolume,Mute}
     change-volume {up,down,mute}
+
 # Brightness control
 XF86MonBrightness{Up,Down}
     change-brightness {up,down}
+
 # Media control
 XF86Audio{Play,Stop,Prev,Next}
     playerctl {play-pause,stop,previous,next}
