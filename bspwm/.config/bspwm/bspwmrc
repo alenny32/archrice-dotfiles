@@ -24,7 +24,7 @@ bspc monitor -d 1 2 3 4 5 6 7 8 9 10
 ##### Configuration #####
 
 # source Xresources colors
-[ -f "${XDG_DATA_HOME:-${HOME}/.local/share}/xcolors" ] || \
+[ -f "${XDG_DATA_HOME:-${HOME}/.local/share}/xcolors" ] ||
     gen-xcolors
 . "${XDG_DATA_HOME:-${HOME}/.local/share}/xcolors"
 
@@ -50,26 +50,30 @@ bspc config pointer_action1 move
 bspc config pointer_action3 resize_side
 bspc config pointer_action3 resize_corner
 
-##########################################################
-#                      Window Rules                      #
-##########################################################
+#########################################################
+#                      BSPWM Rules                      #
+#########################################################
 
-bspc rule -a Zathura state=tiled
+bspc config external_rules_command \
+    "${XDG_CONFIG_HOME:-$HOME/.config}/bspwm/bsp-external"
 
-bspc rule -a Guake state=floating
-bspc rule -a KeePassXC state=floating
-bspc rule -a rclone-browser state=floating
-bspc rule -a Xdialog state=floating
-bspc rule -a Catfish state=floating
+bspc rule -a org.pwmt.zathura           state=tiled
 
-bspc rule -a mpv state=fullscreen
+bspc rule -a Guake                      state=floating
+bspc rule -a KeePassXC                  state=floating
+bspc rule -a rclone-browser             state=floating
+bspc rule -a Xdialog                    state=floating
+bspc rule -a Catfish                    state=floating
+bspc rule -a pavucontrol                state=floating
 
-bspc rule -a Brave-browser desktop='^2'
-bspc rule -a code desktop='^3'
-bspc rule -a zoom desktop='^4'
+bspc rule -a mpv                        state=fullscreen
+
+bspc rule -a Brave-browser              desktop='^2'
+bspc rule -a code                       desktop='^3'
+bspc rule -a zoom                       desktop='^4'
 bspc rule -a whatsapp-nativefier-d40211 desktop='^5'
 
-bspc rule -a Screenkey manage=off
+bspc rule -a Screenkey                  manage=off
 
 # bspc rule -a Gimp desktop='^8' state=floating follow=on
 # bspc rule -a Chromium desktop='^2'

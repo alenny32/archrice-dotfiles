@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+wid="$1"
+# class="$2"
+# instance="$3"
+
+wm_name="$(xprop -id "$wid" '\t$0' WM_NAME |
+    cut -f 2 |
+    tr -d '"')"
+
+# For debugging purposes:
+# notify-send "wid: $wid" \
+#     "class: $class\ninstance: $instance\nwm name: $wm_name"
+
+# Get xev to a floating window:
+if [ "$wm_name" = "Event Tester" ]; then
+    echo "state=floating"
+    # echo "sticky=on"
+fi
+
+# ## Placeholder for later configurations:
+
+# read -r W H <<< "$(xdotool getdisplaygeometry)"
+
+# # Moves window to location mouse:
+# if [ "$instance" = "popup-mouse" ]; then
+#     echo "state=floating"
+#     eval "$(xdotool getmouselocation --shell)"
+#     xdotool windowmove "$wid" "$X" "$Y"
+# fi
+
+# # Floats, resizes and moves window:
+# if [ "$instance" = "surf" ]; then
+#     if [[ "$(xprop -id "$wid" '\t$0' WM_NAME | cut -f 2)" = *"Messenger"* ]]; then
+#         # ^ Globbing above is bashism ^
+#         w=$((1920 / 4))
+#         h=$((1080 / 4))
+#         xdotool windowsize "$wid" "$w" "$h"
+#         xdotool windowmove "$wid" $((W - w)) $((H- h))
+#     fi
+#     echo "state=floating"
+#     echo "sticky=on"
+# fi

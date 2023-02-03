@@ -41,6 +41,8 @@ super + {_,shift} + {h,j,k,l}
     # super + {_,shift} + c
 super + {comma,period}
     bspc node -f {prev,next}.local.!hidden.window
+alt + {shift,_} + Tab
+    bspc node -f {prev,next}.local.!hidden.window
 
 # Focus the next/previous desktop in the current monitor
 super + bracket{left,right}
@@ -58,7 +60,7 @@ super + {o,i}
     bspc node {older,newer} -f; \
     bspc wm -h on
 
-# Focus or send to the given desktop
+# Focus or send node to the given desktop
 super + {_,shift} + {1-9,0}
     bspc {desktop -f,node -d} '^{1-9,10}'
 
