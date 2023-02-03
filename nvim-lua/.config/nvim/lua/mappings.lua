@@ -75,10 +75,10 @@ vim.g.maplocalleader = ','
     map(nvo, '<C-l>', '<C-w>l')
 
 -- Make adjusting split sizes a bit more friendly:
-    resize('<C-Left>',  '<CMD>vertical resize +3<CR>')
-    resize('<C-Right>',  '<CMD>vertical resize -3<CR>')
-    resize('<C-Up>',  '<CMD>resize +3<CR>')
-    resize('<C-Down>',  '<CMD>resize -3<CR>')
+    resize('<C-Left>', '<CMD>vertical resize +3<CR>')
+    resize('<C-Right>', '<CMD>vertical resize -3<CR>')
+    resize('<C-Up>', '<CMD>resize +3<CR>')
+    resize('<C-Down>', '<CMD>resize -3<CR>')
 
 -- Change 2 split windows from vertical to horizontal or vice versa
     map(nvo, '<leader>th', '<C-w>t<C-w>H')
@@ -87,7 +87,7 @@ vim.g.maplocalleader = ','
 -- Replace ex mode with gq
     map(nvo, 'Q', 'gq')
 
--- Check file in shellcheck:
+-- Check shell script with shellcheck:
     map(nvo, '<leader>s', '<CMD>!clear && shellcheck -x %<CR>')
 
 -- Open my bibliography file in split
@@ -108,8 +108,8 @@ vim.g.maplocalleader = ','
     -- Remove execute permission on current buffer
         map(nvo, '<leader>X', '<CMD>!chmod -x %<CR>')
 
--- Load command shortcuts generated from bm-dirs and bm-files via shortcuts script.
--- Here leader is ";".
+-- Load command shortcuts generated from bm-dirs and bm-files via shortcuts
+-- script. Here leader is ";".
 -- So ":vs ;cfz" will expand into ":vs /home/<user>/.config/zsh/.zshrc"
 -- if typed fast without the timeout.
--- source ~/.config/nvim/shortcuts.vim
+    vim.cmd.source('$XDG_CONFIG_HOME/nvim/shortcuts.vim')

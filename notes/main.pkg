@@ -103,6 +103,7 @@ ffmpeg
 lf
 ueberzug
 bat
+highlight
 trash-cli
 texlive-most
 texlive-lang
@@ -115,6 +116,7 @@ thunar-media-tags-plugin
 catfish
 zeitgeist
 pcmanfm-gtk3
+pdftotext
 sxiv
 libreoffice-fresh
 scrot

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/zsh
 
 # I use this little script to check to see if a command exists and if it doesn't,
 # it informs the user that they need that command to continue. This is used in
@@ -7,11 +7,12 @@
 for program in "$@"; do
     # if ! which "$program" >/dev/null 2>&1 && ! pacman -Qq "$program" >/dev/null 2>&1; then
     # if [ -z "$(command -v "$program")" ] && [ -z "$(pacman -Qq "$program")" ]; then
-    if [ ! "$(command -v "$program")" ] && [ ! "$(pacman -Qq "$program")" ]; then
-        notify-send -a "ifinstalled" \
-            "📦 $program" \
-            "must be installed for this function."
-        exit 1
+    if [ ! "$(command -v "$program")" ] &&
+        [ ! "$(pacman -Qq "$program")" ]; then
+            notify-send -a "ifinstalled" \
+                "📦 $program" \
+                "must be installed for this function."
+            exit 1
     fi
 done
 

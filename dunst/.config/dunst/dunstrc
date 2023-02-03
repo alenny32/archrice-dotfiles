@@ -91,6 +91,9 @@
 [history-ignore-sxiv]
     appname = "sxiv"
     history_ignore = yes
+[history-ignore-lf-functions]
+    appname = "lf-*"
+    history_ignore = yes
 [history-ignore-gpg-ed]
     summary = "*GPG Encrypt/Decrypt*"
     history_ignore = yes

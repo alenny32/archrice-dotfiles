@@ -76,7 +76,7 @@ bspc rule -a Screenkey manage=off
 # bspc rule -a mplayer2 state=floating
 # bspc rule -a Kupfer.py focus=on
 
-## Not working rules. Need to be worked on.
+## TODO: Not working rules.
 # bspc rule -a xev state=floating                     # no WM_CLASS.
 # bspc rule -a motion_recorder state=floating         # line browser extension. idk.
 

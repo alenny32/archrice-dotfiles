@@ -1,32 +1,44 @@
+#
 # You can add comments to these files with #
+# vim: filetype=sh
+#
 
-# cac ${XDG_CACHE_HOME:-$HOME/.cache}
-# cf  ${XDG_CONFIG_HOME:-$HOME/.config}
-# D   ${XDG_DOWNLOAD_DIR:-$HOME/Downloads}
-# d   ${XDG_DOCUMENTS_DIR:-$HOME/Documents}
-# dt  ${XDG_DATA_HOME:-$HOME/.local/share}
-# rr  $HOME/.local/src
-# h   $HOME
-# m   ${XDG_MUSIC_DIR:-$HOME/Music}
-# mn  /mnt
-# pp  ${XDG_PICTURES_DIR:-$HOME/Pictures}
-# pb  ${XDG_PUBLICSHARE_DIR:-$HOME/Public}
-# sc  $HOME/.local/bin
-# src $HOME/.local/src
-# vv  ${XDG_VIDEOS_DIR:-$HOME/Videos}
+## environment variable substitution not working for sxiv and lf
+# cac   ${XDG_CACHE_HOME:-$HOME/.cache}
+# cf    ${XDG_CONFIG_HOME:-$HOME/.config}
+# cfv   ${XDG_CONFIG_HOME:-$HOME/.config}/nvim/lua
+# dl    ${XDG_DOWNLOAD_DIR:-$HOME/Downloads}
+# dox   ${XDG_DOCUMENTS_DIR:-$HOME/Documents}
+# dt    ${XDG_DATA_HOME:-$HOME/.local/share}
+# mu    ${XDG_MUSIC_DIR:-$HOME/Music}
+# pix   ${XDG_PICTURES_DIR:-$HOME/Pictures}
+# pub   ${XDG_PUBLICSHARE_DIR:-$HOME/Public}
+# vid   ${XDG_VIDEOS_DIR:-$HOME/Videos}
+# h     $HOME
+# repo  $HOME/Repos
+# tmp     $HOME/tmp
+# dot   $HOME/.dotfiles
+# sc    $HOME/.local/.dotfiles/scripts
+# bin   $HOME/.local/bin
+# src   $HOME/.local/src
 
-# env var substitution not working in sxiv
-cac /home/umar/.cache
-cf  /home/umar/.config
-D   /home/umar/Downloads
-d   /home/umar/Documents
-dt  /home/umar/.local/share
-h   /home/umar
-m   /home/umar/Music
-mn  /mnt
-pp  /home/umar/Pictures
-pb  /home/umar/Public
-sc  /home/umar/.local/bin
-vv  /home/umar/Videos
-src /home/umar/.local/src
-# rr  /home/umar/.local/src
+cac     /home/umar/.cache
+cf      /home/umar/.config
+cfv     /home/umar/.config/nvim/lua/
+dl      /home/umar/Downloads
+dox     /home/umar/Documents
+dt      /home/umar/.local/share
+mu      /home/umar/Music
+pix     /home/umar/Pictures
+pub     /home/umar/Public
+vid     /home/umar/Videos
+h       /home/umar
+repo    /home/umar/Repos
+tmp     /home/umar/tmp
+dot     /home/umar/.dotfiles
+sc      /home/umar/.dotfiles/scripts
+bin     /home/umar/.local/bin
+src     /home/umar/.local/src
+
+mnt     /mnt
+mon     /mount

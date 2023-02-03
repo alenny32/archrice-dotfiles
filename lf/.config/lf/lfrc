@@ -1,4 +1,4 @@
-# Umar's lf settings (nyolong)
+# Umar's lf configuration
 
 # Note on Image Previews
 # For those wanting image previews, like this system, there are four steps to
@@ -14,7 +14,7 @@
 #    in your shellrc (`alias lf="lfub") or if set to a binding, should be
 #    called directly instead of normal lf.
 
-# Basic vars
+# Basic variables
 set shellopts '-eu'
 set ifs "\n"
 set scrolloff 8
@@ -194,7 +194,7 @@ cmd delete_secure ${{
 
 cmd paste_overwrite ${{
     ifinstalled "rsync" ||
-        exit
+        exit 1
 
     set -f
     selected_files="${XDG_DATA_HOME:-$HOME/.local/share}/lf/files"
@@ -225,11 +225,23 @@ cmd moveto ${{
     set -f
     clear; echo "Move to where?"
     destination="$(sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//' ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | fzf | sed 's|~|$HOME|')"
-    for file in $fx; do
+
+    if [ "$1" = "interactive" ]; then
+        for file in $fx; do
         # eval mv -iv \"$file\" \"$destination\"
         mv -iv "$file" "$destination"
-    done
-    notify-send -a "lf-moveto" -u "low" -i "bell" "🚚 File(s) moved." "File(s) moved to $destination."
+        done
+    elif [ "$1" = "overwrite" ]; then
+        ifinstalled "rsync" ||
+            exit 1
+        for file in $fx; do
+            rsync -urP --delete-after --remove-source-files"$file" "$destination"
+        done
+    fi
+
+    notify-send -a "lf-moveto" -u "low" -i "bell" \
+        "🚚 File(s) moved." \
+        "File(s) moved to $destination."
 }}
 
 cmd copyto ${{
@@ -237,11 +249,23 @@ cmd copyto ${{
     set -f
     clear; echo "Copy to where?"
     destination="$(sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//' ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | fzf | sed 's|~|$HOME|')"
-    for file in $fx; do
-        # eval cp -ivr \"$file\" \"$destination\"
-        cp -ivr "$file" "$destination"
-    done
-    notify-send -a "lf-copyto" -u "low" "📋 File(s) copied." "File(s) copies to $destination."
+
+    if [ "$1" = "interactive" ]; then
+        for file in $fx; do
+            # eval cp -ivr \"$file\" \"$destination\"
+            cp -ivr "$file" "$destination"
+        done
+    elif [ "$1" = "overwrite" ]; then
+        ifinstalled "rsync" ||
+            exit 1
+        for file in $fx; do
+            rsync -urP --delete-after "$file" "$destination"
+        done
+    fi
+
+    notify-send -a "lf-copyto" -u "low" \
+        "📋 File(s) copied." \
+        "File(s) copied to $destination."
 }}
 
 cmd mime_ask ${{
@@ -252,10 +276,14 @@ cmd mime_ask ${{
 cmd gen_preview ${{
     case "$(file -bh --mime-type -- "$fx")" in
         "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
-            docx2txt "$fx"
+            docx2txt $fx
             ;;
         "application/vnd.oasis.opendocument.text")
-            odt2txt "$fx" > "${fx}.txt"
+            base="${file%.*}"
+            odt2txt $fx > "${fx}.txt"
+            ;;
+        "application/pdf")
+            pdftotext $fx
             ;;
     esac
 }}
@@ -313,9 +341,12 @@ cmd confirm_gpg ${{
     map Z archive
     map D delete
     map S delete_secure
-    map E extract
-    map C copyto
-    map M moveto
+    map EE extract
+    map CC copyto "interactive"
+    map CO copyto "overwrite"
+    map M
+    map MM moveto "interactive"
+    map MO moveto "overwrite"
     map P gen_preview
     map T trash_put
     map <delete> trash_put
@@ -382,6 +413,6 @@ cmd confirm_gpg ${{
         # map TTl push $cp<space>${XDG_TEMPLATES_DIR:-$HOME/Templates}/LaTeX.tex<space>.tex<left><left><left><left>
 
 # Source Bookmarks
-    # source "~/.config/lf/shortcutrc"
+    source "~/.config/lf/shortcutrc"
 
 # vim:ft=config
