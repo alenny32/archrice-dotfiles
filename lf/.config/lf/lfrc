@@ -115,7 +115,7 @@ cmd trash_restore ${{
     ifinstalled "trash-cli" ||
         exit 1
 
-    clear; tput cup "$(($(tput lines)/3))"; tput bold
+    clear -x; tput cup "$(($(tput lines)/3))"; tput bold
     printf "Trash restore:\n"; tput sgr0
     trash-restore
 }}
@@ -124,7 +124,7 @@ cmd trash_put ${{
     ifinstalled "trash-cli" ||
         exit 1
 
-    clear; tput cup "$(($(tput lines)/3))"; tput bold
+    clear -x; tput cup "$(($(tput lines)/3))"; tput bold
     printf "\tTrash put:\n" ; tput sgr0
     set -f
     printf "%s\n\t" "$fx" ; tput bold
@@ -145,7 +145,7 @@ cmd trash_put ${{
 }}
 
 cmd extract ${{
-    clear; tput cup "$(($(tput lines)/3))" ; tput bold
+    clear -x; tput cup "$(($(tput lines)/3))" ; tput bold
     printf "\tExtract files:\n" ; tput sgr0
     set -f
     printf "%s\n\t" "$fx" ; tput bold
@@ -159,7 +159,7 @@ cmd extract ${{
 }}
 
 cmd archive ${{
-    clear; tput cup "$(($(tput lines)/3))" ; tput bold
+    clear -x; tput cup "$(($(tput lines)/3))" ; tput bold
     printf "\tArchive files (7z):\n" ; tput sgr0
     set -f
     printf "%s\n\t" "$fx" ; tput bold
@@ -173,7 +173,7 @@ cmd archive ${{
 }}
 
 cmd delete ${{
-    clear; tput cup "$(($(tput lines)/3))" ; tput bold
+    clear -x; tput cup "$(($(tput lines)/3))" ; tput bold
     printf "\tDelete:\n" ; tput sgr0
     set -f
     printf "%s\n\t" "$fx"; tput bold
@@ -183,7 +183,7 @@ cmd delete ${{
 }}
 
 cmd delete_secure ${{
-    clear; tput cup "$(($(tput lines)/3))" ; tput bold
+    clear -x; tput cup "$(($(tput lines)/3))" ; tput bold
     printf "\tSecure delete:\n" ; tput sgr0
     set -f
     printf "%s\n\t" "$fx" ; tput bold
@@ -221,9 +221,9 @@ cmd paste_overwrite ${{
 }}
 
 cmd moveto ${{
-    clear; tput cup "$(($(tput lines)/3))"; tput bold
+    clear -x; tput cup "$(($(tput lines)/3))"; tput bold
     set -f
-    clear; echo "Move to where?"
+    echo "Move to where?"
     destination="$(sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//' ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | fzf | sed 's|~|$HOME|')"
 
     if [ "$1" = "interactive" ]; then
@@ -245,9 +245,9 @@ cmd moveto ${{
 }}
 
 cmd copyto ${{
-    clear; tput cup "$(($(tput lines)/3))"; tput bold
+    clear -x; tput cup "$(($(tput lines)/3))"; tput bold
     set -f
-    clear; echo "Copy to where?"
+    echo "Copy to where?"
     destination="$(sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//' ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | fzf | sed 's|~|$HOME|')"
 
     if [ "$1" = "interactive" ]; then
@@ -269,7 +269,7 @@ cmd copyto ${{
 }}
 
 cmd mime_ask ${{
-    clear; tput cup "$(($(tput lines)/3))"
+    clear -x; tput cup "$(($(tput lines)/3))"
     mimeopen --ask "$f"
 }}
 
@@ -293,7 +293,7 @@ cmd bulkrename $vidir
 
 # Template copying commands
 # cmd cp-temp-latex ${{
-#     clear; tput cup "$(($(tput lines)/3))"; tput bold
+#     clear -x; tput cup "$(($(tput lines)/3))"; tput bold
 #     set -f
 #     printf "%s\n\t" "$fx"
 #     printf "Copying LaTeX template...\n"
@@ -304,7 +304,7 @@ cmd bulkrename $vidir
 
 cmd confirm_gpg ${{
     user_id="$1"
-    clear; tput cup "$(($(tput lines)/3))"; tput bold
+    clear -x; tput cup "$(($(tput lines)/3))"; tput bold
     printf "\tGPG Encrypt/Decrypt"
     [ "$user_id" = "umar" ] &&
         printf " using Umar's key"; printf ":\n"; tput sgr0

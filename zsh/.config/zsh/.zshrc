@@ -118,6 +118,11 @@ bindkey -M vicmd '^[[P' vi-delete-char
 bindkey -M vicmd '^v' edit-command-line
 bindkey -M visual '^[[P' vi-delete
 
+# Load zsh auto suggestions:
+source \
+    "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh" \
+    2>/dev/null
+
 # Load syntax highlighting; should be last.
 source \
     "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh" \

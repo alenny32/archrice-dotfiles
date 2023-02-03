@@ -7,3 +7,6 @@
 [submodule "mpv/.config/mpv/scripts/mpv-webtorrent-hook"]
 	path = mpv/.config/mpv/scripts/mpv-webtorrent-hook
 	url = https://github.com/noctuid/mpv-webtorrent-hook
+[submodule "zsh/.config/zsh/plugins/zsh-autosuggestions"]
+	path = zsh/.config/zsh/plugins/zsh-autosuggestions
+	url = https://github.com/zsh-users/zsh-autosuggestions
