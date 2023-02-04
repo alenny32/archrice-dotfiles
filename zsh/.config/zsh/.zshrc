@@ -69,37 +69,19 @@ function zle-keymap-select () {
     esac
 }
 zle -N zle-keymap-select
+
+# initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
 zle-line-init() {
-    # initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
     zle -K viins
     echo -ne "\e[5 q"
 }
 zle -N zle-line-init
+
 # Use beam shape cursor on startup.
 echo -ne '\e[5 q'
+
 # Use beam shape cursor for each new prompt.
 preexec() { echo -ne '\e[5 q' ;}
-
-# Use lf to switch directories and bind it to ctrl-o
-lfcd () {
-    tmp="$(mktemp -uq)"
-    trap \
-        'rm -f $tmp >/dev/null 2>&1 && trap - HUP INT QUIT TERM PWR EXIT' \
-        HUP INT QUIT TERM PWR EXIT
-    lf -last-dir-path="$tmp" "$@"
-    if [ -f "$tmp" ]; then
-        dir="$(cat "$tmp")"
-        [ -d "$dir" ] &&
-            [ "$dir" != "$(pwd)" ] &&
-                cd "$dir"
-    fi
-}
-
-# Make directory and cd into it
-mkcd() {
-    mkdir -pv "$1"
-    cd "$1"
-}
 
 # Add movement shortcut
 bindkey '^a' beginning-of-line
@@ -117,6 +99,10 @@ bindkey '^v' edit-command-line
 bindkey -M vicmd '^[[P' vi-delete-char
 bindkey -M vicmd '^v' edit-command-line
 bindkey -M visual '^[[P' vi-delete
+
+# Load functions:
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/functionrc" ] &&
+    source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/functionrc"
 
 # Load zsh auto suggestions:
 source \

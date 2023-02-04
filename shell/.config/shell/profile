@@ -49,8 +49,13 @@ export VISUAL="nvim"
 export TERM="alacritty"
 export TERMINAL="alacritty"
 export BROWSER="brave"
-export OPENER="xdg-open"
 export VIEWER="bat"
+export VIDEO="mpv"
+export IMAGE="sxiv"
+export COLORTERM="truecolor"
+export PAGER="less"
+export OPENER="xdg-open"
+export WM="bspwm"
 
 # ~/ Clean-up:
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -66,6 +71,7 @@ export XDG_MUSIC_DIR="$HOME/Music"
 export XDG_PICTURES_DIR="$HOME/Pictures"
 export XDG_VIDEOS_DIR="$HOME/Videos"
 export XINITRC="$XDG_CONFIG_HOME/x11/xinitrc"
+export XSERVERRC="$XDG_CONFIG_HOME/x11/xserverrc"
 # export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority" # This line will break some DMs. Does not work if using sddm as login manager
 export NOTMUCH_CONFIG="$XDG_CONFIG_HOME/notmuch-config"
 export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc-2.0"
@@ -79,6 +85,10 @@ export PASSWORD_STORE_DIR="$XDG_DATA_HOME/password-store"
 export TMUX_TMPDIR="$XDG_RUNTIME_DIR"
 export ANDROID_SDK_HOME="$XDG_CONFIG_HOME/android"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
+export GEM_PATH="$XDG_DATA_HOME/ruby/gems"
+export GEM_SPEC_CACHE="$XDG_DATA_HOME/ruby/specs"
+export GEM_HOME="$XDG_DATA_HOME/ruby/gems"
+export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
 export GOPATH="$XDG_DATA_HOME/go"
 export ANSIBLE_CONFIG="$XDG_CONFIG_HOME/ansible/ansible.cfg"
 export UNISON="$XDG_DATA_HOME/unison"
@@ -94,31 +104,48 @@ export LESS=-R
 export LESSOPEN="| /usr/bin/highlight -O ansi %s 2>/dev/null"
 export LESSHISTFILE="$XDG_CACHE_HOME/less/history"
 
-# Reference https://michurin.github.io/xterm256-color-picker/ for color generation
-export LESS_TERMCAP_mb="$(printf '%b' '[1;31m')"
-export LESS_TERMCAP_md="$(printf '%b' '[1;36m')"
-export LESS_TERMCAP_me="$(printf '%b' '[0m')"
-# export LESS_TERMCAP_so="$(printf '%b' '[1;44;31m')"	# default Luke
-export LESS_TERMCAP_so=$'\e''[38;5;160;48;5;228m'	# red on yellow
-export LESS_TERMCAP_se="$(printf '%b' '[0m')"
-export LESS_TERMCAP_us="$(printf '%b' '[1;32m')"
-export LESS_TERMCAP_ue="$(printf '%b' '[0m')"
+# Less colors:
+# Reference (https://michurin.github.io/xterm256-color-picker) for color generation
+# Start blinking
+    export LESS_TERMCAP_mb="$(printf '%b' '[1;31m')"
+# Start bold
+    export LESS_TERMCAP_md="$(printf '%b' '[1;36m')"
+# Start standard out
+    # export LESS_TERMCAP_so="$(printf '%b' '[1;44;31m')"   # default Luke
+    # export LESS_TERMCAP_so=$'\e''[38;5;160;48;5;228m'       # red on yellow
+    export LESS_TERMCAP_so="$(tput bold; tput setaf 3)"     # yellow
+# End standard out
+    export LESS_TERMCAP_se="$(printf '%b' '[0m')"
+# Start underline
+    export LESS_TERMCAP_us="$(printf '%b' '[1;32m')"
+# End underline
+    export LESS_TERMCAP_ue="$(printf '%b' '[0m')"
+# End bold, blinking, standard out, underline
+    export LESS_TERMCAP_me="$(printf '%b' '[0m')"
+
+# Scaling
+export QT_AUTO_SCREEN_SCALE_FACTOR=0
+export QT_SCALE_FACTOR=1
+export QT_SCREEN_SCALE_FACTORS="1;1;1"
+export GDK_SCALE=1
+export GDK_DPI_SCALE=1
+
 export QT_QPA_PLATFORMTHEME="qt5ct"
 # export QT_QPA_PLATFORMTHEME="gtk2" # Have QT use gtk2 theme.
 export MOZ_USE_XINPUT2="1" # Mozilla smooth scrolling/touchpads.
 export AWT_TOOLKIT="MToolkit wmname LG3D" # May have to install wmname
 export _JAVA_AWT_WM_NONREPARENTING=1 # Fix for Java applications in dwm
 
-# Create shortcutrc file if not exist
+# Create shortcuts if non existent:
 [ -f ${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc ] ||
     setsid shortcuts > /dev/null 2>&1
 
 # Start graphical server on user's current tty if not already running.
-# Comment it if using login manager
-# [ "$(tty)" = "/dev/tty1" ] &&
-#     ! pidof -s Xorg >/dev/null 2>&1 && exec startx "$XINITRC"
+# Comment it if using login manager.
+[ "$(tty)" = "/dev/tty1" ] &&
+    ! pidof -s Xorg >/dev/null 2>&1 && exec startx "$XINITRC"
 
-# Switch escape and caps if tty and no passwd required:
+# Switch escape and caps if tty and no password required:
 sudo loadkeys "$HOME/.local/bin/sys/ttymaps.kmap" 2>/dev/null
 
 # Nix profile

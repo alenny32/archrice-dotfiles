@@ -4,11 +4,11 @@ local g = vim.g
 local o = vim.o
 
 -- Background and colors:
-    -- o.termguicolors = true
-    -- o.background = 'dark'
+    o.termguicolors = true
+    o.background = 'dark'
 
--- Do not save when switching buffers:
-    -- o.hidden = true
+-- Save when switching buffers:
+    o.hidden = true
 
 -- Decrease update time
     o.timeoutlen = 1000

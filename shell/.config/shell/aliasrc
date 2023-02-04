@@ -26,6 +26,8 @@ alias \
     gcl="git clone" \
     gst="git status" \
     gch="git checkout" \
+    gb="git branch" \
+    gnb="git checkout -b" \
     ga="git add" \
     gc="git commit" \
     gcm="git commit -m" \
@@ -41,6 +43,7 @@ alias \
     gpl="git pull" \
     gl="git log" \
     glo="git log --oneline" \
+    glg="git log --graph --abbrev-commit --decorate --format=format:'%C(bold green)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold yellow)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all"
 
 # Make alias:
 alias \
