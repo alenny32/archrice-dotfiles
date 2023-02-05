@@ -57,14 +57,14 @@ bspc config pointer_action3 resize_corner
 bspc config external_rules_command \
     "${XDG_CONFIG_HOME:-$HOME/.config}/bspwm/bsp-external"
 
-bspc rule -a org.pwmt.zathura           state=tiled
+bspc rule -a Zathura                    state=tiled
 
 bspc rule -a Guake                      state=floating
 bspc rule -a KeePassXC                  state=floating
 bspc rule -a rclone-browser             state=floating
 bspc rule -a Xdialog                    state=floating
 bspc rule -a Catfish                    state=floating
-bspc rule -a pavucontrol                state=floating
+bspc rule -a Pavucontrol                state=floating
 
 bspc rule -a mpv                        state=fullscreen
 
