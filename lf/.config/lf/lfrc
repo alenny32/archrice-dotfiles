@@ -56,7 +56,7 @@ cmd open ${{
                 done &
             ;;
         "audio/"*)
-            devour mpv --audio-display=no $f
+            mpv --audio-display=no $f
             ;;
         "video/"* | \
         "application/vnd.rn-realmedia")

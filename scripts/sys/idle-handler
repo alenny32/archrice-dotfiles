@@ -1,0 +1,39 @@
+#!/bin/sh
+
+pidof -s xautolock &&
+    killall -9 xautolock
+
+pidof -s xidlehook &&
+    killall -9 xidlehook
+
+LOCKER="betterlockscreen -l"
+
+LOCK_MIN=10
+NOTIF_BEFORE_LOCK_SEC=30
+SUSPEND_AFTER_LOCK_MIN=5
+
+LOCK_TIMER="$(echo "$LOCK_MIN * 60" | bc)"
+NOTIF_TIMER="$(echo "$LOCK_TIMER - $NOTIF_BEFORE_LOCK_SEC" | bc)"
+SUSPEND_TIMER="$(echo "($LOCK_MIN + $SUSPEND_AFTER_LOCK_MIN) * 60" | bc)"
+
+exec xidlehook --detect-sleep --not-when-audio \
+    --timer "$NOTIF_TIMER" \
+    "notify-send -a idle-handler -u normal -i desktop-lock -t 10000 \
+        'Screen lock' \
+        'Locking screen in $NOTIF_BEFORE_LOCK_SEC seconds...'" \
+    "-" &
+
+exec xidlehook --detect-sleep --not-when-audio \
+    --timer "$LOCK_TIMER" \
+    "$LOCKER" \
+    "-" &
+
+exec xidlehook --detect-sleep --not-when-audio \
+    --timer "$SUSPEND_TIMER" \
+    "systemctl suspend-then-hibernate" \
+    "-" &
+
+# exec xautolock -detectsleep -time "$LOCK_MIN" -locker "$LOCKER" -notify 30 -notifier \
+    # "notify-send -a idle-handler -u normal -i desktop-lock -t 10000 \
+    # 'Screen lock' \
+    # 'Locking screen in 30 seconds...'" &

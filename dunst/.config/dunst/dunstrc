@@ -88,6 +88,9 @@
 [history-ignore-setbg]
     appname = "setbg"
     history_ignore = yes
+[history-ignore-idle-handler]
+    appname = "idle-handler"
+    history_ignore = yes
 [history-ignore-sxiv]
     appname = "sxiv"
     history_ignore = yes
