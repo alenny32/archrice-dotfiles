@@ -1,0 +1,3 @@
+#!/bin/sh
+
+paplay "${XDG_CONFIG_HOME:-$HOME/.config}/dunst/2.ogg"
