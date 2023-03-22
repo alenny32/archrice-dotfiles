@@ -25,6 +25,9 @@ xsetroot -cursor_name left_ptr &
 # Blue light filter
 redshift &
 
+# Remapping keyboard layout
+remapd &
+
 # # Pipewire
 # pipewire &
 # pipewire-pulse &

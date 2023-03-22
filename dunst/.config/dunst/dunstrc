@@ -110,9 +110,9 @@
     summary = "*wallpaper*"
     history_ignore = yes
 
-[play-sound]
-    summary = "*"
-    script = /home/umar/.local/bin/sys/notif-alert
+# [play-sound]
+#     summary = "*"
+#     script = /home/umar/.local/bin/sys/notif-alert
 
 # [script-test]
 #     when encountering pattern described in summary, script will be launched
