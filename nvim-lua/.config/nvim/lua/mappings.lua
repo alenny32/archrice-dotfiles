@@ -66,7 +66,7 @@ vim.g.maplocalleader = ','
 -- Perform dot commands over visual blocks:
     vim.cmd.vnoremap('. :normal .<CR>')
 -- Spell-check set to <leader>o, 'o' for 'orthography'<CMD>
-    map(nvo, '<leader>o', '<CMD>setlocal spell! spelllang=en_us<CR>')
+    map(nvo, '<leader>o', '<CMD>setlocal spell! spelllang=en_us,id<CR>')
 
 -- Shortcutting split navigation, saving a keypress:
     map(nvo, '<C-h>', '<C-w>h')
