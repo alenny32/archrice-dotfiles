@@ -113,3 +113,6 @@ source \
 source \
     "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh" \
     2>/dev/null
+
+# Initialise nvm (npm)
+source "/usr/share/nvm/init-nvm.sh"
