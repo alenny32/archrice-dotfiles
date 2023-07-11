@@ -45,6 +45,7 @@ python-pip
 mesa-utils
 mediainfo
 gnome-keyring
+seahorse
 gvfs
 git
 stow
