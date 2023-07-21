@@ -65,6 +65,7 @@ xdialog
 xdg-desktop-portal
 xdg-desktop-portal-gtk
 zsh
+ufw
 usbutils
 shellcheck
 terminus-font
