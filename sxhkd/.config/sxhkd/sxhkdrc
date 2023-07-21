@@ -125,12 +125,12 @@ super + ctrl + {m,x,y,z}
 #                                                      #
 ########################################################
 
-# Terminal emulator
+# Terminal emulator and
     # ($TERMINAL | Guake)
 super + {_,shift} + Return
     {$TERMINAL,guake}
 
-# Program launcher (dmenu)
+# Program launcher (dmenu) and
     # Password manager (keepassxc)
 super + {_,shift} + d
     {dmenu_run -i -nb "#0b060a" -nf "#f77416" -sb "#f77416",keepassxc}
@@ -143,16 +143,12 @@ alt + Escape
 super + shift + p
     polybar-msg cmd restart
 
-# System monitor (btop)
-super + shift + r
-    devour $TERMINAL -e btop
-
 # Open file manager
     # (lf, thunar)
 super + {_,shift} + r
     {$TERMINAL -e lfub,thunar}
 
-# Web browser (brave)
+# Web browser (brave) and
     # Wireless network manager (nmtui)
 super + {_,shift} + w
     {$BROWSER,$TERMINAL -e nmtui}
@@ -195,9 +191,10 @@ super + x
 super + {_,shift} + z
     sudo systemctl {suspend,hibernate}
 
-# Emoji selector
-super + e
-    dmenu-emoji-selector
+# Emoji selector and
+    # System monitor (btop)
+super + {e,shift + r}
+    {dmenu-emoji-selector,devour $TERMINAL -e btop}
 
 # Mute volume
 super + alt + m
