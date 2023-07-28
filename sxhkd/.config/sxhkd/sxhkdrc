@@ -204,6 +204,10 @@ super + alt + m
 super + {_,shift} + F9
     {mounter,unmounter}
 
+# Toggle redshift (blue light filter)
+super + F6
+    toggle-redshift
+
 # Notifications
 ctrl + space
     dunstctl close

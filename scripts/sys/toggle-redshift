@@ -1,0 +1,15 @@
+#!/bin/sh
+
+SCRIPT_NAME="$(basename "$0")"
+ifinstalled "redshift" ||
+    exit 1
+
+if [ $(pidof -s redshift) ]; then
+    killall -9 redshift
+    notify-send -a "$SCRIPT_NAME" -u "low" -i "redshift" -t 3000 -r "9995"\
+        "Blue light filter disabled"
+else
+    redshift &
+    notify-send -a "$SCRIPT_NAME" -u "low" -i "redshift" -t 3000 -r "9995"\
+        "Blue light filter enabled"
+fi
