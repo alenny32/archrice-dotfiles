@@ -167,7 +167,7 @@ cmd archive ${{
     read archive_name ; tput sgr0
 
     [ -z "$archive_name" ] &&
-        return
+        exit 0
 
     7z a "${archive_name}.7z" $fx
 }}
@@ -235,8 +235,9 @@ cmd moveto ${{
         ifinstalled "rsync" ||
             exit 1
         for file in $fx; do
-            rsync -urP --delete-after --remove-source-files"$file" "$destination"
+            rsync -urP --delete-after --remove-source-files "$file" "$destination"
         done
+        rm -d "$file" # remove the remainder empty directory
     fi
 
     notify-send -a "lf-moveto" -u "low" -i "bell" \
