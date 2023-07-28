@@ -17,6 +17,7 @@ xinit-xsession
 rclone-browser
 downgrade
 secure-delete
+ueberzugpp
 
 # Thunar
 thunar-secure-delete
