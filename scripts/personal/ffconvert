@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+tput bold
+printf "Enter the converted file extension: "
+read converted_extension
+tput sgr0
+
+for file in "${@:1}" ; do
+    base="${file%.*}"
+    output="$base.$converted_extension"
+
+    ffmpeg -i "$file" -c:v copy -c:a copy "$output"
+
+    if [ "$?" -ne 0 ]; then
+        rm "$output"
+        ffmpeg -i "$1" -c:v copy "$output"
+
+        if [ "$?" -ne 0 ]; then
+            rm "$output"
+            ffmpeg -i "$1" -c:a copy "$output"
+
+            if [ "$?" -ne 0 ]; then
+                rm "$output"
+                ffmpeg -i "$1" "$output"
+            fi
+        fi
+    fi
+done
