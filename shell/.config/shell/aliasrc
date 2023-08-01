@@ -57,14 +57,6 @@ alias \
     # which are stored in shortcutrc
 alias cdd="clear -x; cd $HOME/.dotfiles; git status"
 
-# Apt package manager.
-alias \
-    aptupd="$chusr apt update" \
-    aptupg="$chusr apt update; $chusr apt upgrade" \
-    aptin="$chusr apt install" \
-    aptrm="$chusr apt remove" \
-    aptpg="$chusr apt purge" \
-
 # Use neovim for vi if present.
 [ -x "$(command -v nvim)" ] &&
     alias vi="nvim" vimdiff="nvim -d"
@@ -116,7 +108,7 @@ for command in downgrade apt mount umount sv pacman updatedb su shutdown powerof
     alias $command="$chusr $command"
 done; unset command
 
-# Common commands with certain options
+# Pacman package manager.
 alias \
     pin="pacman -S" \
     pup="pacman -Syu" \
@@ -130,6 +122,30 @@ alias \
     pfy="pacman -Fy" \
     pfx="pacman -Fx" \
     pfyx="pacman -Fyx" \
+
+# Apt package manager.
+alias \
+    aptupd="$chusr apt update" \
+    aptupg="$chusr apt update; $chusr apt upgrade" \
+    aptin="$chusr apt install" \
+    aptrm="$chusr apt remove" \
+    aptpg="$chusr apt purge" \
+
+# Nix package manager.
+nixin() { for pkg in $@; do; nix-env -iA nixpkgs.$pkg; done }
+alias \
+    nixlsp="nix-env -q" \
+    nixun="nix-env -e" \
+    nixrm="nix-env -e" \
+    nixup="nix-env -u" \
+    nixhold="nix-env --set-flag keep true" \
+    nixlsg="nix-env --list-generations" \
+    nixrmg="nix-env --delete-generations" \
+    nixrb="nix-env --rollback" \
+    nixsw="nix-env --switch-generation" \
+    nixgc="nix-store --gc" \
+    nixgcdry="nix-store --gc --print-dead" \
+    nixcol="nix-collect-garbage" \
 
 # These common commands are just too long! Abbreviate them.
 alias \
