@@ -12,6 +12,7 @@ ex  
 *.ms        ✍
 *.png       🖼
 *.webp      🖼
+*.jfif      🖼
 *.ico       🖼
 *.jpg       📸
 *.jpe       📸
@@ -33,9 +34,12 @@ ex  
 *.mp3       
 *.opus      
 *.ogg       
+*.ape       
 *.m4a       
 *.flac      
+*.aiff      
 *.wav       
+*.wv        
 *.mkv       🎥
 *.mp4       🎥
 *.webm      🎥
