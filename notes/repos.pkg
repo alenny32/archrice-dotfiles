@@ -19,4 +19,7 @@ https://github.com/trapd00r/vidir.git
 # all of my torrents
 git@github.com:alenny32/torrents.git
 
+# GRUB2 themes
+git@github.com:vinceliuice/grub2-themes
+
 # vim:ft=config

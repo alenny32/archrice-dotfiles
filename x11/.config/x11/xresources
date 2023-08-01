@@ -11,6 +11,10 @@ Xcursor.size: 32
 Sxiv.background: #17080B
 Sxiv.foreground: #D84931
 
+! NSXIV configuration
+Nsxiv.window.background: #17080B
+Nsxiv.window.foreground: #D84931
+
 ! Transparency
 /* *.alpha: 0.8 */
 

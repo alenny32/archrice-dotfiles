@@ -185,7 +185,8 @@ alias \
 # install devour from (https://github.com/salman-abedin/devour)
 alias \
     mpv="devour mpv" \
-    sxiv="devour sxiv" \
+    sxiv="devour sxiv -a" \
+    nsxiv="devour nsxiv -a" \
     zathura="devour zathura" \
     lowriter="devour lowriter" \
     localc="devour localc" \

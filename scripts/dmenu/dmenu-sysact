@@ -70,14 +70,12 @@ case "$action" in
         $ctl suspend-then-hibernate
         ;;
     " Hibernate")
-        $ctl  hibernate
+        $ctl hibernate
         ;;
     " Log Out")
-        bspc quit
+        pkill --euid $USER
+        # bspc quit
         ;;
-    # " Log Out")
-    #     loginctl session-status | awk 'NR==1 {print $1}' | xargs loginctl terminate-session "$1"
-    #     ;;
     " Lock")
         betterlockscreen -l
         ;;

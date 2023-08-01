@@ -32,6 +32,7 @@ hdparm
 poppler
 perl-file-mimeinfo
 networkmanager
+ntp
 pacman-contrib
 parallel
 opendoas
@@ -42,6 +43,7 @@ pamixer
 plocate
 playerctl
 python-pip
+python-pipx
 mesa-utils
 mediainfo
 gnome-keyring
@@ -119,7 +121,7 @@ catfish
 zeitgeist
 pcmanfm-gtk3
 pdftotext
-sxiv
+nsxiv
 libreoffice-fresh
 scrot
 mpv

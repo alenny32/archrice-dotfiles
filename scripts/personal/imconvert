@@ -1,7 +1,7 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 SCRIPT_NAME="$(basename "$0")"
-APP_NAME="ffmpeg"
+APP_NAME="imagemagick"
 NOTIFICATION_TIME=3000
 NOTIFICATION_PRIORITY="low"
 
@@ -38,30 +38,9 @@ for file in "${@:1}" ; do
     base="${file%.*}"
     output="$base.$converted_extension"
 
-    ffmpeg -i "$file" -c:v copy -c:a copy "$output" && \
+    convert "$file" "$output" && \
         send_notification_success "$file" "$converted_extension" && \
         continue
-
-    if [ "$?" -ne 0 ]; then
-        rm "$output"
-        ffmpeg -i "$1" -c:v copy "$output" && \
-            send_notification_success "$file" "$converted_extension" && \
-            continue
-
-        if [ "$?" -ne 0 ]; then
-            rm "$output"
-            ffmpeg -i "$1" -c:a copy "$output" && \
-                send_notification_success "$file" "$converted_extension" && \
-                continue
-
-            if [ "$?" -ne 0 ]; then
-                rm "$output"
-                ffmpeg -i "$1" "$output" && \
-                    send_notification_success "$file" "$converted_extension" && \
-                    continue
-            fi
-        fi
-    fi
 
     send_notification_fail "$file" "$converted_extension"
 done

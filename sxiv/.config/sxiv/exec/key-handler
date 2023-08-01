@@ -3,54 +3,108 @@
 [ -f "${XDG_DATA_HOME:-${HOME}/.local/share}/xcolors" ] || gen-xcolors
 . "${XDG_DATA_HOME:-${HOME}/.local/share}/xcolors"
 
+APP_NAME="nsxiv"
+
 while read -r file; do
     case "$1" in
         # "w"|"b") # set background / wallpaper
+            # ifinstalled nitrogen || \
+            #     exit 1
             # nitrogen --save --set-scaled "$file" &
             # ;;
         "w"|"b") # set background / wallpaper
+            ifinstalled nitrogen setbg || \
+                exit 1
             setbg "$file" &
             ;;
         "c") # copy to bm-dirs
-            [ -z "$destdir" ] && destdir="$(sed "s/#.*$//;/^\s*$/d" "${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs" | awk '{print $2}' | dmenu -l 20 -i -nb ${color0} -nf ${color3} -sb ${color3} -p "Copy file(s) to where?" | sed "s|~|$HOME|g")"
-            [ ! -d "$destdir" ] && notify-send -a "sxiv" "$destdir is not a directory, cancelled." && exit
-            cp "$file" "$destdir" && notify-send -i "$(readlink -f "$file")" "$file copied to $destdir." &
+            ifinstalled dmenu || \
+                exit 1
+            [ -z "$destdir" ] \
+                && destdir="$(sed "s/#.*$//;/^\s*$/d" "${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs" | awk '{print $2}' | dmenu -l 20 -i -nb ${color0} -nf ${color3} -sb ${color3} -p "Copy file(s) to where?" | sed "s|~|$HOME|g")"
+            [ ! -d "$destdir" ] && \
+                notify-send -a "$APP_NAME" "$destdir is not a directory, cancelled" && \
+                exit 1
+            cp "$file" "$destdir" && \
+                notify-send -a "$APP_NAME" -i "$(readlink -f "$file")" \
+                "📋 File(s) copied" \
+                "$file copied to $destdir" &
             ;;
         "m") # move to bm-dirs
-            [ -z "$destdir" ] && destdir="$(sed "s/#.*$//;/^\s*$/d" "${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs" | awk '{print $2}' | dmenu -l 20 -i -nb ${color0} -nf ${color3} -sb ${color3} -p "Move file(s) to where?" | sed "s|~|$HOME|g")"
-            [ ! -d "$destdir" ] && notify-send -a "sxiv" "$destdir is not a directory, cancelled." && exit
-            rsync -urvP --remove-source-files --delete-after "$file" "$destdir" && notify-send -i "$(readlink -f "$file")" "$file moved to $destdir." &
-        ;;
+            ifinstalled dmenu rsync || \
+                exit 1
+            [ -z "$destdir" ] && \
+                destdir="$(sed "s/#.*$//;/^\s*$/d" "${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs" | awk '{print $2}' | dmenu -l 20 -i -nb ${color0} -nf ${color3} -sb ${color3} -p "Move file(s) to where?" | sed "s|~|$HOME|g")"
+            [ ! -d "$destdir" ] && \
+                notify-send -a "$APP_NAME" \
+                "$destdir is not a directory, cancelled" && \
+                exit 1
+            rsync -urvP --remove-source-files --delete-after "$file" "$destdir" && \
+                notify-send -a "$APP_NAME" -i "$(readlink -f "$file")" \
+                "🚚 File(s) moved" \
+                "$file moved to $destdir" &
+            ;;
     "r") # rotate 90 degrees to the left
+        ifinstalled imagemagick || \
+            exit 1
         convert -rotate 90 "$file" "$file"
         ;;
     "R") # rotate 90 degrees to the right
+        ifinstalled imagemagick || \
+            exit 1
         convert -rotate -90 "$file" "$file"
         ;;
     "f") # flop (mirror)
+        ifinstalled imagemagick || \
+            exit 1
         convert -flop "$file" "$file"
         ;;
     "F") # flip
+        ifinstalled imagemagick || \
+            exit 1
         convert -flip "$file" "$file"
         ;;
-    "y") # copy to clipboard
-        printf "%s" "$file" | tr -d '\n' | xclip -selection clipboard &&
-        notify-send -a "sxiv" -i "$(readlink -f "$file")" "$file copied to clipboard" & ;;
-    "Y") # copy to clipboard
-        readlink -f "$file" | tr -d '\n' | xclip -selection clipboard &&
-        notify-send -a "sxiv" -i "$(readlink -f "$file")" "$(readlink -f "$file") copied to clipboard" &
+    "y"|"C-c") # copy image to clipboard
+        ifinstalled xclip || \
+            exit 1
+        xclip -selection clipboard -t image/png -i "$file"
+        notify-send -a "$APP_NAME" -i "$(readlink -f "$file")" \
+            "📋🖼 Copy image to clipboard" \
+            "$file copied to clipboard" &
+        ;;
+    "Y"|"C-p") # copy absolute path to clipboard
+        ifinstalled xclip || \
+            exit 1
+        readlink -f "$file" | tr -d '\n' | xclip -selection clipboard
+        notify-send -a "$APP_NAME" -i "$(readlink -f "$file")" \
+            "📋📄 Copy absolute path to clipboard" \
+            "$(readlink -f "$file") copied to clipboard" &
         ;;
     "d"|"t") # trash
-        prompt "Trash $file?" "trash-put $file && notify-send -a "sxiv" $file trashed."
+        ifinstalled trash-cli dmenu prompt || \
+            exit 1
+        prompt "Trash $file? 🗑" "trash-put $file &" && \
+            notify-send -a "$APP_NAME" \
+            "🗑 $file trashed"
         ;;
     "D") # delete
-        prompt "Permanently delete $file?" "rm $file && notify-send -a "sxiv" $file deleted."
+        ifinstalled dmenu prompt || \
+            exit 1
+        prompt "Permanently delete $file? ❌" "rm -f $file &" && \
+            notify-send -a "$APP_NAME" \
+            "❌ $file deleted"
         ;;
     "g") # open in gimp
-        ifinstalled gimp && setsid -f gimp "$file"
+        ifinstalled gimp || \
+            exit 1
+        setsid -f gimp "$file"
         ;;
     "i") # mediainfo
-        notify-send -a "sxiv" "File information" "$(mediainfo "$file" | sed "s/[ ]\+:/:/g;s/: /: <b>/;s/$/<\/b>/" | grep "<b>")"
+        ifinstalled mediainfo || \
+            exit 1
+        notify-send -a "ℹ sxiv" \
+            "File information" \
+            "$(mediainfo "$file" | sed "s/[ ]\+:/:/g;s/: /: <b>/;s/$/<\/b>/" | grep "<b>")"
         ;;
     esac
 done

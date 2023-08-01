@@ -13,6 +13,7 @@ killall -9 volumeicon; volumeicon &             # Volume icon in system tray
 # idle-handler &                                  # Auto lock and suspend
 bsp-layout-start &                              # Set bspwm tiling layout
 # pgrep -c ^bspswallow$ || bspswallow &           # Bspwm window swallowing
+# kdeconnect-indicator &                          # System tray for kdeconnect
 
 ###########################################################
 #                Screen / Workspaces Setup                #

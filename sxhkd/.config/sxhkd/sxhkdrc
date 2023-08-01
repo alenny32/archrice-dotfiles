@@ -193,7 +193,7 @@ super + {_,shift} + z
 
 # Emoji selector and
     # System monitor (btop)
-super + {e,shift + r}
+super + {e,shift + e}
     {dmenu-emoji-selector,devour $TERMINAL -e btop}
 
 # Mute volume
