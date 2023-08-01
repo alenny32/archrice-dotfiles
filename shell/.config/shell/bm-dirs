@@ -35,7 +35,7 @@ vid     /home/umar/Videos
 h       /home/umar
 repo    /home/umar/Repos
 tmp     /home/umar/tmp
-dot     /home/umar/.dotfiles
+dotf    /home/umar/.dotfiles
 sc      /home/umar/.dotfiles/scripts
 bin     /home/umar/.local/bin
 src     /home/umar/.local/src
