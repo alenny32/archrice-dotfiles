@@ -42,6 +42,7 @@ case "$(file --dereference --brief --mime-type -- $1)" in
     "text"/* | \
     */"xml" | \
     "application/json" | \
+    "application/javascript" | \
     "application/x-subrip")
         bat --terminal-width "$(($4-2))" -f "$1"
         ;;

@@ -36,7 +36,10 @@ cmd open ${{
         "application/postscript")
             setsid -f devour zathura $fx >/dev/null 2>&1
             ;;
-        "text/"* | "application/json" | "inode/x-empty")
+        "text/"* | \
+        "application/json" | \
+        "application/javascript" | \
+        "inode/x-empty")
             $EDITOR $fx
             ;;
         "image/x-xcf")
@@ -209,10 +212,14 @@ cmd paste_overwrite ${{
 
     case "$mode" in
         "copy")
-            rsync -urP --delete-after "$@" ./
+            rsync -urqP --delete-after "$@" ./
             ;;
         "move")
-            rsync -urP --delete-after --remove-source-files "$@" ./
+            rsync -urqP --delete-after --remove-source-files "$@" ./
+            for file in "$@"; do
+                [ -d "$file" ] && \
+                    find "$file" -type d -empty -delete # remove remainder empty directory
+            done
             lf -remote "send clear"
             ;;
     esac
@@ -236,11 +243,13 @@ cmd moveto ${{
     elif [ "$1" = "overwrite" ]; then
         ifinstalled "rsync" ||
             exit 1
-        for file in $fx; do
-            rsync -urP --delete-after --remove-source-files "$file" "$destination"
+        rsync -urqP --delete-after --remove-source-files "$@" "$destination"
+        for file in "$@"; do
+            [ -d "$file" ] && \
+                find "$file" -type d -empty -delete # remove remainder empty directory
         done
-        rm -d "$file" # remove the remainder empty directory
     fi
+    lf -remote "send clear"
 
     notify-send -a "lf-moveto" -u "low" -i "bell" \
         "🚚 File(s) moved" \
@@ -261,9 +270,7 @@ cmd copyto ${{
     elif [ "$1" = "overwrite" ]; then
         ifinstalled "rsync" ||
             exit 1
-        for file in $fx; do
-            rsync -urP --delete-after "$file" "$destination"
-        done
+        rsync -urqP --delete-after "$@" "$destination"
     fi
 
     notify-send -a "lf-copyto" -u "low" \
