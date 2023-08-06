@@ -4,13 +4,12 @@ brave-bin
 betterlockscreen-git
 ttf-apple-emoji
 dmenu-emoji
-mongodb-bin
 p7zip-gui
 paru-bin
 pandoc-bin
 sddm-sugar-candy-git
 simple-mtpfs
-timeshift
+timeshift-bin
 ttf-ms-fonts
 xidlehook
 xinit-xsession
@@ -23,7 +22,7 @@ ueberzugpp
 thunar-secure-delete
 # pick one of these two
 tumbler-extra-thumbnailers
-tumbler-folder-thumbnailer
+# tumbler-folder-thumbnailer
 
 # mpv
 webtorrent-cli
@@ -32,21 +31,26 @@ xidel
 
 # Important Applications
 anki-bin
-pycharm-professional
-postman-bin
+mongodb-bin
+mongosh-bin
+nvm
 dataspell
 dataspell-jre
+pycharm-professional
+postman-bin
+shellcheck-bin
 visual-studio-code-bin
 whatsapp-nativefier
 zoom
 
 # Nice to have
-fastfetch
+adobe-source-han-mono-fonts
+fastfetch-bin
 pfetch
+tgpt-bin
 onedrive-abraunegg
 python2-bin
 usbtop
-adobe-source-han-mono-fonts
 
 # Laptop
 brillo # add $USER to 'video' group
