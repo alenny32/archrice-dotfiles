@@ -161,6 +161,13 @@ alias \
     xr="$chusr xbps-remove -R" \
     xq="xbps-query" \
     z="devour zathura" \
+    gpt="tgpt" \
+    nvmu="nvm use" \
+    nvmd="nvm deactivate" \
+    nvml="nvm ls" \
+    nvmi="nvm install" \
+    nvmun="nvm uninstall" \
+    nvmup="nvm install node --reinstall-packages-from=current" \
 
 alias \
     lf="lfub" \

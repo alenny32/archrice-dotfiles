@@ -30,11 +30,6 @@ export GDRIVE_JASMINE="$HOME/Cloud/gdrive-jasmine_belajar_id"
 export ONEDRIVE_UMAR="$HOME/Cloud/onedrive-umar"
 export ONEDRIVE_BINUS="$HOME/Cloud/onedrive-binus"
 
-# NVM for Node.js in WSL
-[ "$(command -v nvm)" ] && export NVM_DIR="$HOME/.config/nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
 ################################################################################
 
 # Adds `~/.local/bin` to $PATH recursively
@@ -84,6 +79,7 @@ export KODI_DATA="$XDG_DATA_HOME/kodi"
 export PASSWORD_STORE_DIR="$XDG_DATA_HOME/password-store"
 export TMUX_TMPDIR="$XDG_RUNTIME_DIR"
 export ANDROID_SDK_HOME="$XDG_CONFIG_HOME/android"
+export NVM_DIR="$XDG_CONFIG_HOME/nvm"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export GEM_PATH="$XDG_DATA_HOME/ruby/gems"
 export GEM_SPEC_CACHE="$XDG_DATA_HOME/ruby/specs"
@@ -150,5 +146,5 @@ sudo loadkeys "$HOME/.local/bin/sys/ttymaps.kmap" 2>/dev/null
 
 # Nix profile
 # added by Nix installer
-[ -e /home/umar/.nix-profile/etc/profile.d/nix.sh ] &&
-    . /home/umar/.nix-profile/etc/profile.d/nix.sh
+[ -e "/home/umar/.nix-profile/etc/profile.d/nix.sh" ] &&
+    . "/home/umar/.nix-profile/etc/profile.d/nix.sh"

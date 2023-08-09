@@ -10,12 +10,16 @@ wm_name="$(xprop -id "$wid" '\t$0' WM_NAME |
 
 # For debugging purposes:
 # notify-send "wid: $wid" \
-    # "class: $class\ninstance: $instance\nwm name: $wm_name"
+#     "class: $class\ninstance: $instance\nwm name: $wm_name"
 
 # Get xev to a floating window:
 if [ "$wm_name" = "Event Tester" ]; then
     echo "state=floating"
-    # echo "sticky=on"
+# Get brave and brave task manager to 2nd desktop and to a floating window:
+elif [[ "$wm_name" = "Brave" ||
+    "$wm_name" = "Task Manager - Brave" ]]; then
+    echo "desktop=^2"
+    echo "state=floating"
 fi
 
 # ## Placeholder for later configurations:

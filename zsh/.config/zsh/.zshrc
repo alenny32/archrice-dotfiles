@@ -1,26 +1,19 @@
-# Created by newuser for 5.9
+#!/usr/bin/env zsh
 
 ######## Umar's config for the Zoomer Shell ########
 
-## Powerlevel10k
-# To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
-[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/.p10k.zsh" ] &&
-    source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/.p10k.zsh"
-# Load Powerlevel10K
-source "$XDG_CONFIG_HOME/zsh/plugins/powerlevel10k/powerlevel10k.zsh-theme" 2>/dev/null
-
-## Load ssh key passphrase (will ask for passphrase first).
+# Load ssh key passphrase (will ask for passphrase first).
 # keychain $HOME/.ssh/id_ed25519 && source $HOME/.keychain/$HOSTNAME-sh
 
-## virtualenvwrapper config and source
+# virtualenvwrapper config and source
 # export WORKON_HOME=$HOME/Workspace/.virtualenvs
 # export PROJECT_HOME=$HOME/Workspace
 # source /usr/bin/virtualenvwrapper.sh
 
 ######################################################################
 
-## Enable colors and change prompt:
-## Replaced by Powerlevel10k
+# Enable colors and change prompt:
+# Replaced by Powerlevel10k
 # autoload -U colors && colors    # Load colors
 # PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
 
@@ -33,7 +26,7 @@ HISTSIZE=10000000
 SAVEHIST=10000000
 HISTFILE="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/history"
 
-# Load aliases and shortcuts if exists.
+# Load aliases and shortcuts if exists:
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc" ] &&
     source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc"
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc" ] &&
@@ -47,10 +40,9 @@ zstyle ":completion:*" menu select
 zstyle ":completion:*" matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 zmodload zsh/complist
 compinit
-# Include hidden files.
-_comp_options+=(globdots)
+_comp_options+=(globdots) # Include hidden files.
 
-# vi mode
+# vi mode:
 bindkey -v
 export KEYTIMEOUT=1
 
@@ -100,19 +92,35 @@ bindkey -M vicmd '^[[P' vi-delete-char
 bindkey -M vicmd '^v' edit-command-line
 bindkey -M visual '^[[P' vi-delete
 
+# Load nvm:
+# (to use node and npm, run `nvm use <node_version>`)
+# if `.nvmrc` exists in parent direcotry
+[ -f "/usr/share/nvm/init-nvm.sh" ] &&
+    source "/usr/share/nvm/init-nvm.sh" --no-use \
+    # 2>/dev/null
+
+# Load Powerlevel10k:
+# To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/.p10k.zsh" ] &&
+    source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/.p10k.zsh" \
+    # 2>/dev/null
+
+# Load Powerlevel10K theme:
+[ -f "$XDG_CONFIG_HOME/zsh/plugins/powerlevel10k/powerlevel10k.zsh-theme" ] &&
+    source "$XDG_CONFIG_HOME/zsh/plugins/powerlevel10k/powerlevel10k.zsh-theme" \
+    # 2>/dev/null
+
 # Load functions:
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/functionrc" ] &&
-    source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/functionrc"
+    source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/functionrc" \
+    # 2>/dev/null
 
 # Load zsh auto suggestions:
-source \
-    "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh" \
-    2>/dev/null
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh" ] &&
+    source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh" \
+    # 2>/dev/null
 
-# Load syntax highlighting; should be last.
-source \
-    "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh" \
-    2>/dev/null
-
-# Initialise nvm (npm)
-source "/usr/share/nvm/init-nvm.sh"
+# Load syntax highlighting (should be last):
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh" ] &&
+    source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh" \
+    # 2>/dev/null
