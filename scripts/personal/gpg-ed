@@ -1,14 +1,20 @@
 #!/usr/bin/env bash
 
-# if file is not a gpg file Encrypt file and permanently deletes it
+# Script to encrypt and decrypt files and directories using gpg and 7z.
 
-## THC(Van Hausen)'s Secure Delete
-SRM_PROG="srm"
-SRM_OPTS="-lr"
+ifinstalled gpg 7z ||
+    exit 1
 
-## GNU Shred from coreutils
+# THC(Van Hausen)'s Secure Delete:
+# SRM_PROG="srm"
+# SRM_OPTS="-lr"
+
+# GNU Shred from coreutils:
 # SRM_PROG=shred
 # SRM_OPTS="--remove=wipesync -f -n2"
+
+# GPG Encryption options:
+GPG_ENC_OPTS="--cipher-algo AES256 --compress-algo 0"
 
 for file in "${@:2}" ; do
     dir=${file%/*}
@@ -18,26 +24,26 @@ for file in "${@:2}" ; do
     mime_type=$(file -bh --mime-type "${file}")
     if [ "$mime_type" = "inode/directory" ]; then
         7z a "${file}.7z" "${file}"
-        ${SRM_PROG} ${SRM_OPTS} "${file}"
+        # ${SRM_PROG} ${SRM_OPTS} "$file"
         file="${file}.7z"
     fi
 
-    case "${ext}" in
-        gpg)
-            gpg -o "$base" -d "${file}"
-            # only trash the encrypted file (if decrypting fail, user can restore the file)
-            # trash-put "${file}"
+    case "$ext" in
+        "gpg")
+            gpg --decrypt --output "$base" "$file"
+            # trash-put "$file"
+            # rm -r "$file"
             ;;
         *)
             case "$1" in
                 "unspecified")
-                    gpg -e "${file}"
+                    gpg --encrypt ${GPG_ENC_OPTS} "$file"
                     ;;
                 *)
-                    gpg -r "$1" -e "${file}"
+                    gpg --encrypt --recipient "$1" ${GPG_ENC_OPTS} "$file"
                     ;;
             esac
-            ${SRM_PROG} ${SRM_OPTS} "${file}"
+            # ${SRM_PROG} ${SRM_OPTS} "$file"
             ;;
     esac
 done
