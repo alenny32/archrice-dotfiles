@@ -1,5 +1,10 @@
+#!/usr/bin/env zsh
+
 # Use lf to switch directories and bind it to ctrl-o:
 lfcd () {
+    ifinstalled lf ||
+        exit 1
+
     tmp="$(mktemp -uq)"
     trap \
         'rm -f $tmp >/dev/null 2>&1 && trap - HUP INT QUIT TERM PWR EXIT' \
@@ -18,5 +23,3 @@ mkcd() {
     mkdir -pv "$1"
     cd "$1"
 }
-
-# vim: filetype=sh

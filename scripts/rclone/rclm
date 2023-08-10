@@ -1,0 +1,79 @@
+#!/usr/bin/env bash
+
+# Script to mount and unmount remotes in rclone.
+
+# Error if program is not installed:
+ifinstalled rclone fusermount ||
+    exit 1
+
+readarray -t remotes <<< "$(rclone listremotes | tr -d ':')"
+
+# Set cloud directory and make one if not exist yet:
+if [ -z "$CLOUD_DIR" ]; then
+    CLOUD_DIR="$HOME/Cloud"
+    if [ ! -d "$CLOUD_DIR" ]; then
+        echo -e "\e[2;35mCloud directory does not exist. Making one...\e[0m"
+        mkdir -pv "$CLOUD_DIR"
+    fi
+fi
+
+# Make remote directory inside CLOUD_DIR if not exist yet:
+check_dir() {
+    if [ ! -d "$1" ]; then
+        echo -e "\e[2;35mRemote directory does not exist. Making one...\e[0m"
+        mkdir -pv "$1"
+    fi
+}
+
+error_rclm() {
+    echo -e "\e[1;31mrclm: wrong usage\e[0m"
+    echo "Usage: rclm [mount | umount] [REMOTES]..."
+    echo "Available remotes:"
+    echo -e "\e[2;33m${remotes[*]}\e[0m"
+    return 1
+}
+
+# Error if no command:
+[ -z "$1" ] &&
+    error_rclm
+
+for remote in "${@:2}"; do
+    # Continue if remote does not exist in rclone:
+    if [[ ! "${remotes[*]}" =~ $remote &&
+        "$2" != "all" ]]; then
+        echo -e "\e[2;31mRemote $remote does not exist\e[0m"
+        continue
+    fi
+
+    mount_point="$CLOUD_DIR/$remote"
+
+    if [ "$1" = "mount" ]; then
+        if [ "$2" = all ]; then
+            for rem in "${remotes[@]}"; do
+                mount_point="$CLOUD_DIR/$rem"
+                check_dir "$mount_point"
+                rclone mount --daemon "$rem:" "$CLOUD_DIR/$rem" &&
+                    echo -e "\e[2;32mSuccessfully mount remote $rem to $mount_point\e[0m"
+            done
+        else
+            check_dir "$mount_point"
+            rclone mount --daemon "$remote:" "$mount_point" &&
+                echo -e "\e[2;32mSuccessfully mount remote $remote to $mount_point\e[0m"
+        fi
+    elif [ "$1" = "umount" ]; then
+        if [ "$2" = "all" ]; then
+            killall rclone &&
+                echo -e "\e[2;32mSuccessfully unmount all remotes in $CLOUD_DIR\e[0m"
+            # for rem in "${remotes[@]}"; do
+            #     mount_point="$CLOUD_DIR/$rem"
+            #     fusermount -uz "$mount_point" &&
+            #         echo -e "\e[2;32mSuccessfully unmount remote $rem from $mount_point\e[0m"
+            # done
+        else
+            fusermount -uz "$mount_point" &&
+                echo -e "\e[2;32mSuccessfully unmount remote $remote from $mount_point\e[0m"
+        fi
+    else
+        error_rclm
+    fi
+done

@@ -25,10 +25,11 @@ export HOSTNAME="$(cat /etc/hostname)"
 # export XCURSOR_SIZE=36
 
 # Add local cloud directories
-export GDRIVE_UMAR="$HOME/Cloud/gdrive-umar"
-export GDRIVE_JASMINE="$HOME/Cloud/gdrive-jasmine_belajar_id"
-export ONEDRIVE_UMAR="$HOME/Cloud/onedrive-umar"
-export ONEDRIVE_BINUS="$HOME/Cloud/onedrive-binus"
+export CLOUD_DIR="$HOME/Cloud"
+export GDRIVE_UMAR="$CLOUD_DIR/gdrive-umar"
+export GDRIVE_JASMINE="$CLOUD_DIR/gdrive-jasmine_belajar_id"
+export ONEDRIVE_UMAR="$CLOUD_DIR/onedrive-umar"
+export ONEDRIVE_BINUS="$CLOUD_DIR/onedrive-binus"
 
 ################################################################################
 
