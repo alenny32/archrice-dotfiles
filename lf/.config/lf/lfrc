@@ -15,7 +15,7 @@
 #    called directly instead of normal lf.
 
 # Basic variables
-set shell sh
+set shell bash
 set shellopts '-eu'
 set ifs "\n"
 set scrolloff 8
@@ -116,11 +116,12 @@ cmd open ${{
 cmd mkdir $mkdir -p "$(echo $* | tr ' ' '\ ')"
 
 # Trash bindings
-cmd trash_restore ${{
+cmd trash_restore !{{
     ifinstalled "trash-cli" ||
         exit 1
 
-    clear -x; tput cup "$(($(tput lines)/3))"; tput bold
+    clear -x
+    tput cup "$(($(tput lines)/3))"; tput setaf 3
     printf "Trash restore:\n"; tput sgr0
     trash-restore
 }}
@@ -129,10 +130,11 @@ cmd trash_put ${{
     ifinstalled "trash-cli" ||
         exit 1
 
-    clear -x; tput cup "$(($(tput lines)/3))"; tput bold
-    printf "\tTrash put:\n" ; tput sgr0
+    clear -x
+    tput cup "$(($(tput lines)/3))"; tput setaf 3
+    printf "\tTrash put:\n"; tput sgr0
     set -f
-    printf "%s\n\t" "$fx" ; tput bold
+    printf "%s\n\t" "$fx"; tput setaf 3
     printf "Trash? [y/N] "
     read ans
     [ "$ans" = "y" ] && trash-put $fx
@@ -150,10 +152,11 @@ cmd trash_put ${{
 }}
 
 cmd extract ${{
-    clear -x; tput cup "$(($(tput lines)/3))" ; tput bold
-    printf "\tExtract files:\n" ; tput sgr0
+    clear -x
+    tput cup "$(($(tput lines)/3))"; tput setaf 3
+    printf "\tExtract files:\n"; tput sgr0
     set -f
-    printf "%s\n\t" "$fx" ; tput bold
+    printf "%s\n\t" "$fx"; tput setaf 3
     printf "Extract? [y/N] "
     read ans ; tput sgr0
     if [ "$ans" = "y" ]; then
@@ -164,10 +167,11 @@ cmd extract ${{
 }}
 
 cmd archive ${{
-    clear -x; tput cup "$(($(tput lines)/3))" ; tput bold
-    printf "\tArchive files (7z):\n" ; tput sgr0
+    clear -x
+    tput cup "$(($(tput lines)/3))"; tput setaf 3
+    printf "\tArchive files (7z):\n"; tput sgr0
     set -f
-    printf "%s\n\t" "$fx" ; tput bold
+    printf "%s\n\t" "$fx"; tput setaf 3
     printf "Archive name (empty to cancel): "
     read archive_name ; tput sgr0
 
@@ -178,20 +182,22 @@ cmd archive ${{
 }}
 
 cmd delete ${{
-    clear -x; tput cup "$(($(tput lines)/3))" ; tput bold
-    printf "\tDelete:\n" ; tput sgr0
+    clear -x
+    tput cup "$(($(tput lines)/3))"; tput setaf 3
+    printf "\tDelete:\n"; tput sgr0
     set -f
-    printf "%s\n\t" "$fx"; tput bold
+    printf "%s\n\t" "$fx"; tput setaf 3
     printf "Delete? [y/N] "
     read ans ; tput sgr0
     [ "$ans" = "y" ] && rm -rf -- $fx
 }}
 
 cmd delete_secure ${{
-    clear -x; tput cup "$(($(tput lines)/3))" ; tput bold
-    printf "\tSecure delete:\n" ; tput sgr0
+    clear -x
+    tput cup "$(($(tput lines)/3))"; tput setaf 3
+    printf "\tSecure delete:\n"; tput sgr0
     set -f
-    printf "%s\n\t" "$fx" ; tput bold
+    printf "%s\n\t" "$fx"; tput setaf 3
     printf "Securely delete? [y/N] "
     read ans ; tput sgr0
     [ "$ans" = "y" ] && srm -r -- $fx
@@ -230,7 +236,8 @@ cmd paste_overwrite ${{
 }}
 
 cmd moveto ${{
-    clear -x; tput bold
+    clear -x
+    tput bold
     set -f
     echo "Move to where?"
     destination="$(sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//' ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | fzf | sed 's|~|$HOME|')"
@@ -257,7 +264,8 @@ cmd moveto ${{
 }}
 
 cmd copyto ${{
-    clear -x; tput bold
+    clear -x
+    tput bold
     set -f
     echo "Copy to where?"
     destination="$(sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//' ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | fzf | sed 's|~|$HOME|')"
@@ -279,7 +287,8 @@ cmd copyto ${{
 }}
 
 cmd mime_ask ${{
-    clear -x; tput cup "$(($(tput lines)/3))"
+    clear -x
+    tput cup "$(($(tput lines)/3))"
     mimeopen --ask "$f"
 }}
 
@@ -303,7 +312,8 @@ cmd bulkrename $vidir
 
 # Template copying commands
 # cmd cp-temp-latex ${{
-#     clear -x; tput cup "$(($(tput lines)/3))"; tput bold
+#     clear -x
+#     tput cup "$(($(tput lines)/3))"; tput setaf 3
 #     set -f
 #     printf "%s\n\t" "$fx"
 #     printf "Copying LaTeX template...\n"
@@ -314,12 +324,13 @@ cmd bulkrename $vidir
 
 cmd confirm_gpg ${{
     user_id="$1"
-    clear -x; tput cup "$(($(tput lines)/3))"; tput bold
+    clear -x
+    tput cup "$(($(tput lines)/3))"; tput setaf 3
     printf "\tGPG Encrypt/Decrypt"
     [ "$user_id" = "umar" ] &&
         printf " using Umar's key"; printf ":\n"; tput sgr0
     set -f
-    printf "%s\n" "$fx"; tput bold
+    printf "%s\n" "$fx"; tput setaf 3
     if [ "$user_id" = "prompt" ]; then
         printf "\tEnter reciepient's GPG key user id (email or name): "
         read gpg_user_id
@@ -332,16 +343,18 @@ cmd confirm_gpg ${{
 }}
 
 cmd ffmpeg_convert ${{
-    clear -x; tput cup "$(($(tput lines)/3))" ; tput bold
-    printf "\tFFmpeg Convert:\n" ; tput sgr0
+    clear -x
+    tput cup "$(($(tput lines)/3))"; tput setaf 3
+    printf "\tFFmpeg Convert:\n"; tput sgr0
     set -f
     printf "%s\n\t" "$fx"
     ffconvert $fx
 }}
 
 cmd imagemagick_convert ${{
-    clear -x; tput cup "$(($(tput lines)/3))" ; tput bold
-    printf "\tImageMagick Convert:\n" ; tput sgr0
+    clear -x
+    tput cup "$(($(tput lines)/3))"; tput setaf 3
+    printf "\tImageMagick Convert:\n"; tput sgr0
     set -f
     printf "%s\n\t" "$fx"
     imconvert $fx
