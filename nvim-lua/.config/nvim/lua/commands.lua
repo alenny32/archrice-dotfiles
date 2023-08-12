@@ -7,6 +7,10 @@
 -- Relaunch dunst whenever dunstrc is updated
     vim.cmd.autocmd('BufWritePost dunstrc !killall dunst && dunst & disown')
 
+-- Reload sshd config on save.
+    vim.cmd.autocmd('BufWritePost /etc/ssh/sshd_config !sudo systemctl reload sshd')
+    vim.cmd.autocmd('BufWritePost /var/tmp/sshd_config.* !sudo systemctl reload sshd')
+
 -- Runs a script that cleans out tex build files whenever I close out of a .tex file.
     vim.cmd.autocmd('VimLeave *.tex !texclear %')
 
@@ -18,6 +22,11 @@
     vim.cmd.autocmd('BufRead,BufNewFile /tmp/calcurse*,~/.calcurse/notes/* set filetype=markdown')
     vim.cmd.autocmd('BufRead,BufNewFile *.ms,*.me,*.mom,*.man set filetype=groff')
     vim.cmd.autocmd('BufRead,BufNewFile *.tex set filetype=tex')
+    vim.cmd.autocmd('BufRead,BufNewFile *sshd_config* set filetype=sshdconfig')
+    vim.cmd.autocmd('BufRead,BufNewFile ${XDG_CONFIG_HOME}/mimeapps.list set filetype=dosini')
+    vim.cmd.autocmd('BufRead,BufNewFile /var/tmp/hosts*,/etc/hosts set filetype=hostconf')
+    vim.cmd.autocmd('BufRead,BufNewFile *fonts.conf set filetype=xml')
+    vim.cmd.autocmd('BufRead,BufNewFile *.desktop* set filetype=desktop')
 
 -- Save file as sudo on files that require root permission
     vim.cmd.cabbrev("w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!")
