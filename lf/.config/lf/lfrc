@@ -32,13 +32,17 @@ cmd open ${{
     case "$(file --mime-type "$(readlink -f $f)" -b)" in
         "image/vnd.djvu" | \
         "application/pdf" | \
-        "application/octet-stream" | \
         "application/postscript")
+        # "application/octet-stream" | \
             setsid -f devour zathura $fx >/dev/null 2>&1
             ;;
         "text/"* | \
+        */"xml" | \
         "application/json" | \
+        "application/pgp-keys" | \
         "application/javascript" | \
+        "application/x-subrip" | \
+        "application/x-setupscript" | \
         "inode/x-empty")
             $EDITOR $fx
             ;;
@@ -121,7 +125,7 @@ cmd trash_restore !{{
         exit 1
 
     clear -x
-    tput cup "$(($(tput lines)/3))"; tput setaf 3
+    tput cup "$(($(tput lines)/3))"; tput bold; tput setaf 3
     printf "Trash restore:\n"; tput sgr0
     trash-restore
 }}
@@ -131,12 +135,12 @@ cmd trash_put ${{
         exit 1
 
     clear -x
-    tput cup "$(($(tput lines)/3))"; tput setaf 3
+    tput cup "$(($(tput lines)/3))"; tput bold; tput setaf 3
     printf "\tTrash put:\n"; tput sgr0
     set -f
-    printf "%s\n\t" "$fx"; tput setaf 3
-    printf "Trash? [y/N] "
-    read ans
+    printf "%s\n\t" "$fx"
+    printf "Trash? [\033[1;32my\033[0m/\033[1;31mN\033[0m] "
+    read -r ans
     [ "$ans" = "y" ] && trash-put $fx
 
     # files="$(printf "$fx" | tr '\n' ';')"
@@ -153,12 +157,12 @@ cmd trash_put ${{
 
 cmd extract ${{
     clear -x
-    tput cup "$(($(tput lines)/3))"; tput setaf 3
+    tput cup "$(($(tput lines)/3))"; tput bold; tput setaf 3
     printf "\tExtract files:\n"; tput sgr0
     set -f
-    printf "%s\n\t" "$fx"; tput setaf 3
-    printf "Extract? [y/N] "
-    read ans ; tput sgr0
+    printf "%s\n\t" "$fx"
+    printf "Extract? [\033[1;32my\033[0m/\033[1;31mN\033[0m] "
+    read -r ans
     if [ "$ans" = "y" ]; then
         for file in $fx; do
             aunpack $file
@@ -168,38 +172,36 @@ cmd extract ${{
 
 cmd archive ${{
     clear -x
-    tput cup "$(($(tput lines)/3))"; tput setaf 3
+    tput cup "$(($(tput lines)/3))"; tput bold; tput setaf 3
     printf "\tArchive files (7z):\n"; tput sgr0
     set -f
-    printf "%s\n\t" "$fx"; tput setaf 3
-    printf "Archive name (empty to cancel): "
-    read archive_name ; tput sgr0
-
+    printf "%s\n\t" "$fx"
+    printf "Archive name (\033[1;30mempty\033[0m to cancel): "
+    read -r archive_name
     [ -z "$archive_name" ] &&
         exit 0
-
     7z a "${archive_name}.7z" $fx
 }}
 
 cmd delete ${{
     clear -x
-    tput cup "$(($(tput lines)/3))"; tput setaf 3
+    tput cup "$(($(tput lines)/3))"; tput bold; tput setaf 3
     printf "\tDelete:\n"; tput sgr0
     set -f
-    printf "%s\n\t" "$fx"; tput setaf 3
-    printf "Delete? [y/N] "
-    read ans ; tput sgr0
+    printf "%s\n\t" "$fx"
+    printf "Delete? [\033[1;32my\033[0m/\033[1;31mN\033[0m] "
+    read -r ans
     [ "$ans" = "y" ] && rm -rf -- $fx
 }}
 
 cmd delete_secure ${{
     clear -x
-    tput cup "$(($(tput lines)/3))"; tput setaf 3
+    tput cup "$(($(tput lines)/3))"; tput bold; tput setaf 3
     printf "\tSecure delete:\n"; tput sgr0
     set -f
-    printf "%s\n\t" "$fx"; tput setaf 3
-    printf "Securely delete? [y/N] "
-    read ans ; tput sgr0
+    printf "%s\n\t" "$fx"
+    printf "Securely delete? [\033[1;32my\033[0m/\033[1;31mN\033[0m] "
+    read -r ans
     [ "$ans" = "y" ] && srm -r -- $fx
 }}
 
@@ -313,38 +315,39 @@ cmd bulkrename $vidir
 # Template copying commands
 # cmd cp-temp-latex ${{
 #     clear -x
-#     tput cup "$(($(tput lines)/3))"; tput setaf 3
+#     tput cup "$(($(tput lines)/3))"; tput bold; tput setaf 3
 #     set -f
 #     printf "%s\n\t" "$fx"
 #     printf "Copying LaTeX template...\n"
 #     printf "New file name (without extension): "
-#     read ans
+#     read -r ans
 #     cp ${XDG_TEMPLATES_DIR:-$HOME/Templates}/LaTeX.tex $ans.tex
 # }}
 
 cmd confirm_gpg ${{
     user_id="$1"
     clear -x
-    tput cup "$(($(tput lines)/3))"; tput setaf 3
+    tput cup "$(($(tput lines)/3))"; tput bold; tput setaf 3
     printf "\tGPG Encrypt/Decrypt"
     [ "$user_id" = "umar" ] &&
         printf " using Umar's key"; printf ":\n"; tput sgr0
     set -f
-    printf "%s\n" "$fx"; tput setaf 3
+    printf "%s\n" "$fx"
     if [ "$user_id" = "prompt" ]; then
         printf "\tEnter reciepient's GPG key user id (email or name): "
-        read gpg_user_id
+        read -r gpg_user_id
         user_id="$gpg_user_id"
     fi
-    printf "\tEncrypt/Decrypt? [y/N] "
-    read ans ; printf "\n"; tput sgr0
+    printf "\tEncrypt/Decrypt? [\033[1;32my\033[0m/\033[1;31mN\033[0m] "
+    read -r ans
+    printf "\n"
     [ "$ans" = "y" ] &&
         gpg-ed "$user_id" $fx
 }}
 
 cmd ffmpeg_convert ${{
     clear -x
-    tput cup "$(($(tput lines)/3))"; tput setaf 3
+    tput cup "$(($(tput lines)/3))"; tput bold; tput setaf 3
     printf "\tFFmpeg Convert:\n"; tput sgr0
     set -f
     printf "%s\n\t" "$fx"
@@ -353,7 +356,7 @@ cmd ffmpeg_convert ${{
 
 cmd imagemagick_convert ${{
     clear -x
-    tput cup "$(($(tput lines)/3))"; tput setaf 3
+    tput cup "$(($(tput lines)/3))"; tput bold; tput setaf 3
     printf "\tImageMagick Convert:\n"; tput sgr0
     set -f
     printf "%s\n\t" "$fx"
