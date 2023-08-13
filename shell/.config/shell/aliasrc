@@ -17,7 +17,7 @@ alias \
     ssl="lfcd $HOME/.local/bin/" \
     loc="locate" \
     bt="bluetoothctl" \
-    SS="$chusr systemctl" \
+    SS="$chusr systemctl"
     # ss="cd $HOME/.local/bin; ls" \
 
 # Git alias
@@ -43,7 +43,7 @@ alias \
     gpl="git pull" \
     gl="git log" \
     glo="git log --oneline" \
-    glg="git log --graph --abbrev-commit --decorate --format=format:'%C(bold green)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold yellow)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all"
+    glg="git log --graph --abbrev-commit --decorate --format=format:'%C(bold green)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold yellow)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all" \
 
 # Make alias:
 alias \
@@ -87,7 +87,7 @@ alias \
     grep="grep --color=auto" \
     diff="diff --color=auto" \
     ccat="highlight --out-format=ansi" \
-    ip="ip -color=auto"
+    ip="ip -color=auto" \
 
 # Use exa instead of ls if installed
 alias ll="ls -l"
@@ -104,7 +104,7 @@ else
 fi
 
 # Sudo / doas not required for some system commands
-for command in downgrade apt mount umount sv pacman updatedb su shutdown poweroff reboot; do
+for command in downgrade apt nala mount umount sv pacman updatedb su shutdown poweroff reboot; do
     alias $command="$chusr $command"
 done; unset command
 
@@ -125,11 +125,23 @@ alias \
 
 # Apt package manager.
 alias \
-    aptupd="$chusr apt update" \
-    aptupg="$chusr apt update; $chusr apt upgrade" \
-    aptin="$chusr apt install" \
-    aptrm="$chusr apt remove" \
-    aptpg="$chusr apt purge" \
+    aptupd="apt update" \
+    aptupg="apt upgrade" \
+    aptupdg="apt update; apt upgrade" \
+    aptin="apt install" \
+    aptrm="apt remove" \
+    aptpg="apt purge" \
+    apts="apt search" \
+
+# Nala package manager.
+alias \
+    nlupd="nala update" \
+    nlupg="nala upgrade" \
+    nlupdg="nala update; nala upgrade" \
+    nlin="nala install" \
+    nlrm="nala remove" \
+    nlpg="nala purge" \
+    nls="nala search" \
 
 # Nix package manager.
 nixin() { for pkg in $@; do; nix-env -iA nixpkgs.$pkg; done }
