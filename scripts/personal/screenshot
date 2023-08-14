@@ -3,17 +3,21 @@
 # programs
 SCREENSHOT_PROGRAM="scrot"
 CLIPBOARD_PROGRAM="xclip"
-# PROMPT_PROGRAM="dmenu"
+PROMPT_PROGRAM="dmenu"
+NOTIFICATION_PROGRAM="dunst"
 SCRIPT_NAME="$(basename "$0")"
 
 # source Xresources colors
+ifinstalled "gen-xcolors" ||
+    exit 1
 [ -f "${XDG_DATA_HOME:-${HOME}/.local/share}/xcolors" ] ||
     gen-xcolors
 . "${XDG_DATA_HOME:-${HOME}/.local/share}/xcolors"
 
 # check if program is installed
-ifinstalled ${SCREENSHOT_PROGRAM} ${CLIPBOARD_PROGRAM} ||
-    exit
+ifinstalled "$SCREENSHOT_PROGRAM" "$CLIPBOARD_PROGRAM" \
+    "$PROMPT_PROGRAM" "$NOTIFICATION_PROGRAM" ||
+    exit 1
 
 # screenshot configuration
 datetime_format="$(date +'%Y-%m-%d-%T')"
@@ -57,7 +61,7 @@ case "$1" in
             exit
         ;;
     "temp")
-        [ -d "$temp_dir" ] ||
+        [ ! -d "$temp_dir" ] &&
             mkdir "$temp_dir"
         output="$temp_dir/$filename"
         xclip_cmd="xclip -selection clipboard -t image/png -i $output"
@@ -93,6 +97,12 @@ temp\n\
 esac
 
 # notify screenshot success or fail
-[ -f "$output" ] && \
-    notify-send "Screenshot saved in $output" -u low -a "$SCRIPT_NAME" -i "$output" -t 3000 || \
-    notify-send "Screenshot cancelled" -u normal -a "$SCRIPT_NAME" -i "warning" -t 6000
+if [ -f "$output" ]; then
+    ACTION=$(dunstify -u "low" -a "$SCRIPT_NAME" -i "$output" -t 3000 \
+        --action="default,Open screenshot" \
+        "Screenshot saved in $output")
+    [ "$ACTION" = "default" ] &&
+        xdg-open "$output"
+else
+    dunstify "Screenshot cancelled" -u normal -a "$SCRIPT_NAME" -i "warning" -t 6000
+fi
