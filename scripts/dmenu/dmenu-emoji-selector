@@ -1,5 +1,7 @@
 #!/bin/sh
 
+ifinstalled dmenu-emoji xdotool
+
 # source Xresources colors
 [ -f "${XDG_DATA_HOME:-${HOME}/.local/share}/xcolors" ] ||
     gen-xcolors
@@ -7,5 +9,7 @@
 
 dmenu-emoji |
     dmenu -i -nb "${color0}" -nf "${color3}" -sb "${color3}" -l 15 |
-    awk '{print $1}' |
+    awk '{print $1}' | tr -d "\n" |
     xclip -selection clipboard
+
+xdotool keydown ctrl shift key V keyup ctrl shift

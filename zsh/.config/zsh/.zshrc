@@ -2,23 +2,22 @@
 
 ######## Umar's config for the Zoomer Shell ########
 
-# Load ssh key passphrase (will ask for passphrase first).
-# keychain $HOME/.ssh/id_ed25519 && source $HOME/.keychain/$HOSTNAME-sh
+# # Load ssh key passphrase (will ask for passphrase first).
+# keychain "$HOME/.ssh/id_ed25519" && source "$HOME/.keychain/$(hostname)-sh"
 
-# virtualenvwrapper config and source
-# export WORKON_HOME=$HOME/Workspace/.virtualenvs
-# export PROJECT_HOME=$HOME/Workspace
-# source /usr/bin/virtualenvwrapper.sh
+# # virtualenvwrapper config and source:
+# export WORKON_HOME="$HOME/Workspace/.virtualenvs"
+# export PROJECT_HOME="$HOME/Workspace"
+# source "/usr/bin/virtualenvwrapper.sh"
 
 ######################################################################
 
-# Enable colors and change prompt:
-# Replaced by Powerlevel10k
+# # Enable colors and change prompt:
 # autoload -U colors && colors    # Load colors
 # PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
 
-setopt autocd                     # Automatically cd into typed directory.
-stty   stop undef                 # Disable ctrl-s to freeze terminal.
+setopt autocd               # Automatically cd into typed directory.
+stty   stop undef           # Disable ctrl-s to freeze terminal.
 setopt interactive_comments
 
 # History in cache directory:
@@ -39,7 +38,7 @@ autoload -Uz compinit
 zstyle ":completion:*" menu select
 zstyle ":completion:*" matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 zmodload zsh/complist
-compinit
+compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION" # set zshcompdump location
 _comp_options+=(globdots) # Include hidden files.
 
 # vi mode:

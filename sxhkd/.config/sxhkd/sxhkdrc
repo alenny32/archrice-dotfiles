@@ -39,7 +39,7 @@ super + {_,shift} + {h,j,k,l}
 
 # Focus the next/previous window in the current desktop
     # super + {_,shift} + c
-super + {comma,period}
+super + {_,shift} + comma
     bspc node -f {prev,next}.local.!hidden.window
 alt + {shift,_} + Tab
     bspc node -f {prev,next}.local.!hidden.window
@@ -125,8 +125,7 @@ super + ctrl + {m,x,y,z}
 #                                                      #
 ########################################################
 
-# Terminal emulator and
-    # ($TERMINAL | Guake)
+# Terminal emulators ($TERMINAL / Guake)
 super + {_,shift} + Return
     {$TERMINAL,guake}
 
@@ -156,6 +155,10 @@ super + {_,shift} + w
 # Visual Studio Code
 super + v
     code
+
+# Emoji selector (emote / dmenu-emoji-selector)
+super + period
+    emote || dmenu-emoji-selector
 
 # Mpv (paste from clipboard)
 super + shift + m
@@ -191,10 +194,9 @@ super + x
 super + {_,shift} + z
     sudo systemctl {suspend,hibernate}
 
-# Emoji selector and
-    # System monitor (btop)
-super + {e,shift + e}
-    {dmenu-emoji-selector,devour $TERMINAL -e btop}
+# System monitor (btop)
+super + shift + e
+    devour $TERMINAL -e btop
 
 # Mute volume
 super + alt + m

@@ -106,6 +106,7 @@ ffmpegthumbnailer
 ffmpeg
 lf
 bat
+glow
 highlight
 trash-cli
 texlive-most
@@ -129,6 +130,11 @@ neovim
 evince
 exa
 fzf
+tesseract
+tesseract-data-eng
+tesseract-data-ind
+tesseract-data-jpn
+tesseract-data-jpn_vert
 gparted
 guake
 jack2
@@ -144,6 +150,7 @@ qt5ct
 yt-dlp
 screenkey
 gnome-epub-thumbnailer
+xdg-ninja
 zathura
 zathura-cb
 zathura-djvu

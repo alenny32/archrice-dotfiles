@@ -39,11 +39,14 @@ case "$(file --dereference --brief --mime-type -- $1)" in
         man ./ "$1" | col -b
         ;;
 
-    "text"/* | \
+    "text/"* | \
     */"xml" | \
     "application/json" | \
+    "application/pgp-keys" | \
     "application/javascript" | \
-    "application/x-subrip")
+    "application/x-subrip" | \
+    "application/x-setupscript" | \
+    "inode/x-empty")
         bat --terminal-width "$(($4-2))" -f "$1"
         ;;
 

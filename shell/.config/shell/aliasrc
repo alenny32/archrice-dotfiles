@@ -173,6 +173,10 @@ alias \
     xr="$chusr xbps-remove -R" \
     xq="xbps-query" \
     z="devour zathura" \
+    tess="tesseract -l eng" \
+    tessi="tesseract -l ind" \
+    tessj="tesseract -l jpn" \
+    tessjv="tesseract -l jpn_vert" \
     gpt="tgpt" \
     nvmu="nvm use" \
     nvmd="nvm deactivate" \
@@ -191,8 +195,8 @@ alias \
 
 # Apps
 alias \
-    sshk="keychain $HOME/.ssh/id_ed25519; \
-        source $HOME/.keychain/$HOSTNAME-sh" \
+    keychain="keychain --dir $XDG_RUNTIME_DIR/keychain --absolute" \
+    sshk="keychain $HOME/.ssh/id_ed25519; source $XDG_RUNTIME_DIR/keychain/$(hostname)-sh" \
     walbg="wal -n -i $XDG_DATA_HOME/bg" \
     walr="wal -R" \
     dmenu='dmenu -i -nb "#0b060a" -nf "#f77416" -sb "#f77416"' \

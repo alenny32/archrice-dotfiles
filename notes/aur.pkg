@@ -1,10 +1,12 @@
 # Essentials
+ani-cli
 bsp-layout
 brave-bin
 betterlockscreen-git
+czkawka-git
 ttf-apple-emoji
-dmenu-emoji
-p7zip-gui
+# dmenu-emoji (emoji picker already handled by 'emote')
+emote
 paru-bin
 pandoc-bin
 sddm-sugar-candy-git
@@ -48,9 +50,11 @@ adobe-source-han-mono-fonts
 fastfetch-bin
 pfetch
 tgpt-bin
+syncthingtray
 onedrive-abraunegg
 python2-bin
 usbtop
+# p7zip-gui
 
 # Laptop
 brillo # add $USER to 'video' group
