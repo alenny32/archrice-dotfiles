@@ -206,10 +206,6 @@ super + alt + m
 super + {_,shift} + F9
     {mounter,unmounter}
 
-# Toggle redshift (blue light filter)
-super + F6
-    toggle-redshift
-
 # Notifications
 ctrl + space
     dunstctl close
@@ -223,8 +219,10 @@ ctrl + grave
 # Screenshots
 super + shift + s
     screenshot
-{_,ctrl,alt,super} + Print
+{_,ctrl,alt,super} + @Print
     screenshot {fullscreen,selection,temp,window}
+shift + alt + @Print
+    screenshot qr-code
 
 #######################################################
 #                                                     #

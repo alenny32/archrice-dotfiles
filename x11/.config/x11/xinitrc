@@ -22,8 +22,9 @@ xsetroot -cursor_name left_ptr &
 #  unset f
 # fi
 
-# Blue light filter
-redshift &
+# Blue light filter (handled by xdg-autostart at $XDG_CONFIG_HOME/autostart)
+# redshift &
+# redshift-gtk &
 
 # Remapping keyboard layout
 remapd &

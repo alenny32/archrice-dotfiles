@@ -8,64 +8,64 @@ APP_NAME="nsxiv"
 while read -r file; do
     case "$1" in
         # "w"|"b") # set background / wallpaper
-            # ifinstalled nitrogen || \
+            # ifinstalled nitrogen ||
             #     exit 1
             # nitrogen --save --set-scaled "$file" &
             # ;;
         "w"|"b") # set background / wallpaper
-            ifinstalled nitrogen setbg || \
+            ifinstalled nitrogen setbg ||
                 exit 1
             setbg "$file" &
             ;;
         "c") # copy to bm-dirs
-            ifinstalled dmenu || \
+            ifinstalled dmenu ||
                 exit 1
             [ -z "$destdir" ] \
                 && destdir="$(sed "s/#.*$//;/^\s*$/d" "${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs" | awk '{print $2}' | dmenu -l 20 -i -nb ${color0} -nf ${color3} -sb ${color3} -p "Copy file(s) to where?" | sed "s|~|$HOME|g")"
-            [ ! -d "$destdir" ] && \
-                notify-send -a "$APP_NAME" "$destdir is not a directory, cancelled" && \
+            [ ! -d "$destdir" ] &&
+                notify-send -a "$APP_NAME" "$destdir is not a directory, cancelled" &&
                 exit 1
-            cp "$file" "$destdir" && \
+            cp "$file" "$destdir" &&
                 notify-send -a "$APP_NAME" -i "$(readlink -f "$file")" \
                 "📋 File(s) copied" \
                 "$file copied to $destdir" &
             ;;
         "m") # move to bm-dirs
-            ifinstalled dmenu rsync || \
+            ifinstalled dmenu rsync ||
                 exit 1
-            [ -z "$destdir" ] && \
+            [ -z "$destdir" ] &&
                 destdir="$(sed "s/#.*$//;/^\s*$/d" "${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs" | awk '{print $2}' | dmenu -l 20 -i -nb ${color0} -nf ${color3} -sb ${color3} -p "Move file(s) to where?" | sed "s|~|$HOME|g")"
-            [ ! -d "$destdir" ] && \
+            [ ! -d "$destdir" ] &&
                 notify-send -a "$APP_NAME" \
-                "$destdir is not a directory, cancelled" && \
+                "$destdir is not a directory, cancelled" &&
                 exit 1
-            rsync -urvP --remove-source-files --delete-after "$file" "$destdir" && \
+            rsync -urvP --remove-source-files --delete-after "$file" "$destdir" &&
                 notify-send -a "$APP_NAME" -i "$(readlink -f "$file")" \
                 "🚚 File(s) moved" \
                 "$file moved to $destdir" &
             ;;
     "r") # rotate 90 degrees to the left
-        ifinstalled imagemagick || \
+        ifinstalled imagemagick ||
             exit 1
         convert -rotate 90 "$file" "$file"
         ;;
     "R") # rotate 90 degrees to the right
-        ifinstalled imagemagick || \
+        ifinstalled imagemagick ||
             exit 1
         convert -rotate -90 "$file" "$file"
         ;;
     "f") # flop (mirror)
-        ifinstalled imagemagick || \
+        ifinstalled imagemagick ||
             exit 1
         convert -flop "$file" "$file"
         ;;
     "F") # flip
-        ifinstalled imagemagick || \
+        ifinstalled imagemagick ||
             exit 1
         convert -flip "$file" "$file"
         ;;
     "y"|"C-c") # copy image to clipboard
-        ifinstalled xclip || \
+        ifinstalled xclip ||
             exit 1
         xclip -selection clipboard -t image/png -i "$file"
         notify-send -a "$APP_NAME" -i "$(readlink -f "$file")" \
@@ -73,7 +73,7 @@ while read -r file; do
             "$file copied to clipboard" &
         ;;
     "Y"|"C-p") # copy absolute path to clipboard
-        ifinstalled xclip || \
+        ifinstalled xclip ||
             exit 1
         readlink -f "$file" | tr -d '\n' | xclip -selection clipboard
         notify-send -a "$APP_NAME" -i "$(readlink -f "$file")" \
@@ -81,29 +81,29 @@ while read -r file; do
             "$(readlink -f "$file") copied to clipboard" &
         ;;
     "d"|"t") # trash
-        ifinstalled trash-cli dmenu prompt || \
+        ifinstalled trash-cli dmenu prompt ||
             exit 1
-        prompt "Trash $file? 🗑" "trash-put $file &" && \
+        prompt "🗑 Trash $file?" "trash-put $file &" &&
             notify-send -a "$APP_NAME" \
-            "🗑 $file trashed"
+            "File trashed ✅" "$file trashed"
         ;;
     "D") # delete
-        ifinstalled dmenu prompt || \
+        ifinstalled dmenu prompt ||
             exit 1
-        prompt "Permanently delete $file? ❌" "rm -f $file &" && \
+        prompt "❌ Permanently delete $file?" "rm -f $file &" &&
             notify-send -a "$APP_NAME" \
-            "❌ $file deleted"
+            "File deleted ✅" "$file deleted"
         ;;
     "g") # open in gimp
-        ifinstalled gimp || \
+        ifinstalled gimp ||
             exit 1
         setsid -f gimp "$file"
         ;;
     "i") # mediainfo
-        ifinstalled mediainfo || \
+        ifinstalled mediainfo ||
             exit 1
-        notify-send -a "ℹ sxiv" \
-            "File information" \
+        notify-send -a "$APP_NAME" \
+            "File information ℹ" \
             "$(mediainfo "$file" | sed "s/[ ]\+:/:/g;s/: /: <b>/;s/$/<\/b>/" | grep "<b>")"
         ;;
     esac

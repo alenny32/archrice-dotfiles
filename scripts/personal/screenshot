@@ -3,73 +3,115 @@
 # programs
 SCREENSHOT_PROGRAM="scrot"
 CLIPBOARD_PROGRAM="xclip"
+[ -z "$IMAGE" ] && IMAGE="nsxiv"
 PROMPT_PROGRAM="dmenu"
 NOTIFICATION_PROGRAM="dunst"
+QR_CODE_PROGRAM="zbarimg"
 SCRIPT_NAME="$(basename "$0")"
 
 # source Xresources colors
 ifinstalled "gen-xcolors" ||
     exit 1
-[ -f "${XDG_DATA_HOME:-${HOME}/.local/share}/xcolors" ] ||
+[ -f "${XDG_DATA_HOME:-$HOME/.local/share}/xcolors" ] ||
     gen-xcolors
-. "${XDG_DATA_HOME:-${HOME}/.local/share}/xcolors"
+. "${XDG_DATA_HOME:-$HOME/.local/share}/xcolors"
 
 # check if program is installed
-ifinstalled "$SCREENSHOT_PROGRAM" "$CLIPBOARD_PROGRAM" \
-    "$PROMPT_PROGRAM" "$NOTIFICATION_PROGRAM" ||
+ifinstalled "$SCREENSHOT_PROGRAM" "$CLIPBOARD_PROGRAM" "$IMAGE" \
+    "$PROMPT_PROGRAM" "$NOTIFICATION_PROGRAM" "$QR_CODE_PROGRAM" ||
     exit 1
 
 # screenshot configuration
-datetime_format="$(date +'%Y-%m-%d-%T')"
-filename="${datetime_format}-"$SCRIPT_NAME".png"
-output="${XDG_PICTURES_DIR:-$HOME/Pictures}/screenshots/$filename"
+# datetime_format="$(date +'%Y-%m-%d-%T')" # incompatible for windows file naming constraints
+datetime_format="$(date +'%Y-%m-%d_%H-%M-%S')"
+filename="$datetime_format-$SCRIPT_NAME.png"
 image_quality=95
-temp_dir="/tmp/screenshots"
+screenshots_dir="${XDG_PICTURES_DIR:-$HOME/Pictures}/Screenshots"
+output_file="$screenshots_dir/$filename"
+temp_dir="/tmp/Screenshots"
+qr_code_dir="$temp_dir/QR-codes"
 # filename="%Y-%m-%d-%T-"$SCRIPT_NAME".png"
 
 # dmenu configuration
-dmenu_options="-i -nb "${color0}" -nf "${color3}" -sb "${color3}""
+dmenu_options="-i -nb $color0 -nf $color3 -sb $color3"
 dmenu_prompt="dmenu $dmenu_options -p"
-dmenu_prompt_msg="Select "$SCRIPT_NAME" type:"
+dmenu_prompt_msg="Select $SCRIPT_NAME type:"
 
 # clipboard configuration
-xclip_cmd="xclip -selection clipboard -t image/png -i $output"
+xclip_cmd="xclip -selection clipboard -t image/png -i $output_file"
 # xclip_cmd="'xclip -selection clipboard -t image/png -i $f'"
 
-# if "$SCRIPT_NAME" folder does not exist in pictures directory, then make directory
-[ ! -d "${XDG_PICTURES_DIR:-$HOME/Pictures}/screenshots" ] &&
-    mkdir -p "${XDG_PICTURES_DIR:-$HOME/Pictures}/screenshots"
+# if "$*_dir" does not exist in pictures directory, then make directory
+[ ! -d "$screenshots_dir" ] &&
+    mkdir -p "$screenshots_dir"
+[ ! -d "$temp_dir" ] &&
+    mkdir -p "$temp_dir"
+[ ! -d "$qr_code_dir" ] &&
+    mkdir -p "$qr_code_dir"
+
+# notify screenshot success or fail
+notify_success_cancelled() {
+    if [ -f "$output_file" ]; then
+        ACTION=$(dunstify -u "low" -a "$SCRIPT_NAME" -i "$output_file" -t 3000 \
+            --action="default,Open screenshot" \
+            "Screenshot saved in $output_file")
+        [ "$ACTION" = "default" ] &&
+            $IMAGE "$output_file"
+    else
+        dunstify "Screenshot cancelled" -u normal -a "$SCRIPT_NAME" -i "warning" -t 6000
+        exit 1
+    fi
+}
 
 # pick which type of screenshot
 case "$1" in
     "selection")
-        "$SCREENSHOT_PROGRAM" "$output" --select --line mode=edge \
+        "$SCREENSHOT_PROGRAM" "$output_file" --select --line mode=edge \
             --quality "${image_quality}" \
-            --exec "${xclip_cmd}" || \
-            exit
+            --exec "${xclip_cmd}"
+        notify_success_cancelled
         ;;
     "window")
-        "$SCREENSHOT_PROGRAM" "$output" --focused \
+        "$SCREENSHOT_PROGRAM" "$output_file" --focused \
             --quality "${image_quality}" \
-            --exec "${xclip_cmd}" || \
-            exit
+            --exec "${xclip_cmd}"
+        notify_success_cancelled
         ;;
     "fullscreen")
-        "$SCREENSHOT_PROGRAM" "$output" \
+        "$SCREENSHOT_PROGRAM" "$output_file" \
             --quality "${image_quality}" \
-            --exec "${xclip_cmd}" || \
-            exit
+            --exec "${xclip_cmd}"
+        notify_success_cancelled
         ;;
     "temp")
-        [ ! -d "$temp_dir" ] &&
-            mkdir "$temp_dir"
-        output="$temp_dir/$filename"
-        xclip_cmd="xclip -selection clipboard -t image/png -i $output"
-
-        "$SCREENSHOT_PROGRAM" "$output" --select --line mode=edge \
+        output_file="$temp_dir/$filename"
+        "$SCREENSHOT_PROGRAM" "$output_file" --select --line mode=edge \
             --quality "${image_quality}" \
-            --exec "${xclip_cmd}" || \
-            exit
+            --exec "${xclip_cmd}"
+        notify_success_cancelled
+        ;;
+    "qr-code")
+        output_file="$qr_code_dir/$filename"
+        decoded_text=$("$SCREENSHOT_PROGRAM" "$output_file" --select --line mode=edge \
+            --quality "${image_quality}" \
+            --exec "$QR_CODE_PROGRAM $output_file | cut -c 9-")
+        # check if qr code is scanned
+        if [ -n "$decoded_text" ]; then
+            printf "%s" "$decoded_text" | xclip -selection clipboard
+            ACTION=$(dunstify -a "$SCRIPT_NAME" -i "$output_file" -t 5000 \
+                --action="default,Delete screenshot" \
+                "Scan QR code ✅" \
+                "Successfully scanned QR code and copied it to the clipboard.\n\nClick this notification to delete your screenshot! 🗑️")
+            # delete qr code screenshot if notification clicked
+            if [ "$ACTION" = "default" ]; then
+                rm -f "$output_file" &&
+                    dunstify -a "$SCRIPT_NAME" -t 3000 \
+                    "Delete QR code image ✅" "Successfully deleted your image!"
+            fi
+        else
+            dunstify -a "$SCRIPT_NAME" -t 3000 \
+                "Scan QR code ❌" "Cannot scan QR code"
+        fi
         ;;
     *)
         case "$(printf "\
@@ -77,32 +119,15 @@ selection\n\
 window\n\
 fullscreen\n\
 temp\n\
+qr-code\n\
     " \
         | ${dmenu_prompt} "$dmenu_prompt_msg")" in
-            "selection")
-                "$($SCRIPT_NAME selection)"
-                ;;
-            "window")
-                "$($SCRIPT_NAME window)"
-                ;;
-            "fullscreen")
-                "$($SCRIPT_NAME fullscreen)"
-                ;;
-            "temp")
-                "$($SCRIPT_NAME temp)"
-                ;;
+            "selection") "$($SCRIPT_NAME selection)" ;;
+            "window") "$($SCRIPT_NAME window)" ;;
+            "fullscreen") "$($SCRIPT_NAME fullscreen)" ;;
+            "temp") "$($SCRIPT_NAME temp)" ;;
+            "qr-code") "$($SCRIPT_NAME qr-code)" ;;
         esac
         exit
         ;;
 esac
-
-# notify screenshot success or fail
-if [ -f "$output" ]; then
-    ACTION=$(dunstify -u "low" -a "$SCRIPT_NAME" -i "$output" -t 3000 \
-        --action="default,Open screenshot" \
-        "Screenshot saved in $output")
-    [ "$ACTION" = "default" ] &&
-        xdg-open "$output"
-else
-    dunstify "Screenshot cancelled" -u normal -a "$SCRIPT_NAME" -i "warning" -t 6000
-fi

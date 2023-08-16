@@ -35,8 +35,9 @@ networkmanager
 ntp
 pacman-contrib
 parallel
-opendoas
 redshift
+python-pyxdg # optional dep for 'redshift' to run redshift-gtk
+# opendoas
 sudo
 p7zip
 pamixer
@@ -113,6 +114,7 @@ trash-cli
 texlive-most
 texlive-lang
 syncthing
+# pcmanfm-gtk3
 thunar
 thunar-archive-plugin
 xarchiver
@@ -120,7 +122,6 @@ thunar-volman
 thunar-media-tags-plugin
 catfish
 zeitgeist
-pcmanfm-gtk3
 pdftotext
 nsxiv
 libreoffice-fresh
