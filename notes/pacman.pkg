@@ -100,6 +100,7 @@ breeze
 
 # Applications
 biber
+copyq
 moreutils
 atool
 ffmpegthumbnailer

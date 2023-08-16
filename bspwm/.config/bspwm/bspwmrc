@@ -67,6 +67,7 @@ bspc rule -a Xdialog                    state=floating
 bspc rule -a Catfish                    state=floating
 bspc rule -a Pavucontrol                state=floating
 bspc rule -a TelegramDesktop            state=floating
+bspc rule -a copyq                      state=floating
 
 bspc rule -a mpv                        state=fullscreen
 

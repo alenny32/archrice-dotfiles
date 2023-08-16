@@ -152,9 +152,9 @@ super + {_,shift} + r
 super + {_,shift} + w
     {$BROWSER,$TERMINAL -e nmtui}
 
-# Visual Studio Code
-super + v
-    code
+# Clipboard tool (copyq)
+super + {_,shift} + v
+    {copyq menu, copyq toggle}
 
 # Emoji selector (emote / dmenu-emoji-selector)
 super + period
