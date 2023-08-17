@@ -1,7 +1,9 @@
 #!/bin/sh
 
-[ -f "${XDG_DATA_HOME:-${HOME}/.local/share}/xcolors" ] || gen-xcolors
-. "${XDG_DATA_HOME:-${HOME}/.local/share}/xcolors"
+# Source xcolors
+[ -f "${XDG_DATA_HOME:-$HOME/.local/share}/xcolors" ] ||
+    gen-xcolors
+. "${XDG_DATA_HOME:-$HOME/.local/share}/xcolors"
 
 APP_NAME="nsxiv"
 

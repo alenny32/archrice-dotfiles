@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 SCRIPT_NAME="$(basename "$0")"
 APP_NAME="imagemagick"
@@ -10,37 +10,38 @@ ifinstalled "$APP_NAME" || \
 
 send_notification_success() {
     notify-send -a "$SCRIPT_NAME" -u "$NOTIFICATION_PRIORITY" -i "$APP_NAME" -t $NOTIFICATION_TIME \
-        "✅ Convert Success" \
+        "Convert Success ✅" \
         "$1 ➡ <b>$2</b>"
 }
 
 send_notification_fail() {
     notify-send -a "$SCRIPT_NAME" -u "$NOTIFICATION_PRIORITY" -i "$APP_NAME" -t $NOTIFICATION_TIME \
-        "❌ Convert Failed" \
+        "Convert Failed ❌" \
         "$1 ➡ <b>$2</b>"
 }
 
 send_notification_cancel() {
     notify-send -a "$SCRIPT_NAME" -u "$NOTIFICATION_PRIORITY" -i "$APP_NAME" -t $NOTIFICATION_TIME \
-        "❌ Convert Cancelled"
+        "Convert Cancelled ❌"
 }
 
 tput bold
 printf "Enter the converted file extension (empty to cancel): "
-read converted_extension
+read -r converted_extension
 tput sgr0
 
-[ -z $converted_extension ] && \
-    send_notification_cancel && \
+[ -z "$converted_extension" ] &&
+    send_notification_cancel &&
     exit 0
 
-for file in "${@:1}" ; do
+for file in "${@:1}"; do
     base="${file%.*}"
     output="$base.$converted_extension"
 
-    convert "$file" "$output" && \
-        send_notification_success "$file" "$converted_extension" && \
+    convert "$file" "$output" &&
+        send_notification_success "$file" "$converted_extension" &&
         continue
 
     send_notification_fail "$file" "$converted_extension"
+    rm -f "$output"
 done

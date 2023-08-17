@@ -1,0 +1,8 @@
+#!/bin/sh
+
+ifinstalled nsxiv rotdir ||
+    exit 1
+
+rotdir "$1" |
+    grep -i "\.\(png\|apng\|webp\|avif\|gif\|tif\|tiff\|bmp\|ico\|cur\|jpg\|jpe\|jpeg\|jfif\|pjp\|pjpeg\|svg\)\(_large\)\?$" |
+    nsxiv -aio

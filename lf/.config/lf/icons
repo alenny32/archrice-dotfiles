@@ -11,25 +11,61 @@ ex  
 *.me        ✍
 *.ms        ✍
 *.png       🖼
+*.apng      🖼
 *.webp      🖼
-*.jfif      🖼
+*.avif      🖼
+*.gif       🖼
+*.tif       🖼
+*.tiff      🖼
+*.bmp       🖼
 *.ico       🖼
+*.cur       🖼
 *.jpg       📸
 *.jpe       📸
 *.jpeg      📸
-*.gif       🖼
+*.jfif      📸
+*.pjpeg     📸
+*.pjp       📸
 *.svg       🗺
-*.tif       🖼
-*.tiff      🖼
 *.xcf       🖌
-*.xml       謹
+*.xml       󰗀
 *.gpg       🔒
-*.pdf       
-*.djvu      
-*.epub      
-*.csv       
-*.tsv       
-*.xlsx      
+*.pdf       📕
+*.djvu      📙
+*.epub      📚️
+*.mobi      📚️
+*.azw       📚️
+*.azw3      📚️
+*.kfx       📚️
+*.doc       󰈭
+*.docx      󰈭
+*.docm      󰈭
+*.dot       󰈭
+*.dotx      󰈭
+*.dotm      󰈭
+*.odt       
+*.xls       󰈜
+*.xlsx      󰈜
+*.xlsm      󰈜
+*.xlsb      󰈜
+*.xlt       󰈜
+*.xltx      󰈜
+*.xltm      󰈜
+*.ods       󰧷
+*.ppt       󰈨
+*.pptx      󰈨
+*.pptm      󰈨
+*.pot       󰈨
+*.potx      󰈨
+*.potm      󰈨
+*.ppa       󰈨
+*.ppam      󰈨
+*.pps       󰈨
+*.ppsx      󰈨
+*.ppsm      󰈨
+*.odp       󰈩
+*.csv       
+*.tsv       
 *.m         
 *.mp3       
 *.opus      
@@ -55,33 +91,68 @@ ex  
 *.7z        📦
 *.gz        📦
 *.gzip      📦
+*.bz        📦
+*.bz2       📦
 *.tar       📦
+*.zst       📦
+*.cbz       📦
+*.xz        📦
+*.lz4       📦
+*.lzma      📦
 *.z64       🎮
 *.v64       🎮
 *.n64       🎮
 *.gba       🎮
 *.nes       🎮
 *.gdi       🎮
-*.1         
-*.nfo       
-*.info      
-*.log       📙
+*.1         
+*.nfo       
+*.info      
+*.desktop   󰇄
+*.log       󱂅
 *.iso       📀
 *.img       📀
 *.bib       🎓
 *.ged       👪
 *.part      💔
 *.torrent   🔽
-# *.mkv   
-# *.mp4   
-# *.webm  
-# *.mpeg  
-# *.avi   
-# *.mov   
-# *.mpg   
-# *.wmv   
-# *.m4b   
-# *.flv   
+# *.pdf       
+# *.djvu      
+# *.epub      
+# *.mkv       
+# *.mp4       
+# *.webm      
+# *.mpeg      
+# *.avi       
+# *.mov       
+# *.mpg       
+# *.wmv       
+# *.m4b       
+# *.flv       
+# *.doc       
+# *.docx      
+# *.docm      
+# *.dot       
+# *.dotx      
+# *.dotm      
+# *.xls       
+# *.xlsx      
+# *.xlsm      
+# *.xlsb      
+# *.xlt       
+# *.xltx      
+# *.xltm      
+# *.ppt       󱎐
+# *.pptx      󱎐
+# *.pptm      󱎐
+# *.pot       󱎐
+# *.potx      󱎐
+# *.potm      󱎐
+# *.ppa       󱎐
+# *.ppam      󱎐
+# *.pps       󱎐
+# *.ppsx      󱎐
+# *.ppsm      󱎐
 
 # file extensions (vim-devicons)
 *.styl          
@@ -125,8 +196,6 @@ ex  
 *.exe           
 *.msi           
 *.mk            
-*.bmp           
-*.ico           
 *.twig          
 *.cpp           
 *.c++           
@@ -206,6 +275,8 @@ ex  
 *.rproj         鉶
 *.sol           ﲹ
 *.pem           
+# *.bmp           
+# *.ico           
 # *.tex           ﭨ
 # *.tex           
 

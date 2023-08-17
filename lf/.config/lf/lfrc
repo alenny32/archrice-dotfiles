@@ -29,7 +29,7 @@ set autoquit true
 
 # cmds/functions
 cmd open ${{
-    case "$(file --mime-type "$(readlink -f $f)" -b)" in
+    case "$(file --mime-type $(readlink -f $f) -b)" in
         "image/vnd.djvu" | \
         "application/pdf" | \
         "application/postscript")
@@ -48,16 +48,10 @@ cmd open ${{
             ;;
         "image/x-xcf")
             ifinstalled "gimp" || exit 1
-            setsid -f gimp $f >/dev/null 2>&1
-            ;;
-        "image/svg+xml")
-            # devour display -- "$f"
-            devour nsxiv "$f"
+            setsid -f gimp "$f" >/dev/null 2>&1
             ;;
         "image/"*)
-            rotdir $f |
-                grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" |
-                setsid -f devour nsxiv -aio 2>/dev/null |
+            setsid -f devour open-images-nsxiv "$f" 2>/dev/null |
                 while read -r file; do
                     [ -z "$file" ] && continue
                     lf -remote "send select \"$file\""
@@ -65,20 +59,20 @@ cmd open ${{
                 done &
             ;;
         "audio/"*)
-            mpv --audio-display=no $f
+            mpv --audio-display=no "$f"
             ;;
         "video/"* | \
         "application/vnd.rn-realmedia")
-            setsid -f devour mpv $f -quiet >/dev/null 2>&1
-            ;;
-        "application/"*"zip" | \
-        "application/x-7z-compressed")
-            setsid -f devour 7zFM $f >/dev/null 2>&1
+            setsid -f devour mpv "$f" -quiet >/dev/null 2>&1
             ;;
         "application/pdf" | \
         "application/vnd.djvu" | \
-        "application/epub*")
+        "application/epub"*)
             setsid -f devour zathura $fx >/dev/null 2>&1
+            ;;
+        "application/"*"zip" | \
+        "application/x-7z-compressed")
+            setsid -f devour 7zFM "$f" >/dev/null 2>&1
             ;;
         "application/pgp-encrypted")
             $EDITOR $fx
@@ -111,7 +105,7 @@ cmd open ${{
             ;;
         *)
             for f in $fx; do
-                setsid -f $OPENER $f >/dev/null 2>&1
+                setsid -f $OPENER "$f" >/dev/null 2>&1
             done
             ;;
     esac
@@ -164,8 +158,8 @@ cmd extract ${{
     printf "Extract? [\033[1;32my\033[0m/\033[1;31mN\033[0m] "
     read -r ans
     if [ "$ans" = "y" ]; then
-        for file in $fx; do
-            aunpack $file
+        for f in $fx; do
+            aunpack "$f"
         done
     fi
 }}
@@ -245,9 +239,9 @@ cmd moveto ${{
     destination="$(sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//' ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | fzf | sed 's|~|$HOME|')"
 
     if [ "$1" = "interactive" ]; then
-        for file in $fx; do
+        for f in $fx; do
         # eval mv -iv \"$file\" \"$destination\"
-        mv -iv "$file" "$destination"
+        mv -iv "$f" "$destination"
         done
     elif [ "$1" = "overwrite" ]; then
         ifinstalled "rsync" ||
@@ -273,9 +267,9 @@ cmd copyto ${{
     destination="$(sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//' ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | fzf | sed 's|~|$HOME|')"
 
     if [ "$1" = "interactive" ]; then
-        for file in $fx; do
+        for f in $fx; do
             # eval cp -ivr \"$file\" \"$destination\"
-            cp -ivr "$file" "$destination"
+            cp -ivr "$f" "$destination"
         done
     elif [ "$1" = "overwrite" ]; then
         ifinstalled "rsync" ||
@@ -295,18 +289,20 @@ cmd mime_ask ${{
 }}
 
 cmd gen_preview ${{
-    case "$(file -bh --mime-type -- "$fx")" in
-        "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
-            docx2txt $fx
-            ;;
-        "application/vnd.oasis.opendocument.text")
-            base="${file%.*}"
-            odt2txt $fx > "${fx}.txt"
-            ;;
-        "application/pdf")
-            pdftotext $fx
-            ;;
-    esac
+    for f in $fx; do
+        case "$(file -bh --mime-type -- "$f")" in
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+                docx2txt "$f"
+                ;;
+            "application/vnd.oasis.opendocument.text")
+                base="${f%.*}"
+                odt2txt "$f" > "$base.txt"
+                ;;
+            "application/pdf")
+                pdftotext "$f"
+                ;;
+        esac
+    done &
 }}
 
 cmd setbg "$1"
@@ -368,14 +364,14 @@ cmd copy_image_to_clipboard ${{
         exit 1
     mime_type="$(file --mime-type --brief --dereference $f)"
     file_type="${mime_type%%/*}"
-    if [ $file_type != "image" ]; then
+    if [ "$file_type" != "image" ]; then
         notify-send -a "lf" \
             "❌ Error" \
             "Can only copy image to clipboard"
         exit 1
     fi
-    xclip -selection clipboard -t image/png -i $f && \
-        notify-send -a "lf" -i "$(readlink -f "$f")" \
+    xclip -selection clipboard -t image/png -i "$f" && \
+        notify-send -a "lf" -i "$(readlink -f $f)" \
         "📋🖼 Copy image to clipboard" \
         "$f copied to clipboard" &
 }}
@@ -443,19 +439,19 @@ cmd copy_image_to_clipboard ${{
     map X !$f
     map o &mimeopen "$f"
     map O mime_ask
-    map b &setbg $f
+    map b &setbg "$f"
     map W $setsid -f "$TERMINAL" >/dev/null 2>&1
-    map Y $printf "%s" "$fx" | xclip -selection clipboard
+    map Y $printf "%s " $fx | xclip -selection clipboard
 
 # Open app
-    map <c-v>f &code "$fx"
+    map <c-v>f &code $fx
     map <c-v>v &code .
     map e # open with editor
-    map ed $"$EDITOR" "$fx"
-    map ef &devour thunar "$fx"
+    map ed $$EDITOR $fx
+    map ef &devour thunar $fx
     map ee &devour thunar .
-    map <a-m>m &devour mpv --no-terminal "$f/*.mp4"
-    map <a-m>M &devour mpv --no-terminal "$f"
+    map <a-m><a-m> &devour mpv --no-terminal "$f/*.mp4"
+    map <a-m><a-f> &devour mpv --no-terminal "$f"
     map <a-m>, push &devour<space>mpv<space>--no-terminal<space>"$f/*."<space>&<left><left><left>
 
 # Rename
