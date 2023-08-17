@@ -1,0 +1,20 @@
+#!/bin/sh
+
+# A dmenu binary prompt script
+# Gives a dmenu prompt labeled with "$1".
+# If the user chose yes, then return 0, else 1.
+# for example:
+# `prompt-01 "Do you want to shutdown?"`
+
+# source Xresources colors
+[ -f "${XDG_DATA_HOME:-${HOME}/.local/share}/xcolors" ] || gen-xcolors
+. "${XDG_DATA_HOME:-${HOME}/.local/share}/xcolors"
+
+dmenu_options="-i -nb $color0 -nf $color3 -sb $color3 -sf $color0"
+dmenu_prompt="dmenu $dmenu_options -p"
+
+if [ "$(printf "No\nYes" | $dmenu_prompt "$1")" = "Yes" ]; then
+    exit 0
+else
+    exit 1
+fi

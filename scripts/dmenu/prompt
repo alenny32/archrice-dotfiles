@@ -1,8 +1,9 @@
 #!/bin/sh
+
 # A dmenu binary prompt script
 # Gives a dmenu prompt labeled with $1 to perform command $2
 # for example:
-# `./prompt "Do you want to shutdown?" "shutdown -h now""`
+# `./prompt "Do you want to shutdown?" "shutdown -h now"`
 
 # source Xresources colors
 [ -f "${XDG_DATA_HOME:-${HOME}/.local/share}/xcolors" ] ||

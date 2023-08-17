@@ -83,18 +83,28 @@ while read -r file; do
             "$(readlink -f "$file") copied to clipboard" &
         ;;
     "d"|"t") # trash
-        ifinstalled trash-cli dmenu prompt ||
+        ifinstalled trash-cli dmenu prompt-01 ||
             exit 1
-        prompt "🗑 Trash $file?" "trash-put $file &" &&
+        if prompt-01 "🗑 Trash $file?"; then
+            trash-put "$file" &
             notify-send -a "$APP_NAME" \
-            "File trashed ✅" "$file trashed"
+                "File trashed ✅" "$file trashed"
+        else
+            notify-send -a "$APP_NAME" -i "$(readlink -f "$file")" \
+                "Trash file cancelled ❌"
+        fi
         ;;
     "D") # delete
-        ifinstalled dmenu prompt ||
+        ifinstalled dmenu prompt-01 ||
             exit 1
-        prompt "❌ Permanently delete $file?" "rm -f $file &" &&
+        if prompt-01 "❌ Permanently delete $file?"; then
+            rm -f "$file" &
             notify-send -a "$APP_NAME" \
-            "File deleted ✅" "$file deleted"
+                "File deleted ✅" "$file deleted"
+        else
+            notify-send -a "$APP_NAME" -i "$(readlink -f "$file")" \
+                "Delete file cancelled ❌"
+        fi
         ;;
     "g") # open in gimp
         ifinstalled gimp ||
