@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # Script maling dari https://gist.github.com/ericmurphyxyz/37baa4c9da9d3b057a522f20a9ad6eba
 # Script to clean pacman and paru (or your favorite aur helper) cache
@@ -8,32 +8,43 @@
 
 SCRIPT_NAME="$(basename "$0")"
 
-# The location of the cache for your aur helper
-AUR_CACHE_DIR="/home/umar/.cache/paru/clone"
+# Assuming paru is run by user with UID 1000:
+user="$(id -nu 1000)"
 
-# Get all cache directories for AUR helper
-AUR_CACHE_REMOVED="$(\
-    find $AUR_CACHE_DIR -maxdepth 1 -type d | \
-    awk '{ print "-c " $1 }' | \
-    tail -n +2)"
-# Remove everything for uninstalled AUR packages
-AUR_REMOVED="$(\
-    /usr/bin/paccache -ruvk0 "$AUR_CACHE_REMOVED" | \
-    sed '/\.cache/!d' | \
-    cut -d \' -f2 | \
-    rev | \
-    cut -d / -f2- | \
-    rev)"
-[ -z "$AUR_REMOVED" ] || rm -rf "$AUR_REMOVED"
+# The location of the cache for your aur helper:
+AUR_CACHE_DIR="/home/$user/.cache/paru/clone"
 
-# Keep latest version for uninstalled native packages, keep two latest versions for installed packages
+# Get all uninstalled packages cache directories for AUR helper:
+AUR_CACHE_REMOVED="$(comm -23 \
+    <(basename -a $(find "$AUR_CACHE_DIR" -mindepth 1 -maxdepth 1 -type d) | sort) \
+    <(pacman -Qqm) | \
+    xargs -r printf "$AUR_CACHE_DIR/%s\n")"
+AUR_CACHE_REMOVED="$(printf "%s" "$AUR_CACHE_REMOVED")"
+
+# Delete all uninstalled packages cache:
+if [ -n "$AUR_CACHE_REMOVED" ]; then
+    tput bold; tput setaf 3
+    printf "\tRemoving AUR cache:\n"
+    tput sgr0
+    while IFS= read -r pkg; do
+        basename "$pkg"
+    done <<< "$AUR_CACHE_REMOVED"
+    rm -rf $AUR_CACHE_REMOVED
+fi
+
 # Get all cache directories for AUR helper (without removed packages)
 AUR_CACHE="$(\
     find "$AUR_CACHE_DIR" -maxdepth 1 -type d | \
     awk '{ print "-c " $1 }' | \
     tail -n +2)"
-/usr/bin/paccache -qruk1
-/usr/bin/paccache -qrk2 -c /var/cache/pacman/pkg "$AUR_CACHE"
+
+# Delete all uninstalled pacman packages, keep two latest versions for installed packages
+tput bold; tput setaf 3
+printf "\tRemoving all uninstalled pacman packages cache:\n"
+paccache -ruk0
+tput bold; tput setaf 3
+printf "\tOnly keep current and last versions of all installed packages cache:\n"
+paccache -rk2 -c "/var/cache/pacman/pkg" $(echo "$AUR_CACHE")
 
 # Send notification
 export DISPLAY=:0

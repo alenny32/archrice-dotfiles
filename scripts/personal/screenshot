@@ -1,7 +1,8 @@
 #! /bin/sh
 
 # programs
-SCREENSHOT_PROGRAM="scrot"
+SCREENSHOT_PROGRAM="$1"
+SCREENSHOT_MODE="$2"
 CLIPBOARD_PROGRAM="xclip"
 [ -z "$IMAGE" ] && IMAGE="nsxiv"
 PROMPT_PROGRAM="dmenu"
@@ -9,125 +10,230 @@ NOTIFICATION_PROGRAM="dunst"
 QR_CODE_PROGRAM="zbarimg"
 SCRIPT_NAME="$(basename "$0")"
 
-# source Xresources colors
-ifinstalled "gen-xcolors" ||
+# default screenshot program is scrot
+if [ "$SCREENSHOT_PROGRAM" != "scrot" ] &&
+    [ "$SCREENSHOT_PROGRAM" != "maim" ] &&
+    [ "$SCREENSHOT_PROGRAM" != "flameshot" ]; then
+    # echo "Usage: $(basename "$0") [scrot | maim | flameshot] [ \"\" | selection | window | fullscreen | temp | qr-code ]"
+    SCREENSHOT_PROGRAM="scrot"
+    SCREENSHOT_MODE="$1"
+fi
+
+# check qr code program availability if mode is qr-code
+[ "$SCREENSHOT_MODE" = "qr-code" ] &&
+    ! ifinstalled "$QR_CODE_PROGRAM" &&
     exit 1
-[ -f "${XDG_DATA_HOME:-$HOME/.local/share}/xcolors" ] ||
-    gen-xcolors
+
+# source Xresources colors
+ifinstalled "gen-xcolors" || exit 1
+[ -f "${XDG_DATA_HOME:-$HOME/.local/share}/xcolors" ] || gen-xcolors
 . "${XDG_DATA_HOME:-$HOME/.local/share}/xcolors"
 
 # check if program is installed
 ifinstalled "$SCREENSHOT_PROGRAM" "$CLIPBOARD_PROGRAM" "$IMAGE" \
-    "$PROMPT_PROGRAM" "$NOTIFICATION_PROGRAM" "$QR_CODE_PROGRAM" ||
+    "$PROMPT_PROGRAM" "$NOTIFICATION_PROGRAM" ||
     exit 1
 
 # screenshot configuration
-# datetime_format="$(date +'%Y-%m-%d-%T')" # incompatible for windows file naming constraints
+# datetime_format="$(date +'%Y-%m-%d-%T')" # incompatible with windows file naming constraints
 datetime_format="$(date +'%Y-%m-%d_%H-%M-%S')"
-filename="$datetime_format-$SCRIPT_NAME.png"
-image_quality=95
+file_extension="jpg"
+file_name="${SCRIPT_NAME}_${datetime_format}.${file_extension}"
+# file_name="%Y-%m-%d-%T-"$SCRIPT_NAME".png"
+if [ "$SCREENSHOT_PROGRAM" = "scrot" ]; then
+    image_quality=90
+elif [ "$SCREENSHOT_PROGRAM" = "maim" ]; then
+    image_quality=9
+fi
 screenshots_dir="${XDG_PICTURES_DIR:-$HOME/Pictures}/Screenshots"
-output_file="$screenshots_dir/$filename"
+output_file="$screenshots_dir/$file_name"
 temp_dir="/tmp/Screenshots"
 qr_code_dir="$temp_dir/QR-codes"
-# filename="%Y-%m-%d-%T-"$SCRIPT_NAME".png"
 
 # dmenu configuration
 dmenu_options="-i -nb $color0 -nf $color3 -sb $color3 -sf $color0"
 dmenu_prompt="dmenu $dmenu_options -p"
-dmenu_prompt_msg="Select $SCRIPT_NAME type:"
 
-# clipboard configuration
-xclip_cmd="xclip -selection clipboard -t image/png -i $output_file"
-# xclip_cmd="'xclip -selection clipboard -t image/png -i $f'"
-
-# if "$*_dir" does not exist in pictures directory, then make directory
-[ ! -d "$screenshots_dir" ] &&
-    mkdir -p "$screenshots_dir"
-[ ! -d "$temp_dir" ] &&
-    mkdir -p "$temp_dir"
-[ ! -d "$qr_code_dir" ] &&
-    mkdir -p "$qr_code_dir"
+# check if directories exist
+[ ! -d "$screenshots_dir" ] && mkdir -p "$screenshots_dir"
+[ ! -d "$temp_dir" ] && mkdir -p "$temp_dir"
+[ ! -d "$qr_code_dir" ] && mkdir -p "$qr_code_dir"
 
 # notify screenshot success or fail
 notify_success_cancelled() {
-    if [ -f "$output_file" ]; then
-        ACTION=$(dunstify -u "low" -a "$SCRIPT_NAME" -i "$output_file" -t 3000 \
+    if [ -f "$1" ]; then
+        ACTION=$(dunstify -u "low" -a "$SCRIPT_NAME" -i "$1" -t 3000 \
             --action="default,Open screenshot" \
-            "Screenshot saved in $output_file")
-        [ "$ACTION" = "default" ] &&
-            $IMAGE "$output_file"
+            "Screenshot saved in $1")
+        [ "$ACTION" = "default" ] && $IMAGE "$1"
     else
         dunstify "Screenshot cancelled" -u normal -a "$SCRIPT_NAME" -i "warning" -t 6000
         exit 1
     fi
 }
 
-# pick which type of screenshot
-case "$1" in
-    "selection")
-        "$SCREENSHOT_PROGRAM" "$output_file" --select --line mode=edge \
-            --quality "${image_quality}" \
-            --exec "${xclip_cmd}"
-        notify_success_cancelled
-        ;;
-    "window")
-        "$SCREENSHOT_PROGRAM" "$output_file" --focused \
-            --quality "${image_quality}" \
-            --exec "${xclip_cmd}"
-        notify_success_cancelled
-        ;;
-    "fullscreen")
-        "$SCREENSHOT_PROGRAM" "$output_file" \
-            --quality "${image_quality}" \
-            --exec "${xclip_cmd}"
-        notify_success_cancelled
-        ;;
-    "temp")
-        output_file="$temp_dir/$filename"
-        "$SCREENSHOT_PROGRAM" "$output_file" --select --line mode=edge \
-            --quality "${image_quality}" \
-            --exec "${xclip_cmd}"
-        notify_success_cancelled
-        ;;
-    "qr-code")
-        output_file="$qr_code_dir/$filename"
-        decoded_text=$("$SCREENSHOT_PROGRAM" "$output_file" --select --line mode=edge \
-            --quality "${image_quality}" \
-            --exec "$QR_CODE_PROGRAM $output_file | cut -c 9-")
-        # check if qr code is scanned
-        if [ -n "$decoded_text" ]; then
-            printf "%s" "$decoded_text" | xclip -selection clipboard
-            ACTION=$(dunstify -a "$SCRIPT_NAME" -i "$output_file" -t 5000 \
-                --action="default,Delete screenshot" \
-                "Scan QR code ✅" \
-                "Successfully scanned QR code and copied it to the clipboard.\n\nClick this notification to delete your screenshot! 🗑️")
-            # delete qr code screenshot if notification clicked
-            if [ "$ACTION" = "default" ]; then
-                rm -f "$output_file" &&
-                    dunstify -a "$SCRIPT_NAME" -t 3000 \
-                    "Delete QR code image ✅" "Successfully deleted your image!"
-            fi
-        else
+check_qr_code() {
+    if [ -n "$1" ]; then
+        printf "%s" "$1" | xclip -selection clipboard
+        ACTION=$(dunstify -a "$SCRIPT_NAME" -i "$2" -t 5000 \
+            --action="default,Delete screenshot" \
+            "Scan QR code ✅" \
+            "Successfully scanned QR code and copied it to the clipboard.\n\nClick this notification to delete your screenshot! 🗑️")
+        # delete qr code screenshot if notification clicked
+        if [ "$ACTION" = "default" ]; then
+            rm -f "$2"
             dunstify -a "$SCRIPT_NAME" -t 3000 \
-                "Scan QR code ❌" "Cannot scan QR code"
+                "Delete QR code image ✅" "Successfully deleted your image!"
         fi
-        ;;
-    *)
+    else
+        dunstify -a "$SCRIPT_NAME" -t 3000 \
+            "Scan QR code ❌" "Cannot scan QR code"
+    fi
+}
+
+copy_with_copyq() {
+    if [ -z "$(command -v copyq)" ]; then
+        notify-send -a "$SCRIPT_NAME" -t 3000 \
+            "Insufficient program ❌" \
+            "Copyq needs to be installed to copy 'jpg' images"
+        exit 1
+    fi
+    copyq write 0 image/"$1" - < "$2"
+    copyq select 0
+}
+
+copy_to_clipboard() {
+    case "$file_extension" in
+        "png"|"apng")
+            if [ -n "$(command -v xclip)" ]; then
+                xclip -selection clipboard -target image/png -in "$1"
+            else copy_with_copyq "png" "$1"
+            fi
+            ;;
+        "jpg"|"jpeg"|"jpe"|"jfif"|"pjp"|"pjpeg"| "jpg_large"|"jpeg_large") copy_with_copyq "jpeg" "$1" ;;
+        "bmp") copy_with_copyq "bmp" "$1" ;;
+        "webp") copy_with_copyq "webp" "$1" ;;
+    esac
+}
+
+# show dmenu for unspecified screenshot mode
+if [ -z "$SCREENSHOT_MODE" ]; then
+    if [ "$SCREENSHOT_PROGRAM" != "flameshot" ]; then
         case "$(printf "\
 selection\n\
 window\n\
 fullscreen\n\
 temp\n\
 qr-code\n\
-    " \
-        | ${dmenu_prompt} "$dmenu_prompt_msg")" in
-            "selection") "$($SCRIPT_NAME selection)" ;;
-            "window") "$($SCRIPT_NAME window)" ;;
-            "fullscreen") "$($SCRIPT_NAME fullscreen)" ;;
-            "temp") "$($SCRIPT_NAME temp)" ;;
-            "qr-code") "$($SCRIPT_NAME qr-code)" ;;
+" \
+        | $dmenu_prompt "Select screenshot type")" in
+            "selection") $SCRIPT_NAME "$SCREENSHOT_PROGRAM" selection ;;
+            "window") $SCRIPT_NAME "$SCREENSHOT_PROGRAM" window ;;
+            "fullscreen") $SCRIPT_NAME "$SCREENSHOT_PROGRAM" fullscreen ;;
+            "temp") $SCRIPT_NAME "$SCREENSHOT_PROGRAM" temp ;;
+            "qr-code") $SCRIPT_NAME "$SCREENSHOT_PROGRAM" qr-code ;;
         esac
-        exit
+    else
+        case "$(printf "\
+selection\n\
+fullscreen\n\
+upload\n\
+temp\n\
+qr-code\n\
+" \
+        | $dmenu_prompt "Select screenshot type")" in
+            "selection") $SCRIPT_NAME flameshot selection ;;
+            "fullscreen") $SCRIPT_NAME flameshot fullscreen ;;
+            "upload") $SCRIPT_NAME flameshot upload ;;
+            "temp") $SCRIPT_NAME flameshot temp ;;
+            "qr-code") $SCRIPT_NAME flameshot qr-code ;;
+        esac
+    fi
+    exit 0
+fi
+
+# screenshot programs and modes
+case "$SCREENSHOT_PROGRAM" in
+    "scrot")
+        scrot_options="-q $image_quality"
+        case "$SCREENSHOT_MODE" in
+            "selection")
+                scrot "$scrot_options" -s -l mode=edge "$output_file"
+                copy_to_clipboard "$output_file"
+                notify_success_cancelled "$output_file"
+                ;;
+            "window")
+                scrot "$scrot_options" -u "$output_file"
+                copy_to_clipboard "$output_file"
+                notify_success_cancelled "$output_file"
+                ;;
+            "fullscreen")
+                scrot "$scrot_options" "$output_file"
+                copy_to_clipboard "$output_file"
+                notify_success_cancelled "$output_file"
+                ;;
+            "temp")
+                output_file="$temp_dir/$file_name"
+                scrot "$scrot_options" -s -l mode=edge "$output_file"
+                copy_to_clipboard "$output_file"
+                notify_success_cancelled "$output_file"
+                ;;
+            "qr-code")
+                output_file="$qr_code_dir/$file_name"
+                scrot "$scrot_options" -s -l mode=edge "$output_file"
+                decoded_text=$($QR_CODE_PROGRAM "$output_file" | cut -c 9-)
+                check_qr_code "$decoded_text" "$output_file"
+                ;;
+        esac
+        ;;
+    "maim")
+        maim_options="-u -m $image_quality"
+        case "$SCREENSHOT_MODE" in
+            "selection")
+                maim "$maim_options" -s "$output_file"
+                copy_to_clipboard "$output_file"
+                notify_success_cancelled "$output_file"
+                ;;
+            "window")
+                ifinstalled xdotool || exit 1
+                maim "$maim_options" -i "$(xdotool getactivewindow)" "$output_file"
+                copy_to_clipboard "$output_file"
+                notify_success_cancelled "$output_file"
+                ;;
+            "fullscreen")
+                maim "$maim_options" "$output_file"
+                copy_to_clipboard "$output_file"
+                notify_success_cancelled "$output_file"
+                ;;
+            "temp")
+                output_file="$temp_dir/$file_name"
+                maim "$maim_options" -s "$output_file"
+                copy_to_clipboard "$output_file"
+                notify_success_cancelled "$output_file"
+                ;;
+            "qr-code")
+                output_file="$qr_code_dir/$file_name"
+                maim "$maim_options" -s "$output_file"
+                decoded_text=$($QR_CODE_PROGRAM "$output_file" | cut -c 9-)
+                check_qr_code "$decoded_text" "$output_file"
+                ;;
+        esac
+        ;;
+    "flameshot")
+        case "$SCREENSHOT_MODE" in
+            "selection") flameshot gui -c --path "$output_file" ;;
+            "fullscreen") flameshot full -c --path "$output_file" ;;
+            "upload") flameshot gui -c -u ;;
+            "temp")
+                output_file="$temp_dir/$file_name"
+                flameshot gui -c --path "$output_file"
+                ;;
+            "qr-code")
+                output_file="$qr_code_dir/$file_name"
+                flameshot gui --path "$output_file"
+                decoded_text=$($QR_CODE_PROGRAM "$output_file" | cut -c 9-)
+                check_qr_code "$decoded_text" "$output_file"
+                ;;
+        esac
         ;;
 esac
