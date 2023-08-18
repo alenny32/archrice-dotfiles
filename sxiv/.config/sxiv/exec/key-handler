@@ -6,6 +6,7 @@
 . "${XDG_DATA_HOME:-$HOME/.local/share}/xcolors"
 
 APP_NAME="nsxiv"
+dmenu_prompt="dmenu -l 20 -i -nb $color0 -nf $color3 -sb $color3 -sf $color0 -p"
 
 while read -r file; do
     case "$1" in
@@ -15,7 +16,7 @@ while read -r file; do
             # nitrogen --save --set-scaled "$file" &
             # ;;
         "w"|"b") # set background / wallpaper
-            ifinstalled nitrogen setbg ||
+            ifinstalled setbg ||
                 exit 1
             setbg "$file" &
             ;;
@@ -23,7 +24,7 @@ while read -r file; do
             ifinstalled dmenu ||
                 exit 1
             [ -z "$destdir" ] \
-                && destdir="$(sed "s/#.*$//;/^\s*$/d" "${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs" | awk '{print $2}' | dmenu -l 20 -i -nb ${color0} -nf ${color3} -sb ${color3} -p "Copy file(s) to where?" | sed "s|~|$HOME|g")"
+                && destdir="$(sed "s/#.*$//;/^\s*$/d" "${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs" | awk '{print $2}' | $dmenu_prompt "Copy file(s) to where?" | sed "s|~|$HOME|g")"
             [ ! -d "$destdir" ] &&
                 notify-send -a "$APP_NAME" "$destdir is not a directory, cancelled" &&
                 exit 1
@@ -36,7 +37,7 @@ while read -r file; do
             ifinstalled dmenu rsync ||
                 exit 1
             [ -z "$destdir" ] &&
-                destdir="$(sed "s/#.*$//;/^\s*$/d" "${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs" | awk '{print $2}' | dmenu -l 20 -i -nb ${color0} -nf ${color3} -sb ${color3} -p "Move file(s) to where?" | sed "s|~|$HOME|g")"
+                destdir="$(sed "s/#.*$//;/^\s*$/d" "${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs" | awk '{print $2}' | $dmenu_prompt "Move file(s) to where?" | sed "s|~|$HOME|g")"
             [ ! -d "$destdir" ] &&
                 notify-send -a "$APP_NAME" \
                 "$destdir is not a directory, cancelled" &&

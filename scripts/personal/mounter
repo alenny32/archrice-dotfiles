@@ -7,6 +7,12 @@
 # TODO: Try mount first for drives if in fstab to avoid directory prompt?
 # TODO: Add some support for connecting iPhones (although they are annoying).
 
+chusr="sudo"
+SCRIPT_NAME="$(basename "$0")"
+
+ifinstalled simple-mtpfs cryptsetup "$chusr" dmenu gen-xcolors ||
+    exit 1
+
 set -e
 
 # source Xresources colors
@@ -15,23 +21,18 @@ set -e
 . "${XDG_DATA_HOME:-${HOME}/.local/share}/xcolors"
 
 # dmenu configuration
-dmenu_options="-i -nb "${color0}" -nf "${color3}" -sb "${color3}""
+dmenu_options="-i -nb $color0 -nf $color3 -sb $color3 -sf $color0"
 dmenu_prompt="dmenu $dmenu_options -p"
-# dmenu_prompt_msg="Select screenshot type:"
-
-# root privilege
-chusr="sudo"
-# chusr="doas"
 
 # Check for phones.
 phones="$(simple-mtpfs -l 2>/dev/null | sed "s/^/📱/")"
 # Check for drives.
 alldrives="$(lsblk -rpo "uuid,name,type,size,label,mountpoint,fstype")"
-# # Get all LUKS drives
-# allluks="$(echo "$alldrives" | grep crypto_LUKS)" || true
-# # Get a list of the LUKS drive UUIDs already decrypted.
-# decrypted="$(find /dev/disk/by-id/dm-uuid-CRYPT-LUKS2-* | sed "s|.*LUKS2-||;s|-.*||")"
-# Functioning for formatting drives correctly for dmenu:
+# Get all LUKS drives
+allluks="$(echo "$alldrives" | grep crypto_LUKS)" || true
+# Get a list of the LUKS drive UUIDs already decrypted.
+decrypted="$(find /dev/disk/by-id/dm-uuid-CRYPT-LUKS2-* | sed "s|.*LUKS2-||;s|-.*||")"
+Functioning for formatting drives correctly for dmenu:
 filter() { sed "s/ /:/g" | awk -F':' '$7==""{printf "%s%s (%s) %s\n",$1,$3,$5,$6}' ; }
 
 # Get only LUKS drives that are not decrypted.
@@ -56,14 +57,14 @@ $normalparts" | sed "/^$/d;s/ *$//")"
 test -n "$alldrives"
 
 # Feed all found drives to dmenu and get user choice.
-chosen_mount_point="$(printf "$alldrives" | dmenu -i -nb "${color0}" -nf "${color3}" -sb "${color3}" -p "Mount which drive?")"
+chosen_mount_point="$(printf "%s" "$alldrives" | $dmenu_prompt "Mount which drive?")"
 
 # Function for prompting user for a mountpoint.
 getmount(){
-    mount_point="$(find /mnt /media /mount /home -maxdepth 1 -type d 2>/dev/null | dmenu -i -nb "${color0}" -nf "${color3}" -sb "${color3}" -p "Mount this drive where?")"
+    mount_point="$(find /mnt /media /mount /home -maxdepth 1 -type d 2>/dev/null | $dmenu_prompt "Mount this drive where?")"
     test -n "$mount_point"
     if [ ! -d "$mount_point" ]; then
-        mkdir_yesno=$(printf "No\\nYes" | dmenu -i -nb "${color0}" -nf "${color3}" -sb "${color3}" -p "$mount_point does not exist. Create it?")
+        mkdir_yesno=$(printf "No\\nYes" | $dmenu_prompt "$mount_point does not exist. Create it?")
         [ "$mkdir_yesno" = "Yes" ] &&
             (mkdir -p "$mount_point" || "$chusr" -A mkdir -p "$mount_point")
     fi
@@ -75,7 +76,7 @@ case "$chosen_mount_point" in
         chosen_mount_point="${chosen_mount_point:1}"    # This is a bashism.
         getmount
         "$chusr" mount "$chosen_mount_point" "$mount_point"
-        notify-send -a "mounter" -t 6000 -u "low" "💾Drive Mounted." \
+        notify-send -a "$SCRIPT_NAME" -t 6000 -u "low" "💾Drive Mounted." \
             "$chosen_mount_point mounted to $mount_point."
         ;;
 
@@ -95,18 +96,17 @@ case "$chosen_mount_point" in
         test -b "/dev/mapper/usb$num"
 
         getmount
-        "$chusr" mount "/dev/mapper/usb$num" "$mount_point"
-        notify-send -a "mounter" -t 6000 -u "low" "🔓Decrypted drive Mounted." \
+        $chusr mount "/dev/mapper/usb$num" "$mount_point"
+        notify-send -a "$SCRIPT_NAME" -t 6000 -u "low" "🔓Decrypted drive Mounted." \
             "$chosen_mount_point decrypted and mounted to $mount_point."
         ;;
 
     📱*)
         getmount
-        echo "OK" | dmenu -i -nb "${color0}" -nf "${color3}" -sb "${color3}" -p \
-            "Tap Allow on your phone if it asks for permission and then press enter"
+        echo "OK" | $dmenu_prompt "Tap \"Allow\" on your phone if it asks for permission and then press enter"
         chosen_mount_point="${chosen_mount_point%%:*}"
         chosen_mount_point="${chosen_mount_point:1}"    # This is a bashism.
         simple-mtpfs --device "$chosen_mount_point" "$mount_point"
-        notify-send -a "mounter" -t 6000 -u "low" "🤖 Android Mounted." "Android device mounted to $mount_point."
+        notify-send -a "$SCRIPT_NAME" -t 6000 -u "low" "🤖 Android Mounted." "Android device mounted to $mount_point."
         ;;
 esac

@@ -33,7 +33,7 @@ qr_code_dir="$temp_dir/QR-codes"
 # filename="%Y-%m-%d-%T-"$SCRIPT_NAME".png"
 
 # dmenu configuration
-dmenu_options="-i -nb $color0 -nf $color3 -sb $color3"
+dmenu_options="-i -nb $color0 -nf $color3 -sb $color3 -sf $color0"
 dmenu_prompt="dmenu $dmenu_options -p"
 dmenu_prompt_msg="Select $SCRIPT_NAME type:"
 

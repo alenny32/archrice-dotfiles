@@ -17,7 +17,7 @@ esac
 . "${XDG_DATA_HOME:-${HOME}/.local/share}/xcolors"
 
 # dmenu configuration
-dmenu_options="-i -nb "${color0}" -nf "${color3}" -sb "${color3}""
+dmenu_options="-i -nb $color0 -nf $color3 -sb $color3 -sf $color0"
 dmenu_prompt="dmenu $dmenu_options -p"
 dmenu_prompt_msg="Action:"
 
@@ -73,7 +73,7 @@ case "$action" in
         $ctl hibernate
         ;;
     " Log Out")
-        pkill --euid $USER
+        pkill --euid "$USER"
         # bspc quit
         ;;
     " Lock")
