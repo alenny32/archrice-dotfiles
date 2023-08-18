@@ -4,41 +4,41 @@
 #
 
 ## environment variable substitution not working for sxiv and lf
-# cac   ${XDG_CACHE_HOME:-$HOME/.cache}
-# cf    ${XDG_CONFIG_HOME:-$HOME/.config}
-# cfv   ${XDG_CONFIG_HOME:-$HOME/.config}/nvim/lua
-# dl    ${XDG_DOWNLOAD_DIR:-$HOME/Downloads}
-# dox   ${XDG_DOCUMENTS_DIR:-$HOME/Documents}
-# dt    ${XDG_DATA_HOME:-$HOME/.local/share}
-# mu    ${XDG_MUSIC_DIR:-$HOME/Music}
-# pix   ${XDG_PICTURES_DIR:-$HOME/Pictures}
-# pub   ${XDG_PUBLICSHARE_DIR:-$HOME/Public}
-# vid   ${XDG_VIDEOS_DIR:-$HOME/Videos}
-# h     $HOME
-# repo  $HOME/Repos
-# tmp     $HOME/tmp
-# dot   $HOME/.dotfiles
-# sc    $HOME/.local/.dotfiles/scripts
-# bin   $HOME/.local/bin
-# src   $HOME/.local/src
+# cac   ${XDG_CACHE_HOME:-$HOME/.cache}/
+# cf    ${XDG_CONFIG_HOME:-$HOME/.config}/
+# cfv   ${XDG_CONFIG_HOME:-$HOME/.config}/nvim/lua/
+# dl    ${XDG_DOWNLOAD_DIR:-$HOME/Downloads}/
+# dox   ${XDG_DOCUMENTS_DIR:-$HOME/Documents}/
+# dt    ${XDG_DATA_HOME:-$HOME/.local/share}/
+# mu    ${XDG_MUSIC_DIR:-$HOME/Music}/
+# pix   ${XDG_PICTURES_DIR:-$HOME/Pictures}/
+# pub   ${XDG_PUBLICSHARE_DIR:-$HOME/Public}/
+# vid   ${XDG_VIDEOS_DIR:-$HOME/Videos}/
+# h     $HOME/
+# repo  $HOME/Repos/
+# tmp   $HOME/tmp/
+# dot   $HOME/.dotfiles/
+# sc    $HOME/.local/.dotfiles/scripts/
+# bin   $HOME/.local/bin/
+# src   $HOME/.local/src/
 
-cac     /home/umar/.cache
-cf      /home/umar/.config
+cac     /home/umar/.cache/
+cf      /home/umar/.config/
 cfv     /home/umar/.config/nvim/lua/
-dl      /home/umar/Downloads
-dox     /home/umar/Documents
-dt      /home/umar/.local/share
-mu      /home/umar/Music
-pix     /home/umar/Pictures
-pub     /home/umar/Public
-vid     /home/umar/Videos
-h       /home/umar
-repo    /home/umar/Repos
-tmp     /home/umar/tmp
-dotf    /home/umar/.dotfiles
-sc      /home/umar/.dotfiles/scripts
-bin     /home/umar/.local/bin
-src     /home/umar/.local/src
+dl      /home/umar/Downloads/
+dox     /home/umar/Documents/
+dt      /home/umar/.local/share/
+mu      /home/umar/Music/
+pix     /home/umar/Pictures/
+pub     /home/umar/Public/
+vid     /home/umar/Videos/
+h       /home/umar/
+repo    /home/umar/Repos/
+tmp     /home/umar/tmp/
+dotf    /home/umar/.dotfiles/
+sc      /home/umar/.dotfiles/scripts/
+bin     /home/umar/.local/bin/
+src     /home/umar/.local/src/
 
-mnt     /mnt
-mon     /mount
+mnt     /mnt/
+mon     /mount/

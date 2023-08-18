@@ -1,8 +1,7 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
-# Umar's config for aliases in zsh
+# Umar's config for shell aliases
 
-# chusr="doas"
 chusr="sudo"
 
 # Commands that are too long. Abbreviate them!
@@ -79,7 +78,8 @@ alias \
     du="du -h" \
     yt="yt-dlp --embed-metadata -i" \
     yta="yt -x -f bestaudio/best" \
-    wget="wget -c -r -p -k -np -nv -nH -R 'index.html' --show-progress" \
+    wgetp="wget -crkp -np -nv -nH -R 'index.html' --show-progress" \
+    wget="wget -crk -np -nv -nH -R 'index.html' --show-progress" \
     ffmpeg="ffmpeg -hide_banner" \
 
 # Colorize commands when possible.

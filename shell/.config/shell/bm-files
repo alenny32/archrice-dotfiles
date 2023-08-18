@@ -1,4 +1,7 @@
-# vim:ft=sh
+#
+# You can add comments to these files with #
+# vim: filetype=sh
+#
 
 # These files automatically update when edited/saved in vim:
 
