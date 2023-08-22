@@ -83,8 +83,12 @@ case "$(file --dereference --brief --mime-type -- $1)" in
         odt2txt "$1"
         ;;
 
-    "application/"*"zip" | \
-    "application/x-7z-compressed")
+    "application/x-7z-compressed" | \
+    "application/x-tar" | \
+    "application/x-bzip2" | \
+    "application/gzip" | \
+    "application/x-xz" | \
+    "application/zip")
         atool --list -- "$1"
         ;;
 

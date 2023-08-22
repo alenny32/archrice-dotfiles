@@ -70,38 +70,43 @@ cmd open ${{
         "application/epub"*)
             setsid -f devour zathura $fx >/dev/null 2>&1
             ;;
-        "application/"*"zip" | \
-        "application/x-7z-compressed")
-            setsid -f devour 7zFM "$f" >/dev/null 2>&1
+        "application/x-7z-compressed" | \
+        "application/x-tar" | \
+        "application/x-bzip2" | \
+        "application/gzip" | \
+        "application/x-xz" | \
+        "application/zstd" | \
+        "application/zip")
+            setsid -f xarchiver $fx >/dev/null 2>&1
             ;;
         "application/pgp-encrypted")
             $EDITOR $fx
             ;;
         "application/vnd.openxmlformats-officedocument.wordprocessingml.document" | \
         "application/vnd.oasis.opendocument.text")
-            setsid -f devour lowriter $fx >/dev/null 2>&1
+            setsid -f lowriter $fx >/dev/null 2>&1
             ;;
         "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" | \
         "application/vnd.oasis.opendocument.spreadsheet" | \
         "application/vnd.oasis.opendocument.spreadsheet-template")
         # "application/octet-stream" | \
-            setsid -f devour localc $fx >/dev/null 2>&1
+            setsid -f localc $fx >/dev/null 2>&1
             ;;
         "application/vnd.openxmlformats-officedocument.presentationml.presentation" | \
         "application/vnd.oasis.opendocument.presentation-template" | \
         "application/vnd.oasis.opendocument.presentation" | \
         "application/vnd.ms-powerpoint")
-            setsid -f devour loimpress $fx >/dev/null 2>&1
+            setsid -f loimpress $fx >/dev/null 2>&1
             ;;
         "application/vnd.oasis.opendocument.graphics" | \
         "application/vnd.oasis.opendocument.graphics-template")
-            setsid -f devour lodraw $fx >/dev/null 2>&1
+            setsid -f lodraw $fx >/dev/null 2>&1
             ;;
         "application/vnd.oasis.opendocument.formula")
-            setsid -f devour lomath $fx >/dev/null 2>&1
+            setsid -f lomath $fx >/dev/null 2>&1
             ;;
         "application/vnd.oasis.opendocument.database")
-            setsid -f devour lobase $fx >/dev/null 2>&1
+            setsid -f lobase $fx >/dev/null 2>&1
             ;;
         *)
             for f in $fx; do
@@ -159,7 +164,13 @@ cmd extract ${{
     read -r ans
     if [ "$ans" = "y" ]; then
         for f in $fx; do
-            aunpack "$f"
+            if [ "$(file -bh --mime-type "$f")" = "application/zstd" ]; then
+                fname="${f%.*.*}"
+                mkdir -p "$fname"
+                tar xf "$f" --directory="$fname"
+            else
+                aunpack "$f"
+            fi
         done
     fi
 }}
@@ -167,14 +178,14 @@ cmd extract ${{
 cmd archive ${{
     clear -x
     tput cup "$(($(tput lines)/3))"; tput bold; tput setaf 3
-    printf "\tArchive files (7z):\n"; tput sgr0
+    printf "\tArchive files (zip):\n"; tput sgr0
     set -f
     printf "%s\n\t" "$fx"
     printf "Archive name (\033[1;30mempty\033[0m to cancel): "
     read -r archive_name
     [ -z "$archive_name" ] &&
         exit 0
-    7z a "${archive_name}.7z" $fx
+    7z a "${archive_name}.zip" $fx
 }}
 
 cmd delete ${{
@@ -455,12 +466,12 @@ cmd copy_image_to_clipboard ${{
     map <a-m>, push &devour<space>mpv<space>--no-terminal<space>"$f/*."<space>&<left><left><left>
 
 # Rename
-    map A rename # at the very end
-    map c push A<c-u> # new rename
-    map I push A<c-a> # at the very beginning
-    map i push A<a-b><a-b><a-f> # before extension
-    map a push A<a-b> # after extension
-    map B bulkrename
+    map c :rename; push <c-u>   # new rename, remember extension
+    map A :rename; cmd-end      # at the very end
+    map I :rename; cmd-home     # at the very beginning
+    map i :rename               # before extension
+    map a :rename; cmd-right    # after extension
+    map B bulkrename            # use 'vidir' from 'moreutils' package
 
 # GPG
     map <c-g> confirm_gpg umar
