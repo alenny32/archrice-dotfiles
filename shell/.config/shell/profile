@@ -1,9 +1,7 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env sh
 
 # Umar's config for Zoomer Shell profile.
 # Runs on login. Environmental variables are set here.
-
-unsetopt PROMPT_SP
 
 # # Add cursor theme:
 # export XCURSOR_PATH=/usr/share/icons:$HOME/.icons:$HOME/.local/share/icons
@@ -19,9 +17,10 @@ export ONEDRIVE_BINUS="$CLOUD_DIR/onedrive-binus"
 
 ################################################################################
 
-# Adds '~/.local/bin', '~/.dotfiles/scripts', '/usr/lib/gettext' to $PATH recursively:
-export PATH="$PATH:${$(find ~/.local/bin -type d -printf %p:)%%:}"
-export PATH="$PATH:${$(find ~/.dotfiles/scripts -type d -printf %p:)%%:}"
+# Add directories to $PATH:
+export PATH="$PATH:${$(find "$HOME/.local/bin" -type d -printf %p:)%%:}"
+export PATH="$PATH:${$(find "$HOME/.dotfiles/scripts" -type d -printf %p:)%%:}"
+export PATH="$PATH:$HOME/.config/emacs/bin"
 export PATH="$PATH:/usr/lib/gettext"
 
 # Default programs:

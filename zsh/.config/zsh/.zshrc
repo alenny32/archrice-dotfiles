@@ -16,11 +16,17 @@
 # autoload -U colors && colors    # Load colors
 # PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
 
-setopt autocd               # Automatically cd into typed directory.
-stty   stop undef           # Disable ctrl-s to freeze terminal.
-setopt interactive_comments
+setopt AUTO_CD              # Automatically cd into typed directory.
+setopt INTERACTIVE_COMMENTS # Allow comments even in interactive shells.
+unsetopt PROMPT_SP          # Disable preserving partial lines.
+unsetopt BEEP               # Turn off all beeps.
+# unsetopt LIST_BEEP          # Turn off autocomplete beeps.
+
+stty stop undef             # Disable ctrl-s to freeze terminal.
 
 # History in cache directory:
+[ ! -d "${XDG_CACHE_HOME:-$HOME/.cache}/zsh" ] &&
+    mkdir "${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
 HISTSIZE=10000000
 SAVEHIST=10000000
 HISTFILE="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/history"
