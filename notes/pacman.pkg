@@ -2,8 +2,12 @@
 base
 base-devel
 linux
+linux-headers
+linux-lts
+linux-lts-headers
 linux-firmware
 grub
+reflector
 os-prober
 dosfstools
 efibootmgr
@@ -35,6 +39,7 @@ networkmanager
 ntp
 pacman-contrib
 parallel
+pulseaudio
 redshift
 python-pyxdg # optional dep for 'redshift' to run redshift-gtk
 # opendoas
@@ -65,6 +70,8 @@ xdotool
 xorg
 xclip
 xdialog
+xdg-utils
+xdg-user-dirs
 xdg-desktop-portal
 xdg-desktop-portal-gtk
 zsh
@@ -130,7 +137,7 @@ mpv
 mpv-mpris
 neovim
 evince
-exa
+eza
 fzf
 tealdeer
 tesseract

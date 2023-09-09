@@ -5,7 +5,7 @@
 	<name>Open Alacritty here</name>
 	<submenu></submenu>
 	<unique-id>1673530515052805-1</unique-id>
-	<command>alacritty --working-directory %f</command>
+	<command>zsh -c &quot;. /home/umar/.zprofile; . /home/umar/.config/zsh/.zshrc; alacritty --working-directory %f&quot;</command>
 	<description>Open alacritty in current directory</description>
 	<range>*</range>
 	<patterns>*</patterns>

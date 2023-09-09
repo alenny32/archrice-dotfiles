@@ -89,13 +89,13 @@ alias \
     ccat="highlight --out-format=ansi" \
     ip="ip -color=auto" \
 
-# Use exa instead of ls if installed
+# Use eza instead of ls if installed
 alias ll="ls -l"
-if [ "$(command -v exa)" ]; then
+if [ -n "$(command -v eza)" ]; then
     alias la="ls -a"
     alias lla="ls -al"
     alias lsd="ls -D"
-    alias ls="exa -h --icons --color=auto --group-directories-first"
+    alias ls="eza -h --icons --color=auto --group-directories-first"
 else
     alias la="ls -A"
     alias lla="ls -Al"
