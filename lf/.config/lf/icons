@@ -1,10 +1,10 @@
-di  
-fi  
+di  󰉋
+fi  󰈔
 tw  🤝
 ow  📂
-ln  
+ln  
 or  ❌
-ex  
+ex  󱓞
 
 *.txt       ✍
 *.mom       ✍
@@ -158,20 +158,20 @@ ex  
 *.styl          
 *.sass          
 *.scss          
-*.htm           
-*.html          
-*.slim          
-*.haml          
+*.htm           󰌝
+*.html          󰌝
+*.slim          󰌝
+*.haml          󰌝
 *.ejs           
-*.css           
+*.css           󰌜
 *.less          
 *.md            
 *.mdx           
 *.markdown      
 *.rmd           
 *.Rmd           
-*.json          ﬥ
-*.webmanifest   ﬥ
+*.json          
+*.webmanifest   
 *.js            
 *.mjs           
 *.jsx           
@@ -203,7 +203,7 @@ ex  
 *.cc            
 *.cp            
 *.c             
-*.cs            
+*.cs            󰌛
 *.h             
 *.hh            
 *.hpp           
@@ -265,19 +265,19 @@ ex  
 *.tsx           
 *.jl            
 *.pp            
-*.vue           ﵂
+*.vue           󰡄
 *.elm           
 *.swift         
 *.xcplayground  
 *.tex           
-*.r             ﳒ
-*.R             ﳒ
-*.rproj         鉶
-*.sol           ﲹ
+*.r             󰟔
+*.R             󰟔
+*.rproj         󰗆
+*.sol           
 *.pem           
 # *.bmp           
 # *.ico           
-# *.tex           ﭨ
+# *.tex           󰙩
 # *.tex           
 
 # file names (vim-devicons) (case-insensitive not supported in lf)
@@ -290,12 +290,12 @@ ex  
 *mix.lock               
 *dropbox                
 *.ds_store              
-*.git                   
-*.gitconfig             
-*.gitmodules            
-*.gitignore             
-*.gitattributes         
-*.github                
+*.git                   󰊢
+*.gitconfig             󰊢
+*.gitmodules            󰊢
+*.gitignore             󰊢
+*.gitattributes         󰊢
+*.github                󰊤
 *.gitlab-ci.yml         
 *.bashrc                
 *.zshrc                 
@@ -318,7 +318,7 @@ ex  
 *gemfile                
 *makefile               
 *cmakelists.txt         
-*robots.txt             ﮧ
+*robots.txt             󰚩
 # *.ds_store              
 # *.zshrc                 
 # *.zshenv                
@@ -347,18 +347,7 @@ ex  
 *Makefile               
 *CMakeLists.txt         
 
-# file patterns (vim-devicons) (patterns not supported in lf)
-# .*jquery.*\.js$         
-# .*angular.*\.js$        
-# .*backbone.*\.js$       
-# .*require.*\.js$        
-# .*materialize.*\.js$    
-# .*materialize.*\.css$   
-# .*mootools.*\.js$       
-# .*vimrc.*               
-# Vagrantfile$            
-
-# file patterns (file name adaptations)
+# file patterns (vim-devicons)
 *jquery.min.js          
 *angular.min.js         
 *backbone.min.js        

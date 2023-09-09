@@ -46,8 +46,8 @@ get_icon() {
     echo "%{F$icon_color}$icon%{F-}"
 }
 
-KEY=""
-CITY=""
+# Import $KEY and $CITY
+. "polyweather-var.sh"
 UNITS="metric"
 SYMBOL="°C"
 
@@ -86,9 +86,9 @@ if [ -n "$current" ] && [ -n "$forecast" ]; then
     pop_display="🌧️ $pop%"
 
     if [ "$current_temp" -gt "$forecast_temp" ]; then
-        trend="%{F$icon_color}ﰬ%{F-}"
+        trend="%{F$icon_color}󰜮%{F-}"
     elif [ "$current_temp" -lt "$forecast_temp" ]; then
-        trend="%{F$icon_color}ﰵ%{F-}"
+        trend="%{F$icon_color}󰜷%{F-}"
     else
         trend="%{F$icon_color}%{F-}"
     fi

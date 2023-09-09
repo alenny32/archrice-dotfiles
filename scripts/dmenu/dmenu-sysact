@@ -1,7 +1,6 @@
 #!/bin/sh
 
 # A dmenu wrapper script for system functions.
-export WM="bspwm"
 case "$(readlink -f /sbin/init)" in
     *"systemd"*)
         ctl="systemctl"
@@ -52,9 +51,9 @@ wmpid(){
 action="$(printf "\
  Power Off\n\
  Reboot\n\
- Suspend\n\
+󰤄 Suspend\n\
  Hibernate\n\
- Log Out\n\
+󰍃 Log Out\n\
  Lock\n\
 󰶐 Display Off\n\
     " | ${dmenu_prompt} "$dmenu_prompt_msg")"
@@ -66,13 +65,13 @@ case "$action" in
     " Reboot")
         $ctl reboot
         ;;
-    " Suspend")
+    "󰤄 Suspend")
         $ctl suspend-then-hibernate
         ;;
     " Hibernate")
         $ctl hibernate
         ;;
-    " Log Out")
+    "󰍃 Log Out")
         pkill --euid "$USER"
         # bspc quit
         ;;

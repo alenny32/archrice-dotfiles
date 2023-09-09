@@ -57,8 +57,8 @@ get_duration() {
 
 }
 
-KEY=""
-CITY=""
+# Import $KEY and $CITY
+. "polyweather-var.sh"
 UNITS="metric"
 SYMBOL="°C"
 
@@ -93,9 +93,9 @@ if [ -n "$current" ] && [ -n "$forecast" ]; then
     forecast_icon=$(echo "$forecast" | jq -r ".list[].weather[0].icon")
 
     if [ "$current_temp" -gt "$forecast_temp" ]; then
-        trend="%{F$icon_color}ﰬ%{F-}"
+        trend="%{F$icon_color}󰜮%{F-}"
     elif [ "$current_temp" -lt "$forecast_temp" ]; then
-        trend="%{F$icon_color}ﰵ%{F-}"
+        trend="%{F$icon_color}󰜷%{F-}"
     else
         trend="%{F$icon_color}%{F-}"
     fi

@@ -46,8 +46,8 @@ get_icon() {
     echo "%{F$icon_color}$icon%{F-}"
 }
 
-KEY=""
-CITY=""
+# Import $KEY and $CITY
+. "polyweather-var.sh"
 UNITS="metric"
 SYMBOL="°C"
 

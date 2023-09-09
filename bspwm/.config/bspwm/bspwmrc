@@ -10,7 +10,7 @@
 nitrogen --restore &                            # Wallpaper chooser (nitrogen)
 killall -9 lxsession; lxsession &               # Session manager (lxsession)
 killall -9 volumeicon; volumeicon &             # Volume icon in system tray
-# idle-handler &                                  # Auto lock and suspend
+idle-handler &                                  # Auto lock and suspend
 bsp-layout-start &                              # Set bspwm tiling layout
 # pgrep -c ^bspswallow$ || bspswallow &           # Bspwm window swallowing
 # kdeconnect-indicator &                          # System tray for kdeconnect
