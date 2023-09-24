@@ -31,7 +31,7 @@ vim.g.maplocalleader = ','
     -- Move down one line after comment
         map(n, '<C-_>', '<Plug>CommentaryLine j')
         map(i, '<C-_>', '<ESC><Plug>CommentaryLine j')
-    -- Stay atthat line after comment (remove j after comment)
+    -- Stay at that line after comment (remove j after comment)
         map(v, '<C-_>', '<Plug>Commentary')
 
 -- Keeping cursor in center for next/previous search occurence

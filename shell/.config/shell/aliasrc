@@ -78,8 +78,8 @@ alias \
     du="du -h" \
     yt="yt-dlp --embed-metadata -i" \
     yta="yt -x -f bestaudio/best" \
+    wget="wget -c -nv --show-progress" \
     wgetp="wget -crkp -np -nv -nH -R 'index.html' --show-progress" \
-    wget="wget -crk -np -nv -nH -R 'index.html' --show-progress" \
     ffmpeg="ffmpeg -hide_banner" \
 
 # Colorize commands when possible.

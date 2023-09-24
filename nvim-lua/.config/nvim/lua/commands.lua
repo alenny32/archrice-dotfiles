@@ -11,12 +11,16 @@
     vim.cmd.autocmd('BufWritePost /etc/ssh/sshd_config !sudo systemctl reload sshd')
     vim.cmd.autocmd('BufWritePost /var/tmp/sshd_config.* !sudo systemctl reload sshd')
 
+-- Reload kitty config on save.
+    vim.cmd.autocmd('BufWritePost *kitty.conf !killall -SIGUSR1 kitty')
+    vim.cmd.autocmd('BufWritePost *kitty-theme-*.conf !killall -SIGUSR1 kitty')
+
 -- Runs a script that cleans out tex build files whenever I close out of a .tex file.
     vim.cmd.autocmd('VimLeave *.tex !texclear %')
 
 -- Ensure files are read as what I want:
     vim.cmd.let("g:vimwiki_ext2syntax = {'.Rmd': 'markdown', '.rmd': 'markdown','.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}")
-    vim.keymap.set({'n', 'v', 'o'},  '<leader>v', '<CMD>VimwikiIndex<CR>')
+    vim.keymap.set({'n', 'v', 'o'}, '<leader>v', '<CMD>VimwikiIndex<CR>')
     -- vim.g.vimwiki_list = [{'path': '~/.local/share/nvim/vimwiki', 'syntax': 'markdown', 'ext': '.md'}]
     vim.cmd.let("g:vimwiki_list = [{'path': '~/.local/share/nvim/vimwiki', 'syntax': 'markdown', 'ext': '.md'}]")
     vim.cmd.autocmd('BufRead,BufNewFile /tmp/calcurse*,~/.calcurse/notes/* set filetype=markdown')
