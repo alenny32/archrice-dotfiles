@@ -85,6 +85,7 @@ tumbler
 noto-sans-cjk
 adobe-source-han-sans-jp-fonts
 adobe-source-han-serif-jp-fonts
+otf-ipamjfont
 
 # Desktop
 bspwm
@@ -152,7 +153,7 @@ gparted
 guake
 jack2
 jack2-dbus
-java-openjfx
+# java-openjfx
 jre-openjdk
 jupyter-notebook
 kdeconnect
